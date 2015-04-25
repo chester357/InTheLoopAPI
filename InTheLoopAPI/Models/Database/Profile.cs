@@ -5,9 +5,15 @@ using System.Web;
 
 namespace InTheLoopAPI.Models
 {
-    public class User
+    public class Profile
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
+
+        public string UserId { get; set; }
+
+        public string Image { get; set; }
+
+        public string Quote { get; set; }
 
         public ICollection<AttendedEvent> AttendEvents { get; set; }
     }

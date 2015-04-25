@@ -130,9 +130,8 @@ C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.Owin.Security.Twitter.x
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\System.Web.Http.Owin.xml
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csprojResolveAssemblyReference.cache
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.BaseEventAndEvent.resources
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.ExpandedEventBaseEventCreatedUserAndAttendedEvent.resources
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
+C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
+C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
+C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.temp.resources

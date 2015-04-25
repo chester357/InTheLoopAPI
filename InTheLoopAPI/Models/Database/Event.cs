@@ -9,7 +9,7 @@ namespace InTheLoopAPI.Models
         public int Id { get; set; }
 
         public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public virtual Profile User { get; set; }
 
         public int BaseEventId { get; set; }
         public BaseEvent BaseEvent { get; set; }

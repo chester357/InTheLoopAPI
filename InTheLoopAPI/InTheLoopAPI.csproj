@@ -206,29 +206,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504220312412_Initial.cs" />
-    <Compile Include="Migrations\201504220312412_Initial.Designer.cs">
-      <DependentUpon>201504220312412_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504250037397_Initial.cs" />
+    <Compile Include="Migrations\201504250037397_Initial.Designer.cs">
+      <DependentUpon>201504250037397_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504220350457_BaseEventAndEvent.cs" />
-    <Compile Include="Migrations\201504220350457_BaseEventAndEvent.Designer.cs">
-      <DependentUpon>201504220350457_BaseEventAndEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504220414474_ExpandedEventBaseEventCreatedUserAndAttendedEvent.cs" />
-    <Compile Include="Migrations\201504220414474_ExpandedEventBaseEventCreatedUserAndAttendedEvent.Designer.cs">
-      <DependentUpon>201504220414474_ExpandedEventBaseEventCreatedUserAndAttendedEvent.cs</DependentUpon>
+    <Compile Include="Migrations\201504250138105_temp.cs" />
+    <Compile Include="Migrations\201504250138105_temp.Designer.cs">
+      <DependentUpon>201504250138105_temp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AttendedEvent.cs" />
-    <Compile Include="Models\BaseEvent.cs" />
-    <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Database\AgeGroup.cs" />
+    <Compile Include="Models\Database\Category.cs" />
+    <Compile Include="Models\Request\AccountBindingModels.cs" />
+    <Compile Include="Models\Request\AccountViewModels.cs" />
+    <Compile Include="Models\Database\AttendedEvent.cs" />
+    <Compile Include="Models\Database\BaseEvent.cs" />
+    <Compile Include="Models\Database\Event.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\RequestModels\EventModel.cs" />
-    <Compile Include="Models\RequestModels\GetEventModel.cs" />
-    <Compile Include="Models\RequestModels\RepeatEventModel.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Request\EventModel.cs" />
+    <Compile Include="Models\Request\GetEventModel.cs" />
+    <Compile Include="Models\Request\RepeatEventModel.cs" />
+    <Compile Include="Models\Database\Profile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
@@ -300,14 +298,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504220312412_Initial.resx">
-      <DependentUpon>201504220312412_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504250037397_Initial.resx">
+      <DependentUpon>201504250037397_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504220350457_BaseEventAndEvent.resx">
-      <DependentUpon>201504220350457_BaseEventAndEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504220414474_ExpandedEventBaseEventCreatedUserAndAttendedEvent.resx">
-      <DependentUpon>201504220414474_ExpandedEventBaseEventCreatedUserAndAttendedEvent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504250138105_temp.resx">
+      <DependentUpon>201504250138105_temp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

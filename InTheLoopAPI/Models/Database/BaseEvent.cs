@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using InTheLoopAPI.Models.Database;
 
 namespace InTheLoopAPI.Models
 {
@@ -12,13 +13,13 @@ namespace InTheLoopAPI.Models
 
         public string Description { get; set; }
 
-        public int Category { get; set; }
-
-        public int AgeGroup { get; set; }
-
         public string Logo { get; set; }
 
         public string Website { get; set; }
+
+        public AgeGroup AgeGroup { get; set; }
+
+        public Category Category { get; set; }
 
         public ICollection<Event> Events { get; set; }
     }

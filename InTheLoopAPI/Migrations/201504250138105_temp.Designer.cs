@@ -7,13 +7,13 @@ namespace InTheLoopAPI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class temp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(temp));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504220312412_Initial"; }
+            get { return "201504250138105_temp"; }
         }
         
         string IMigrationMetadata.Source

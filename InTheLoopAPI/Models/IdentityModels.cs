@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace InTheLoopAPI.Models
 {
@@ -24,10 +25,18 @@ namespace InTheLoopAPI.Models
             : base("DatabaseContext", throwIfV1Schema: false)
         {
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // the all important base class call! Add this line to make your problems go away.
+            base.OnModelCreating(modelBuilder);
+        }
         
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+
     }
 }
