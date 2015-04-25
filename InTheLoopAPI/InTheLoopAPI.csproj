@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201504250429000_Initial.Designer.cs">
       <DependentUpon>201504250429000_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504251646599_AddedReviewToAttendedEvent.cs" />
+    <Compile Include="Migrations\201504251646599_AddedReviewToAttendedEvent.Designer.cs">
+      <DependentUpon>201504251646599_AddedReviewToAttendedEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
     <Compile Include="Models\Database\Category.cs" />
@@ -296,6 +300,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504250429000_Initial.resx">
       <DependentUpon>201504250429000_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504251646599_AddedReviewToAttendedEvent.resx">
+      <DependentUpon>201504251646599_AddedReviewToAttendedEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

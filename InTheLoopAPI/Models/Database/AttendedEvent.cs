@@ -15,5 +15,11 @@ namespace InTheLoopAPI.Models
 
         public int EventId { get; set; }
         public virtual Event Event { get; set; }
+
+        public string Review { get; set; }
+
+        public int Rating { get; set; }
+
+        public bool? AttendAgain { get; set; }
     }
 }
