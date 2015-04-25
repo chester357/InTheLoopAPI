@@ -1,20 +1,19 @@
 namespace InTheLoopAPI.Migrations
 {
-    using InTheLoopAPI.DAL;
     using InTheLoopAPI.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<InTheLoopContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<InTheLoopAPIContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(InTheLoopContext context)
+        protected override void Seed(InTheLoopAPIContext context)
         {
             //  This method will be called after migrating to the latest version.
 

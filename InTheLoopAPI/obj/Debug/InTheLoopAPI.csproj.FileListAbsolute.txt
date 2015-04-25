@@ -134,4 +134,3 @@ C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.temp.resources
