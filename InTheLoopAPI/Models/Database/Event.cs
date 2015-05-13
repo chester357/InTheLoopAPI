@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InTheLoopAPI.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,7 +19,7 @@ namespace InTheLoopAPI.Models
 
         public string City { get; set; }
 
-        public int State { get; set; }
+        public State State { get; set; }
 
         public int ZipCode { get; set; }
 

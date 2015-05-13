@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using InTheLoopAPI.Models.Database;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,10 @@ namespace InTheLoopAPI.Models
 
         public string Quote { get; set; }
 
-        public ICollection<AttendedEvent> AttendEvents { get; set; }
+        public virtual ICollection<AttendedEvent> AttendEvents { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
+
+        public virtual ICollection<Follow> Followers { get; set; }
     }
 }

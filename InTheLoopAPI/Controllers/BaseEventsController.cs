@@ -15,7 +15,7 @@ namespace InTheLoopAPI.Controllers
 {
     public class BaseEventsController : ApiController
     {
-        private InTheLoopAPIContext db = new InTheLoopAPIContext();
+        private DatabaseContext db = new DatabaseContext();
 
         // GET: api/BaseEvents
         public IQueryable<BaseEvent> GetBaseEvents()

@@ -213,10 +213,22 @@
     <Compile Include="Migrations\201504251646599_AddedReviewToAttendedEvent.Designer.cs">
       <DependentUpon>201504251646599_AddedReviewToAttendedEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504260441309_ChangedColoumToLiked.cs" />
+    <Compile Include="Migrations\201504260441309_ChangedColoumToLiked.Designer.cs">
+      <DependentUpon>201504260441309_ChangedColoumToLiked.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505121930370_AddedFollowers.cs" />
+    <Compile Include="Migrations\201505121930370_AddedFollowers.Designer.cs">
+      <DependentUpon>201505121930370_AddedFollowers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\Seeds\BaseEventSeed.cs" />
+    <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
     <Compile Include="Models\Database\Category.cs" />
-    <Compile Include="DAL\InTheLoopAPIContext.cs" />
+    <Compile Include="DAL\DatabaseContext.cs" />
+    <Compile Include="Models\Database\Follow.cs" />
+    <Compile Include="Models\Database\State.cs" />
     <Compile Include="Models\Request\AccountBindingModels.cs" />
     <Compile Include="Models\Request\AccountViewModels.cs" />
     <Compile Include="Models\Database\AttendedEvent.cs" />
@@ -303,6 +315,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504251646599_AddedReviewToAttendedEvent.resx">
       <DependentUpon>201504251646599_AddedReviewToAttendedEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504260441309_ChangedColoumToLiked.resx">
+      <DependentUpon>201504260441309_ChangedColoumToLiked.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505121930370_AddedFollowers.resx">
+      <DependentUpon>201505121930370_AddedFollowers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -20,6 +20,8 @@ namespace InTheLoopAPI.Models
 
         public int Rating { get; set; }
 
-        public bool? AttendAgain { get; set; }
+        public bool? Liked { get; set; }
+
+        public string Image { get; set; }
     }
 }
