@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.OData;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -35,7 +36,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
+        [HttpGet, EnableQuery, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
         public IHttpActionResult GetEvent(double lat, double lon, double radius)
         {
             try
