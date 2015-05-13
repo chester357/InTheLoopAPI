@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InTheLoopAPI.Models.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,9 +12,9 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string Description { get; set; }
 
-        public int Category { get; set; }
+        public Category Category { get; set; }   
 
-        public int AgeGroup { get; set; }
+        public AgeGroup AgeGroup { get; set; }
 
         public string Logo { get; set; }
 
@@ -25,7 +26,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string City { get; set; }
 
-        public int State { get; set; }
+        public State State { get; set; }
 
         public int ZipCode { get; set; }
 

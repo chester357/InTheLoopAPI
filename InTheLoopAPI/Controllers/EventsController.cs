@@ -1,118 +1,56 @@
-﻿using System;
+﻿using InTheLoopAPI.Service;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using InTheLoopAPI.Models;
 
 namespace InTheLoopAPI.Controllers
 {
     public class EventsController : ApiController
     {
-        private InTheLoopAPIContext db = new InTheLoopAPIContext();
+        public EventService _service;
 
-        // GET: api/Events
-        public IQueryable<Event> GetEvents()
+        public EventsController()
         {
-            return db.Events;
+            _service = new EventService();
         }
 
-        // GET: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult GetEvent(int id)
+        [HttpGet, Route("api/Event/{eventId}")]
+        public IHttpActionResult GetEvent(int eventId)
         {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(@event);
-        }
-
-        // PUT: api/Events/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutEvent(int id, Event @event)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != @event.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(@event).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EventExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = _service.GetEvent(eventId);
 
-            return StatusCode(HttpStatusCode.NoContent);
+                if (result == null)
+                    return BadRequest();
+
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
-        // POST: api/Events
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult PostEvent(Event @event)
+        [HttpGet, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
+        public IHttpActionResult GetEvent(double lat, double lon, double radius)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var results = _service.GetEvents(lat, lon ,radius);
+
+                if (!results.Any())
+                    return BadRequest();
+
+                return Ok(results);
             }
-
-            db.Events.Add(@event);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = @event.Id }, @event);
-        }
-
-        // DELETE: api/Events/5
-        [ResponseType(typeof(Event))]
-        public IHttpActionResult DeleteEvent(int id)
-        {
-            Event @event = db.Events.Find(id);
-            if (@event == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return InternalServerError(ex);
             }
-
-            db.Events.Remove(@event);
-            db.SaveChanges();
-
-            return Ok(@event);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool EventExists(int id)
-        {
-            return db.Events.Count(e => e.Id == id) > 0;
         }
     }
 }

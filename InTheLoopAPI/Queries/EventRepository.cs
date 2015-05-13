@@ -1,0 +1,71 @@
+﻿using InTheLoopAPI.Models.RequestModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace InTheLoopAPI.Queries
+{
+    public class EventRepository : BaseQuery
+    {
+        public EventModel GetEvent(int eventId)
+        {
+            var singleEvent = Events.SingleOrDefault(x => x.Id == eventId);
+
+            if (singleEvent == null)
+                return null;
+
+            return new EventModel
+            {
+                Active = singleEvent.Archived,
+                AgeGroup = singleEvent.BaseEvent.AgeGroup,
+                Category = singleEvent.BaseEvent.Category,
+                City = singleEvent.City,
+                Description = singleEvent.BaseEvent.Description,
+                End = singleEvent.End,
+                Id = singleEvent.Id,
+                Latitude = singleEvent.Latitude,
+                Logo = singleEvent.BaseEvent.Logo,
+                Longitude = singleEvent.Longitude,
+                Loops = singleEvent.Loops,
+                Start = singleEvent.Start,
+                State = singleEvent.State,
+                Title = singleEvent.BaseEvent.Title,
+                Website = singleEvent.BaseEvent.Website,
+                ZipCode = singleEvent.ZipCode
+            };
+        }
+    
+        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
+        {
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            return Events
+                .Where(x => x.Latitude > minLat && x.Latitude < maxLat && x.Longitude > minLong && x.Longitude < maxLong)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.BaseEvent.AgeGroup,
+                    Category = y.BaseEvent.Category,
+                    City = y.City,
+                    Description = y.BaseEvent.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    Logo = y.BaseEvent.Logo,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.BaseEvent.Title,
+                    Website = y.BaseEvent.Website,
+                    ZipCode = y.ZipCode
+                })
+                .ToList();
+        }
+    }
+}

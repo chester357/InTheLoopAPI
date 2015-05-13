@@ -16,9 +16,6 @@ namespace InTheLoopAPI.Migrations
 
         protected override void Seed(DatabaseContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //BaseEventSeed.Run(context);
             UserSeed.Run(context);
 
             context.SaveChanges();

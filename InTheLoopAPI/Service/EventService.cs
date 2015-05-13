@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models.RequestModels;
+using InTheLoopAPI.Queries;
 using InTheLoopAPI.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,15 @@ using System.Web;
 
 namespace InTheLoopAPI.Service
 {
-    public class EventService : IEventService
+    public class EventService 
     {
+        private EventRepository _eventRepository;
+
+        public EventService()
+        {
+            _eventRepository = new EventRepository();
+        }
+
         public List<ValidationResult> AddNewEvent(string userId, EventModel model)
         {
             throw new NotImplementedException();
@@ -20,14 +28,14 @@ namespace InTheLoopAPI.Service
             throw new NotImplementedException();
         }
 
-        public List<EventModel> GetEvents(double latitude, double longitude, int radius)
+        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
         {
-            throw new NotImplementedException();
+            return _eventRepository.GetEvents(latitude, longitude, radius);
         }
 
         public EventModel GetEvent(int eventId)
         {
-            throw new NotImplementedException();
+            return _eventRepository.GetEvent(eventId);
         }
 
         public ValidationResult ArchiveEvent(int eventId)
