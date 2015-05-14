@@ -8,6 +8,10 @@ namespace InTheLoopAPI.Models.RequestModels
 {
     public class EventModel
     {
+        public int Id { get; set; }
+
+        public int BaseEventId { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -38,6 +42,6 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public DateTime Start { get; set; }
 
-        public DateTime End { get; set; }public int Id { get; set; }
+        public DateTime End { get; set; }
     }
 }

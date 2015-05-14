@@ -264,6 +264,7 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Service\EventService.cs" />
     <Compile Include="Service\Interfaces\IEventService.cs" />
+    <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -319,8 +320,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Service\Queries\" />
-    <Folder Include="Service\Validation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

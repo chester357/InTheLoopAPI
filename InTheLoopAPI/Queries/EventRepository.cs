@@ -19,6 +19,7 @@ namespace InTheLoopAPI.Queries
             {
                 Active = singleEvent.Archived,
                 AgeGroup = singleEvent.BaseEvent.AgeGroup,
+                BaseEventId = singleEvent.BaseEventId,
                 Category = singleEvent.BaseEvent.Category,
                 City = singleEvent.City,
                 Description = singleEvent.BaseEvent.Description,
@@ -50,6 +51,7 @@ namespace InTheLoopAPI.Queries
                 {
                     Active = y.Archived,
                     AgeGroup = y.BaseEvent.AgeGroup,
+                    BaseEventId = y.BaseEventId,
                     Category = y.BaseEvent.Category,
                     City = y.City,
                     Description = y.BaseEvent.Description,
