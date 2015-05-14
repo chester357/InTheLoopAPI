@@ -49,10 +49,10 @@ namespace InTheLoopAPI.Service
             }
             else
             {
-                if (attendedEvent.Image != review.Image) { attendedEvent.Image = review.Image; };
-                if (attendedEvent.Liked != review.Liked) { attendedEvent.Liked = review.Liked; };
-                if (attendedEvent.Rating != review.Rating) { attendedEvent.Rating = review.Rating; };
-                if (attendedEvent.Review != review.Review) { attendedEvent.Review = review.Review; };
+                    attendedEvent.Image = review.Image;
+                    attendedEvent.Liked = review.Liked; 
+                    attendedEvent.Rating = review.Rating;
+                    attendedEvent.Review = review.Review; 
             }
 
             _databaseContext.SaveChanges();
