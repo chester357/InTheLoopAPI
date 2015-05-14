@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.OData;
 using Microsoft.AspNet.Identity;
+using InTheLoopAPI.Helpers;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -64,7 +65,7 @@ namespace InTheLoopAPI.Controllers
                 var results = _service.AddNewEvent(User.Identity.GetUserId(), eventModel);
 
                 if (results.Any())
-                    return BadRequest(results.ToString());
+                    return BadRequest(HelperMethod.DisplayErrors(results.ToList()));
 
                 return Ok();
             }
@@ -74,7 +75,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, Route("api/Event")]
+        [HttpPost, Route("api/Event/Repeat")]
         public IHttpActionResult PostEvent(RepeatEventModel repeatEventModel)
         {
             try
