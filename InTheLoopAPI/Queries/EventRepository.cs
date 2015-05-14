@@ -74,5 +74,10 @@ namespace InTheLoopAPI.Queries
         {
             return BaseEvents.Any(x => x.Id == id);
         }
+
+        public bool ValidEventId(int id)
+        {
+            return Events.Any(x => x.Id == id);
+        }
     }
 }

@@ -230,9 +230,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BaseEventsController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,13 +258,16 @@
     <Compile Include="Models\Request\GetEventModel.cs" />
     <Compile Include="Models\Request\RepeatEventModel.cs" />
     <Compile Include="Models\Database\User.cs" />
+    <Compile Include="Models\Request\ReviewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Queries\AttendedEventRepository.cs" />
     <Compile Include="Queries\BaseQuery.cs" />
     <Compile Include="Queries\EventRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Service\EventService.cs" />
     <Compile Include="Service\Interfaces\IEventService.cs" />
+    <Compile Include="Service\ReviewService.cs" />
     <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
