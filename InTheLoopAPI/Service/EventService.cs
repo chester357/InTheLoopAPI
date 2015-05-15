@@ -59,7 +59,7 @@ namespace InTheLoopAPI.Service
 
             eventt.BaseEvent = baseEvent;
 
-            _repository.Events.Add(eventt);
+            _repository.EventHeaders.Add(eventt);
             _repository.SaveChanges();
 
             return results.ToList();
@@ -85,7 +85,7 @@ namespace InTheLoopAPI.Service
             if (results.Any())
                 return results.ToList();
 
-            _repository.Events.Add(repeatEvent);
+            _repository.EventHeaders.Add(repeatEvent);
             _repository.SaveChanges();
 
             return results.ToList();

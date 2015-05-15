@@ -8,7 +8,7 @@ using System.Web;
 
 namespace InTheLoopAPI.Queries
 {
-    public class FollowerRepository : BaseQuery
+    public class FollowRepository : BaseQuery
     {
         public Follow GetFollower(string userId, string followingId)
         {

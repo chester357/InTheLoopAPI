@@ -28,10 +28,10 @@ namespace InTheLoopAPI.Models
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<EventFooter> BaseEvents { get; set; }
-        public DbSet<EventHeader> Events { get; set; }
+        public DbSet<EventFooter> EventFooters { get; set; }
+        public DbSet<EventHeader> EventHeaders { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<AttendedEvent> AttendedEvents { get; set; }
+        public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Follow> Follows { get; set; }
     
     }

@@ -13,31 +13,31 @@ namespace InTheLoopAPI.Service
     {
         private DatabaseContext _databaseContext;
         private EventRepository _eventRepository;
-        private AttendedEventRepository _attendedEventRepository;
+        private AttendanceRepository _attendedEventRepository;
 
         public ReviewService()
         {
             _databaseContext = new DatabaseContext();
             _eventRepository = new EventRepository();
-            _attendedEventRepository = new AttendedEventRepository();
+            _attendedEventRepository = new AttendanceRepository();
         }
 
         public ValidationResult SetReview(ReviewModel review, string userId)
         {
-            if (!_eventRepository.ValidEventId(review.EventId))
+            if (!_eventRepository.ValidEventHeaderId(review.EventId))
                 return new ValidationResult("Invalid Event Id");
 
             if (review.Rating < 1|| review.Rating > 5)
                 return new ValidationResult("Invalid Rating");
 
-            AttendedEvent attendedEvent = _databaseContext.AttendedEvents
-                .SingleOrDefault(x => x.EventId == review.EventId && x.UserId == userId);
+            Attendance attendedEvent = _databaseContext.Attendances
+                .SingleOrDefault(x => x.EventHeaderId == review.EventId && x.UserId == userId);
 
             if (attendedEvent == null)
             {
-                attendedEvent = new AttendedEvent
+                attendedEvent = new Attendance
                 {
-                    EventId = review.EventId,
+                    EventHeaderId = review.EventId,
                     Image = review.Image,
                     Liked = review.Liked,
                     Rating = review.Rating,
@@ -45,7 +45,7 @@ namespace InTheLoopAPI.Service
                     UserId = userId
                 };
 
-                _databaseContext.AttendedEvents.Add(attendedEvent);
+                _databaseContext.Attendances.Add(attendedEvent);
             }
             else
             {

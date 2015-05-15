@@ -10,7 +10,7 @@ namespace InTheLoopAPI.Queries
     {
         public EventModel GetEvent(int eventId)
         {
-            var singleEvent = Events.SingleOrDefault(x => x.Id == eventId);
+            var singleEvent = EventHeaders.SingleOrDefault(x => x.Id == eventId);
 
             if (singleEvent == null)
                 return null;
@@ -45,7 +45,7 @@ namespace InTheLoopAPI.Queries
             double maxLong = longitude + degrees;
             double minLong = longitude - degrees;
 
-            return Events
+            return EventHeaders
                 .Where(x => x.Latitude > minLat && x.Latitude < maxLat && x.Longitude > minLong && x.Longitude < maxLong)
                 .Select(y => new EventModel
                 {
@@ -70,14 +70,14 @@ namespace InTheLoopAPI.Queries
                 .ToList();
         }
 
-        public bool ValidBaseEventId(int id)
+        public bool ValidEventFooterId(int id)
         {
-            return BaseEvents.Any(x => x.Id == id);
+            return EventFooters.Any(x => x.Id == id);
         }
 
-        public bool ValidEventId(int id)
+        public bool ValidEventHeaderId(int id)
         {
-            return Events.Any(x => x.Id == id);
+            return EventHeaders.Any(x => x.Id == id);
         }
     }
 }

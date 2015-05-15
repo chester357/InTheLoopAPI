@@ -36,7 +36,7 @@ namespace InTheLoopAPI.Service.Validation
                 yield return new ValidationResult("Invalid Zip Code.");
 
             if (newEvent.BaseEventId != 0)
-                if (!_eventRepository.ValidBaseEventId(newEvent.BaseEventId))
+                if (!_eventRepository.ValidEventFooterId(newEvent.BaseEventId))
                     yield return new ValidationResult("Invalid Base Event Id.");
         }
 

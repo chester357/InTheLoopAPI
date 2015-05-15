@@ -13,7 +13,7 @@ namespace InTheLoopAPI.Models
 
         public string Quote { get; set; }
 
-        public virtual ICollection<AttendedEvent> AttendEvents { get; set; }
+        public virtual ICollection<Attendance> AttendEvents { get; set; }
 
         public virtual ICollection<EventHeader> Events { get; set; }
 

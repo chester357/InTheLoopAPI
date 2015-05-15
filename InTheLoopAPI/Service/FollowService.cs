@@ -13,12 +13,12 @@ namespace InTheLoopAPI.Service
     public class FollowService
     {
         DatabaseContext _databaseContext;
-        FollowerRepository _followRepository;
+        FollowRepository _followRepository;
 
         public FollowService()
         {
             _databaseContext = new DatabaseContext();
-            _followRepository = new FollowerRepository();
+            _followRepository = new FollowRepository();
         }
 
         public ValidationResult AddFollower(string userId, string followingId)

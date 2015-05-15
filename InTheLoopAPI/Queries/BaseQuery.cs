@@ -12,18 +12,18 @@ namespace InTheLoopAPI.Queries
     {
         public DatabaseContext Database;
         public DbSet<User> Users;
-        public DbSet<EventHeader> Events;
-        public DbSet<EventFooter> BaseEvents;
-        public DbSet<AttendedEvent> AttendedEvents;
+        public DbSet<EventHeader> EventHeaders;
+        public DbSet<EventFooter> EventFooters;
+        public DbSet<Attendance> Attendances;
         public DbSet<Follow> Follows;
 
         public BaseQuery()
         {
             Database = new DatabaseContext();
             Users = Database.Users;
-            Events = Database.Events;
-            BaseEvents = Database.BaseEvents;
-            AttendedEvents = Database.AttendedEvents;
+            EventHeaders = Database.EventHeaders;
+            EventFooters = Database.EventFooters;
+            Attendances = Database.Attendances;
             Follows = Database.Follows;
         }
     }
