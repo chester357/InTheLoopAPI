@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Queries;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace InTheLoopAPI.Service
 {
     public class AttendanceService
     {
-        DatabaseContext _databaseContext;
-        AttendanceRepository _attendanceRepository;
-        EventRepository _eventRepository;
+        private DatabaseContext _databaseContext;
+        private AttendanceRepository _attendanceRepository;
+        private EventRepository _eventRepository;
         
         public AttendanceService()
         {
@@ -21,15 +22,15 @@ namespace InTheLoopAPI.Service
             _eventRepository = new EventRepository();
         }
 
-        public ValidationResult AddAttendance(string userId, int eventHeaderId)
+        public ValidationResult PlueOne(string userId, int eventHeaderId)
         {
             if (!_eventRepository.ValidEventHeaderId(eventHeaderId))
                 return new ValidationResult("Invalid Event Id");
 
-            if (_attendanceRepository.IsAttending(eventHeaderId, userId));
+            if (_attendanceRepository.IsAttending(eventHeaderId, userId))
                 return new ValidationResult("You are already attending this event");
 
-                var attendance = new Attendance { EventHeaderId = eventHeaderId, UserId = userId };
+            var attendance = new Attendance { EventHeaderId = eventHeaderId, UserId = userId };
 
             _databaseContext.Attendances.Add(attendance);
 
@@ -40,9 +41,10 @@ namespace InTheLoopAPI.Service
 
         public ValidationResult RemoveAttendance(string userId, int eventHeaderId)
         {
-            var attendance = _attendanceRepository.GetAttendance(eventHeaderId, userId);
+            var attendance = _databaseContext.Attendances
+                .SingleOrDefault(x => x.EventHeaderId == eventHeaderId && x.UserId == userId);
             
-            if (attendance != null)
+            if (attendance == null)
                 return new ValidationResult("You are not currently attending this event");
 
             _databaseContext.Attendances.Remove(attendance);
@@ -50,6 +52,16 @@ namespace InTheLoopAPI.Service
             _databaseContext.SaveChanges();
 
             return ValidationResult.Success;
+        }
+
+        public int GetAttendanceCount(int eventHeaderId)
+        {
+            return _attendanceRepository.GetCount(eventHeaderId);
+        }
+
+        public List<UserModel> GetAttendies(int eventHeaderId)
+        {
+            return _attendanceRepository.GetAttendies(eventHeaderId);
         }
     }
 }

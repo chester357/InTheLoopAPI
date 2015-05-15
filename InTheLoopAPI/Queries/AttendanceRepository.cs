@@ -12,7 +12,7 @@ namespace InTheLoopAPI.Queries
         public List<ReviewModel> GetReviews(int baseEventId)
         {
             return Attendances
-                .Where(x => x.Event.BaseEventId == baseEventId)
+                .Where(x => x.Event.BaseEventId == baseEventId && x.Rating > 0)
                 .Select(y => new ReviewModel
                 {
                     EventId = y.EventHeaderId,
@@ -43,12 +43,12 @@ namespace InTheLoopAPI.Queries
 
         public bool IsAttending(int eventHeaderId, string userId)
         {
-            return Attendances.Any(x => x.EventHeaderId == eventHeaderId && x.UserId == userId);
+            return Database.Attendances.Any(x => x.EventHeaderId == eventHeaderId && x.UserId == userId);
         }
 
         public Attendance GetAttendance(int eventHeaderId, string userId)
         {
-            return Attendances.SingleOrDefault(x => x.Id == eventHeaderId && x.UserId == userId);
+            return Attendances.SingleOrDefault(x => x.EventHeaderId == eventHeaderId && x.UserId == userId);
         }
 
         public int GetCount(int eventHeaderId)

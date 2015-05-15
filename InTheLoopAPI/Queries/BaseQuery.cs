@@ -8,7 +8,7 @@ using System.Web;
 
 namespace InTheLoopAPI.Queries
 {
-    public class BaseQuery
+    public class    BaseQuery
     {
         public DatabaseContext Database;
         public DbSet<User> Users;
