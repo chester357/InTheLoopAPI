@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 
 namespace InTheLoopAPI.Controllers
 {
+    [Authorize]
     public class FollowController : ApiController
     {
         FollowService _followService;

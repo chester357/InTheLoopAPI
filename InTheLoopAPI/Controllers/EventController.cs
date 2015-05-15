@@ -12,6 +12,7 @@ using InTheLoopAPI.Helpers;
 
 namespace InTheLoopAPI.Controllers
 {
+    [Authorize]
     public class EventController : ApiController
     {
         public EventService _service;
