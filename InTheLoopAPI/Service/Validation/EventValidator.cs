@@ -18,7 +18,7 @@ namespace InTheLoopAPI.Service.Validation
             _eventRepository = new EventRepository();
         }
 
-        public IEnumerable<ValidationResult> IsValid(Event newEvent)
+        public IEnumerable<ValidationResult> IsValid(EventHeader newEvent)
         {
             if (String.IsNullOrEmpty(newEvent.City))
                 yield return new ValidationResult("Invalid City.");
@@ -40,7 +40,7 @@ namespace InTheLoopAPI.Service.Validation
                     yield return new ValidationResult("Invalid Base Event Id.");
         }
 
-        public IEnumerable<ValidationResult> IsValid(BaseEvent baseEvent)
+        public IEnumerable<ValidationResult> IsValid(EventFooter baseEvent)
         {
             if (String.IsNullOrEmpty(baseEvent.Description))
                 yield return new ValidationResult("Invalid Description.");

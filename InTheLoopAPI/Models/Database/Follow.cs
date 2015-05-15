@@ -11,10 +11,9 @@ namespace InTheLoopAPI.Models.Database
     {
         public int Id { get; set; }
 
-        public string FollowerId { get; set; }
-        public virtual User Follower { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
-        public string FollowieId { get; set; }
-        public virtual User Followie{ get; set; }
+        public string FollowingId { get; set; }
     }
 }

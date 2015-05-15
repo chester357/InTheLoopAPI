@@ -1,21 +1,18 @@
 ﻿using InTheLoopAPI.Models.Database;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Linq;
+using System.Web;
 
-namespace InTheLoopAPI.Models
+namespace InTheLoopAPI.Models.RequestModels
 {
-    public class Event
+    public class EventHeaderModel
     {
         public int Id { get; set; }
 
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
-
         public int BaseEventId { get; set; }
-        public virtual BaseEvent BaseEvent { get; set; }
 
-        public bool Archived { get; set; }
+        public bool Active { get; set; }
 
         public string City { get; set; }
 
@@ -32,7 +29,5 @@ namespace InTheLoopAPI.Models
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
-
-        public ICollection<AttendedEvent> Attendees { get; set; }
     }
 }

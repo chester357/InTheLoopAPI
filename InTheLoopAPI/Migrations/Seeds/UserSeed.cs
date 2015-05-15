@@ -27,11 +27,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "chester357",
                     Image = "TempUserImage.jpg",
                     Quote = "Just going with the flow",
-                    Events = new List<Event>
+                    Events = new List<EventHeader>
                     {
-                        new Event
+                        new EventHeader
                         {
-                            BaseEvent = new BaseEvent 
+                            BaseEvent = new EventFooter 
                             { 
                                 AgeGroup = AgeGroup.TwentyOnePlus,
                                 Category = Category.NightLife,
@@ -56,11 +56,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "jamestheman",
                     Image = "TempUserImage.jpg",
                     Quote = "I know the best events",
-                    Events = new List<Event>
+                    Events = new List<EventHeader>
                     {
-                        new Event
+                        new EventHeader
                         {
-                            BaseEvent = new BaseEvent 
+                            BaseEvent = new EventFooter 
                             { 
                                 AgeGroup = AgeGroup.EighteenPlus,
                                 Category = Category.Music,
@@ -85,11 +85,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "dezzybaby",
                     Image = "TempUserImage.jpg",
                     Quote = "Keeping it real 24/7",
-                    Events = new List<Event>
+                    Events = new List<EventHeader>
                     {
-                        new Event
+                        new EventHeader
                         {
-                            BaseEvent = new BaseEvent
+                            BaseEvent = new EventFooter
                             {
                                 AgeGroup = AgeGroup.All,
                                 Category = Category.Food,
@@ -115,11 +115,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "mikethetiger",
                     Image = "TempUserImage.jpg",
                     Quote = "LSU is the coolest",
-                    Events = new List<Event>
+                    Events = new List<EventHeader>
                     {
-                        new Event
+                        new EventHeader
                         {
-                            BaseEvent = new BaseEvent 
+                            BaseEvent = new EventFooter 
                             { 
                                 AgeGroup = AgeGroup.TwentyOnePlus,
                                 Category = Category.Bar,
@@ -144,11 +144,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "jackiesgarage",
                     Image = "TempUserImage.jpg",
                     Quote = "I just wanna go fast",
-                    Events = new List<Event>
+                    Events = new List<EventHeader>
                     {
-                        new Event
+                        new EventHeader
                         {
-                            BaseEvent = new BaseEvent 
+                            BaseEvent = new EventFooter 
                             { 
                                 AgeGroup = AgeGroup.All,
                                 Category = Category.Automotive,

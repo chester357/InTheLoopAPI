@@ -12,7 +12,7 @@ namespace InTheLoopAPI.Service.Interfaces
     {
         List<ValidationResult> AddNewEvent(string userId, EventModel model);
 
-        List<ValidationResult> AddRepeatEvent(string userId, RepeatEventModel model);
+        List<ValidationResult> AddRepeatEvent(string userId, EventHeaderModel model);
 
         List<EventModel> GetEvents(double latitude, double longitude, int radius);
 

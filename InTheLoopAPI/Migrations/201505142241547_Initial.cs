@@ -103,17 +103,12 @@ namespace InTheLoopAPI.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FollowerId = c.String(maxLength: 128),
-                        FollowieId = c.String(maxLength: 128),
-                        User_Id = c.String(maxLength: 128),
+                        UserId = c.String(maxLength: 128),
+                        FollowingId = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.FollowerId)
-                .ForeignKey("dbo.AspNetUsers", t => t.FollowieId)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.FollowerId)
-                .Index(t => t.FollowieId)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -158,9 +153,7 @@ namespace InTheLoopAPI.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Follows", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Follows", "FollowieId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Follows", "FollowerId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Follows", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Events", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AttendedEvents", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Events", "BaseEventId", "dbo.BaseEvents");
@@ -169,9 +162,7 @@ namespace InTheLoopAPI.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.Follows", new[] { "User_Id" });
-            DropIndex("dbo.Follows", new[] { "FollowieId" });
-            DropIndex("dbo.Follows", new[] { "FollowerId" });
+            DropIndex("dbo.Follows", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.Events", new[] { "BaseEventId" });

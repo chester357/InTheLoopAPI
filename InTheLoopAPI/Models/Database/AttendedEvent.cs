@@ -14,7 +14,7 @@ namespace InTheLoopAPI.Models
         public virtual User User { get; set; }
 
         public int EventId { get; set; }
-        public virtual Event Event { get; set; }
+        public virtual EventHeader Event { get; set; }
 
         public string Review { get; set; }
 

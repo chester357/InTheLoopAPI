@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Database;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,9 +12,10 @@ namespace InTheLoopAPI.Queries
     {
         public DatabaseContext Database;
         public DbSet<User> Users;
-        public DbSet<Event> Events;
-        public DbSet<BaseEvent> BaseEvents;
+        public DbSet<EventHeader> Events;
+        public DbSet<EventFooter> BaseEvents;
         public DbSet<AttendedEvent> AttendedEvents;
+        public DbSet<Follow> Follows;
 
         public BaseQuery()
         {
@@ -22,6 +24,7 @@ namespace InTheLoopAPI.Queries
             Events = Database.Events;
             BaseEvents = Database.BaseEvents;
             AttendedEvents = Database.AttendedEvents;
+            Follows = Database.Follows;
         }
     }
 }

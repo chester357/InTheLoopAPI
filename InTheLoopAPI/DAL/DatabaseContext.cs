@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using InTheLoopAPI.Models.Database;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -27,10 +28,11 @@ namespace InTheLoopAPI.Models
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<BaseEvent> BaseEvents { get; set; }
-        public DbSet<Event> Events { get; set; }
+        public DbSet<EventFooter> BaseEvents { get; set; }
+        public DbSet<EventHeader> Events { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<AttendedEvent> AttendedEvents { get; set; }
+        public DbSet<Follow> Follows { get; set; }
     
     }
 }

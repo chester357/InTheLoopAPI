@@ -12,11 +12,11 @@ using InTheLoopAPI.Helpers;
 
 namespace InTheLoopAPI.Controllers
 {
-    public class EventsController : ApiController
+    public class EventController : ApiController
     {
         public EventService _service;
 
-        public EventsController()
+        public EventController()
         {
             _service = new EventService();
         }
@@ -62,7 +62,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var results = _service.AddNewEvent(User.Identity.GetUserId(), eventModel);
+                var results = _service.AddEvent(User.Identity.GetUserId(), eventModel);
 
                 if (results.Any())
                     return BadRequest(HelperMethod.DisplayErrors(results.ToList()));
@@ -75,12 +75,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, Route("api/Event/Repeat")]
-        public IHttpActionResult PostEvent(RepeatEventModel repeatEventModel)
+        [HttpPost, Route("api/Event/Header")]
+        public IHttpActionResult PostEvent(EventHeaderModel repeatEventModel)
         {
             try
             {
-                var results = _service.AddRepeatEvent(User.Identity.GetUserId(), repeatEventModel);
+                var results = _service.AddEventHeader(User.Identity.GetUserId(), repeatEventModel);
 
                 if (results.Any())
                     return BadRequest(results.ToString());

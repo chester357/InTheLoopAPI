@@ -24,9 +24,9 @@ namespace InTheLoopAPI.Service
             _repository = new DatabaseContext();
         }
 
-        public List<ValidationResult> AddNewEvent(string userId, EventModel eventModel)
+        public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
         {
-            BaseEvent baseEvent = new BaseEvent
+            EventFooter baseEvent = new EventFooter
             {
                 AgeGroup = eventModel.AgeGroup,
                 Category = eventModel.Category,
@@ -36,7 +36,7 @@ namespace InTheLoopAPI.Service
                 Website = eventModel.Website
             };
 
-            Event eventt = new Event
+            EventHeader eventt = new EventHeader
             {
                 City = eventModel.City,
                 End = eventModel.End,
@@ -65,9 +65,9 @@ namespace InTheLoopAPI.Service
             return results.ToList();
         }
 
-        public List<ValidationResult> AddRepeatEvent(string userId, RepeatEventModel model)
+        public List<ValidationResult> AddEventHeader(string userId, EventHeaderModel model)
         {
-            var repeatEvent = new Event
+            var repeatEvent = new EventHeader
             {
                 BaseEventId = model.BaseEventId,
                 City = model.City,

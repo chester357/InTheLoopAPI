@@ -167,8 +167,6 @@ C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\ko\System.Spatial.resources.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\ru\System.Spatial.resources.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
-C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.OData.Core.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.OData.Edm.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.Spatial.dll
@@ -204,3 +202,5 @@ C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\ko\Microsoft.Spatial.resources.dl
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\ru\Microsoft.Spatial.resources.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\zh-Hans\Microsoft.Spatial.resources.dll
 C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\bin\zh-Hant\Microsoft.Spatial.resources.dll
+C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
+C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache

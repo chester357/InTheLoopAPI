@@ -5,7 +5,7 @@ using InTheLoopAPI.Models.Database;
 
 namespace InTheLoopAPI.Models
 {
-    public class BaseEvent
+    public class EventFooter
     {
         public int Id { get; set; }
 
@@ -21,6 +21,6 @@ namespace InTheLoopAPI.Models
 
         public Category Category { get; set; }
 
-        public ICollection<Event> Events { get; set; }
+        public ICollection<EventHeader> Events { get; set; }
     }
 }
