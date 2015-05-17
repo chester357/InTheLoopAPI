@@ -27,26 +27,29 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "chester357",
                     Image = "TempUserImage.jpg",
                     Quote = "Just going with the flow",
-                    Events = new List<EventHeader>
+                    EventFooters = new List<EventFooter>
                     {
-                        new EventHeader
+                        new EventFooter
                         {
-                            BaseEvent = new EventFooter 
-                            { 
-                                AgeGroup = AgeGroup.TwentyOnePlus,
-                                Category = Category.NightLife,
-                                Description = "Fundraising party for help fight cancer please come and support",
-                                Logo = "TempLogo.jpg",
-                                Title = "Redcross Fundraiser",
-                                Website = "www.redcross.com",
-                            },
-                            City = "New Orleans",
-                            End = DateTime.Now.AddHours(5),
-                            Latitude = 29.9500,
-                            Longitude = -90.0667,
-                            Start = DateTime.Now,
-                            State = State.LA,
-                            ZipCode = 70131
+                            AgeGroup = AgeGroup.TwentyOnePlus,
+                            Category = Category.NightLife,
+                            Description = "Fundraising party for help fight cancer please come and support",
+                            Logo = "TempLogo.jpg",
+                            Title = "Redcross Fundraiser",
+                            Website = "www.redcross.com",
+                            EventHeaders = new List<EventHeader>
+                            {
+                                new EventHeader
+                                {
+                                    City = "New Orleans",
+                                    End = DateTime.Now.AddHours(5),
+                                    Latitude = 29.9500,
+                                    Longitude = -90.0667,
+                                    Start = DateTime.Now,
+                                    State = State.LA,
+                                    ZipCode = 70131
+                                }
+                            }
                         }
                     }
                 },
@@ -56,26 +59,29 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "jamestheman",
                     Image = "TempUserImage.jpg",
                     Quote = "I know the best events",
-                    Events = new List<EventHeader>
+                    EventFooters = new List<EventFooter>
                     {
-                        new EventHeader
+                        new EventFooter
                         {
-                            BaseEvent = new EventFooter 
-                            { 
-                                AgeGroup = AgeGroup.EighteenPlus,
-                                Category = Category.Music,
-                                Description = "Deftones and Incubus live. Long awaited tour!",
-                                Logo = "TempLogo.jpg",
-                                Title = "Deftones Concert",
-                                Website = "www.ticketmaster.com",
-                            },
-                            City = "New Orleans",
-                            End = DateTime.Now.AddHours(10),
-                            Latitude = 29.9500,
-                            Longitude = -90.0667,
-                            Start = DateTime.Now.AddHours(5),
-                            State = State.LA,
-                            ZipCode = 70131
+                            AgeGroup = AgeGroup.EighteenPlus,
+                            Category = Category.Music,
+                            Description = "Deftones and Incubus live. Long awaited tour!",
+                            Logo = "TempLogo.jpg",
+                            Title = "Deftones Concert",
+                            Website = "www.ticketmaster.com",
+                            EventHeaders = new List<EventHeader>
+                            {
+                                new EventHeader
+                                {
+                                    City = "New Orleans",
+                                    End = DateTime.Now.AddHours(10),
+                                    Latitude = 29.9500,
+                                    Longitude = -90.0667,
+                                    Start = DateTime.Now.AddHours(5),
+                                    State = State.LA,
+                                    ZipCode = 70131
+                                }
+                            }
                         }
                     }
                 },
@@ -85,27 +91,30 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "dezzybaby",
                     Image = "TempUserImage.jpg",
                     Quote = "Keeping it real 24/7",
-                    Events = new List<EventHeader>
+                    EventFooters = new List<EventFooter>
                     {
-                        new EventHeader
+                        new EventFooter
                         {
-                            BaseEvent = new EventFooter
+                            AgeGroup = AgeGroup.All,
+                            Category = Category.Food,
+                            Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
+                            of a kind please come check them out.",
+                            Logo = "TempLogo.jpg",
+                            Title = "Juans Flying Taco Truck",
+                            Website = "www.juanstacotruck.com",
+                            EventHeaders = new List<EventHeader>
                             {
-                                AgeGroup = AgeGroup.All,
-                                Category = Category.Food,
-                                Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
-                                of a kind please come check them out.",
-                                Logo = "TempLogo.jpg",
-                                Title = "Juans Flying Taco Truck",
-                                Website = "www.juanstacotruck.com"
-                            },
-                            City = "New Orleans",
-                            End = DateTime.Now.AddHours(19),
-                            Latitude = 29.9500,
-                            Longitude = -90.0667,
-                            Start = DateTime.Now,
-                            State = State.LA,
-                            ZipCode = 70131
+                                new EventHeader
+                                {
+                                    City = "New Orleans",
+                                    End = DateTime.Now.AddHours(19),
+                                    Latitude = 29.9500,
+                                    Longitude = -90.0667,
+                                    Start = DateTime.Now,
+                                    State = State.LA,
+                                    ZipCode = 70131
+                                }
+                            }
                         }
                     }
                 },
@@ -115,26 +124,29 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "mikethetiger",
                     Image = "TempUserImage.jpg",
                     Quote = "LSU is the coolest",
-                    Events = new List<EventHeader>
+                    EventFooters = new List<EventFooter>
                     {
-                        new EventHeader
+                        new EventFooter
                         {
-                            BaseEvent = new EventFooter 
-                            { 
-                                AgeGroup = AgeGroup.TwentyOnePlus,
-                                Category = Category.Bar,
-                                Description = "The best deal in town. A must do for every LSU alum!",
-                                Logo = "TempLogo.jpg",
-                                Title = "Free drinks",
-                                Website = "www.fredsbr.com",
-                            },
-                            City = "Baton Rouge",
-                            End = DateTime.Now.AddHours(7),
-                            Latitude = 30.4500,
-                            Longitude = -91.1400,
-                            Start = DateTime.Now.AddHours(3),
-                            State = State.LA,
-                            ZipCode = 70816
+                            AgeGroup = AgeGroup.TwentyOnePlus,
+                            Category = Category.Bar,
+                            Description = "The best deal in town. A must do for every LSU alum!",
+                            Logo = "TempLogo.jpg",
+                            Title = "Free drinks",
+                            Website = "www.fredsbr.com",
+                            EventHeaders = new List<EventHeader>
+                            {
+                                new EventHeader
+                                {
+                                    City = "Baton Rouge",
+                                    End = DateTime.Now.AddHours(7),
+                                    Latitude = 30.4500,
+                                    Longitude = -91.1400,
+                                    Start = DateTime.Now.AddHours(3),
+                                    State = State.LA,
+                                    ZipCode = 70816
+                                }
+                            }
                         }
                     }
                 },
@@ -144,26 +156,29 @@ namespace InTheLoopAPI.Migrations.Seeds
                     UserName = "jackiesgarage",
                     Image = "TempUserImage.jpg",
                     Quote = "I just wanna go fast",
-                    Events = new List<EventHeader>
+                    EventFooters = new List<EventFooter>
                     {
-                        new EventHeader
+                        new EventFooter
                         {
-                            BaseEvent = new EventFooter 
-                            { 
-                                AgeGroup = AgeGroup.All,
-                                Category = Category.Automotive,
-                                Description = "Some out and show off your sweet ride. Great fun for every so please bring the family",
-                                Logo = "TempLogo.jpg",
-                                Title = "Speed Club Car Show",
-                                Website = "www.classiccarshows.com",
-                            },
-                            City = "New Orleans",
-                            End = DateTime.Now.AddHours(19),
-                            Latitude = 29.9500,
-                            Longitude = -90.0667,
-                            Start = DateTime.Now,
-                            State = State.LA,
-                            ZipCode = 70131
+                            AgeGroup = AgeGroup.All,
+                            Category = Category.Automotive,
+                            Description = "Some out and show off your sweet ride. Great fun for every so please bring the family",
+                            Logo = "TempLogo.jpg",
+                            Title = "Speed Club Car Show",
+                            Website = "www.classiccarshows.com",
+                            EventHeaders = new List<EventHeader>
+                            {
+                                new EventHeader
+                                {
+                                    City = "New Orleans",
+                                    End = DateTime.Now.AddHours(19),
+                                    Latitude = 29.9500,
+                                    Longitude = -90.0667,
+                                    Start = DateTime.Now,
+                                    State = State.LA,
+                                    ZipCode = 70131
+                                }
+                            }
                         }
                     }
                 },

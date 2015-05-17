@@ -9,6 +9,9 @@ namespace InTheLoopAPI.Models
     {
         public int Id { get; set; }
 
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -21,6 +24,6 @@ namespace InTheLoopAPI.Models
 
         public Category Category { get; set; }
 
-        public ICollection<EventHeader> Events { get; set; }
+        public ICollection<EventHeader> EventHeaders { get; set; }
     }
 }

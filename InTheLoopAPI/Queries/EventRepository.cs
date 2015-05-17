@@ -79,5 +79,10 @@ namespace InTheLoopAPI.Queries
         {
             return EventHeaders.Any(x => x.Id == id);
         }
+
+        public bool ValidUserForEvent(string userId, int eventFooterId)
+        {
+            return EventFooters.Any(x => x.UserId == userId && x.Id == eventFooterId);
+        }
     }
 }

@@ -18,8 +18,11 @@ namespace InTheLoopAPI.Service.Validation
             _eventRepository = new EventRepository();
         }
 
-        public IEnumerable<ValidationResult> IsValid(EventHeader newEvent)
+        public IEnumerable<ValidationResult> IsValid(EventHeader newEvent, string userId)
         {
+            if (!_eventRepository.ValidUserForEvent(userId, newEvent.Id))
+                yield return new ValidationResult("Invalid valid user for this event");
+
             if (String.IsNullOrEmpty(newEvent.City))
                 yield return new ValidationResult("Invalid City.");
 

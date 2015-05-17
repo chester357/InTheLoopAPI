@@ -15,7 +15,7 @@ namespace InTheLoopAPI.Models
 
         public virtual ICollection<Attendance> AttendEvents { get; set; }
 
-        public virtual ICollection<EventHeader> Events { get; set; }
+        public virtual ICollection<EventFooter> EventFooters { get; set; }
 
         public virtual ICollection<Follow> Followers { get; set; }
     }

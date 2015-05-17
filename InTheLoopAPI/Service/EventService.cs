@@ -26,17 +26,18 @@ namespace InTheLoopAPI.Service
 
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
         {
-            EventFooter baseEvent = new EventFooter
+            EventFooter eventFooter = new EventFooter
             {
                 AgeGroup = eventModel.AgeGroup,
                 Category = eventModel.Category,
                 Description = eventModel.Description,
                 Logo = eventModel.Logo,
                 Title = eventModel.Title,
+                UserId = userId,
                 Website = eventModel.Website
             };
 
-            EventHeader eventt = new EventHeader
+            EventHeader eventHeader = new EventHeader
             {
                 City = eventModel.City,
                 End = eventModel.End,
@@ -44,22 +45,21 @@ namespace InTheLoopAPI.Service
                 Longitude = eventModel.Longitude,
                 Start = eventModel.Start,
                 State = eventModel.State,
-                UserId = userId,
                 ZipCode = eventModel.ZipCode
             };
 
-            var baseEventResults = _validator.IsValid(baseEvent).ToList();
+            var footerResults = _validator.IsValid(eventFooter).ToList();
 
-            var eventResults = _validator.IsValid(eventt).ToList();
+            var headerResults = _validator.IsValid(eventHeader, userId).ToList();
 
-            var results = baseEventResults.Union(eventResults);
+            var results = footerResults.Union(headerResults);
 
             if (results.Any())
                 return results.ToList();
 
-            eventt.BaseEvent = baseEvent;
+            eventHeader.BaseEvent = eventFooter;
 
-            _repository.EventHeaders.Add(eventt);
+            _repository.EventHeaders.Add(eventHeader);
             _repository.SaveChanges();
 
             return results.ToList();
@@ -76,11 +76,10 @@ namespace InTheLoopAPI.Service
                 Longitude = model.Longitude,
                 Start = model.Start,
                 State = model.State,
-                UserId = userId,
                 ZipCode = model.ZipCode
             };
 
-            var results = _validator.IsValid(repeatEvent);
+            var results = _validator.IsValid(repeatEvent, userId);
 
             if (results.Any())
                 return results.ToList();
