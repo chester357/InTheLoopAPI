@@ -32,10 +32,5 @@ namespace InTheLoopAPI.Helpers
 
             return result;
         }
-
-        public static string ByteArrayToString(byte[] array)
-        {
-            return System.Text.Encoding.UTF8.GetString(array, 0, array.Length);
-        }
     }
 }

@@ -64,7 +64,7 @@ namespace InTheLoopAPI.Queries
                 .Select(y => new UserModel
                 {
                     Email = y.User.Email,
-                    Image = HelperMethod.ByteArrayToString(y.User.Image),
+                    ImageArray = y.User.Image,
                     Quote = y.User.Quote,
                     UserId = y.UserId,
                     UserName = y.User.UserName
