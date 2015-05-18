@@ -8,29 +8,28 @@ namespace InTheLoopAPI.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.AttendedEvents",
+                "dbo.Attendances",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(maxLength: 128),
-                        EventId = c.Int(nullable: false),
+                        EventHeaderId = c.Int(nullable: false),
                         Review = c.String(),
                         Rating = c.Int(nullable: false),
                         Liked = c.Boolean(),
                         Image = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Events", t => t.EventId, cascadeDelete: true)
+                .ForeignKey("dbo.EventHeaders", t => t.EventHeaderId, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
                 .Index(t => t.UserId)
-                .Index(t => t.EventId);
+                .Index(t => t.EventHeaderId);
             
             CreateTable(
-                "dbo.Events",
+                "dbo.EventHeaders",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(maxLength: 128),
                         BaseEventId = c.Int(nullable: false),
                         Archived = c.Boolean(nullable: false),
                         City = c.String(),
@@ -43,16 +42,15 @@ namespace InTheLoopAPI.Migrations
                         End = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.BaseEvents", t => t.BaseEventId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.UserId)
+                .ForeignKey("dbo.EventFooters", t => t.BaseEventId, cascadeDelete: true)
                 .Index(t => t.BaseEventId);
             
             CreateTable(
-                "dbo.BaseEvents",
+                "dbo.EventFooters",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(maxLength: 128),
                         Title = c.String(),
                         Description = c.String(),
                         Logo = c.String(),
@@ -60,7 +58,9 @@ namespace InTheLoopAPI.Migrations
                         AgeGroup = c.Int(nullable: false),
                         Category = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -78,7 +78,7 @@ namespace InTheLoopAPI.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        Image = c.String(),
+                        Image = c.Binary(),
                         Quote = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
@@ -154,10 +154,10 @@ namespace InTheLoopAPI.Migrations
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Follows", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Events", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AttendedEvents", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Events", "BaseEventId", "dbo.BaseEvents");
-            DropForeignKey("dbo.AttendedEvents", "EventId", "dbo.Events");
+            DropForeignKey("dbo.EventFooters", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Attendances", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.EventHeaders", "BaseEventId", "dbo.EventFooters");
+            DropForeignKey("dbo.Attendances", "EventHeaderId", "dbo.EventHeaders");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -165,19 +165,19 @@ namespace InTheLoopAPI.Migrations
             DropIndex("dbo.Follows", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Events", new[] { "BaseEventId" });
-            DropIndex("dbo.Events", new[] { "UserId" });
-            DropIndex("dbo.AttendedEvents", new[] { "EventId" });
-            DropIndex("dbo.AttendedEvents", new[] { "UserId" });
+            DropIndex("dbo.EventFooters", new[] { "UserId" });
+            DropIndex("dbo.EventHeaders", new[] { "BaseEventId" });
+            DropIndex("dbo.Attendances", new[] { "EventHeaderId" });
+            DropIndex("dbo.Attendances", new[] { "UserId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.Follows");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.BaseEvents");
-            DropTable("dbo.Events");
-            DropTable("dbo.AttendedEvents");
+            DropTable("dbo.EventFooters");
+            DropTable("dbo.EventHeaders");
+            DropTable("dbo.Attendances");
         }
     }
 }

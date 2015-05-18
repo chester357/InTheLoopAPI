@@ -25,7 +25,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                 { 
                     Email = "chester@gmail.com", 
                     UserName = "chester357",
-                    Image = "TempUserImage.jpg",
                     Quote = "Just going with the flow",
                     EventFooters = new List<EventFooter>
                     {
@@ -57,7 +56,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                 { 
                     Email = "james@gmail.com", 
                     UserName = "jamestheman",
-                    Image = "TempUserImage.jpg",
                     Quote = "I know the best events",
                     EventFooters = new List<EventFooter>
                     {
@@ -89,7 +87,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                 { 
                     Email = "desiree@gmail.com", 
                     UserName = "dezzybaby",
-                    Image = "TempUserImage.jpg",
                     Quote = "Keeping it real 24/7",
                     EventFooters = new List<EventFooter>
                     {
@@ -122,7 +119,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                 { 
                     Email = "mike@gmail.com", 
                     UserName = "mikethetiger",
-                    Image = "TempUserImage.jpg",
                     Quote = "LSU is the coolest",
                     EventFooters = new List<EventFooter>
                     {
@@ -154,7 +150,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                 { 
                     Email = "jackie@gmail.com", 
                     UserName = "jackiesgarage",
-                    Image = "TempUserImage.jpg",
                     Quote = "I just wanna go fast",
                     EventFooters = new List<EventFooter>
                     {
@@ -186,14 +181,12 @@ namespace InTheLoopAPI.Migrations.Seeds
                 {
                     Email = "courney@gmail.com", 
                     UserName = "Number1Party",
-                    Image = "TempUserImage.jpg",
                     Quote = "Going to the hottest parties"
                 },
                 new User
                 {
                     Email = "anthony@gmail.com", 
                     UserName = "anthony12",
-                    Image = "TempUserImage.jpg",
                     Quote = "Not much to say"
                 }
             };

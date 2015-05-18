@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
@@ -339,6 +340,47 @@ namespace InTheLoopAPI.Controllers
 
             return Ok();
         }
+
+        // POST api/Account/ProfileImage
+        [Route("ProfileImage")]
+        public IHttpActionResult UploadImage()
+        {
+            try
+            {
+                var image = HttpContext.Current.Request.Files[0];
+
+                if (image == null) return BadRequest("No content.");
+
+                var contentType = image.ContentType;
+
+                var byteArray = new byte[image.ContentLength];
+
+                image.InputStream.Read(byteArray, 0, image.ContentLength);
+
+                DatabaseContext context = new DatabaseContext();
+
+                string userId = User.Identity.GetUserId();
+
+                if (userId == null) return BadRequest();
+
+                var users = context.Users.ToList();
+
+                var user = context.Users.SingleOrDefault(x => x.Id == userId);
+
+                if (user == null) return BadRequest();
+
+                user.Image = byteArray;
+
+                context.SaveChanges();
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+       }
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

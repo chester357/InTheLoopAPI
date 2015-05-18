@@ -239,13 +239,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201505142241547_Initial.cs" />
-    <Compile Include="Migrations\201505142241547_Initial.Designer.cs">
-      <DependentUpon>201505142241547_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505151746458_RenamedSomeStuff.cs" />
-    <Compile Include="Migrations\201505151746458_RenamedSomeStuff.Designer.cs">
-      <DependentUpon>201505151746458_RenamedSomeStuff.cs</DependentUpon>
+    <Compile Include="Migrations\201505180232425_Initial.cs" />
+    <Compile Include="Migrations\201505180232425_Initial.Designer.cs">
+      <DependentUpon>201505180232425_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -344,11 +340,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505142241547_Initial.resx">
-      <DependentUpon>201505142241547_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505151746458_RenamedSomeStuff.resx">
-      <DependentUpon>201505151746458_RenamedSomeStuff.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505180232425_Initial.resx">
+      <DependentUpon>201505180232425_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

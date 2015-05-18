@@ -13,7 +13,7 @@ namespace InTheLoopAPI.Models.Request
 
         public string Email { get; set; }
 
-        public string ProfilePic { get; set; }
+        public byte[] Image { get; set; }
 
         public string Quote { get; set; }
     }
