@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 
 namespace InTheLoopAPI.Helpers
@@ -32,5 +33,9 @@ namespace InTheLoopAPI.Helpers
             return result;
         }
 
+        public static string ByteArrayToString(byte[] array)
+        {
+            return System.Text.Encoding.UTF8.GetString(array, 0, array.Length);
+        }
     }
 }

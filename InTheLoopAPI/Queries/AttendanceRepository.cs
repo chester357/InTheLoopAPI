@@ -1,4 +1,5 @@
-﻿using InTheLoopAPI.Models;
+﻿using InTheLoopAPI.Helpers;
+using InTheLoopAPI.Models;
 using InTheLoopAPI.Models.Request;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace InTheLoopAPI.Queries
                 .Select(y => new UserModel
                 {
                     Email = y.User.Email,
-                    Image = y.User.Image,
+                    Image = HelperMethod.ByteArrayToString(y.User.Image),
                     Quote = y.User.Quote,
                     UserId = y.UserId,
                     UserName = y.User.UserName

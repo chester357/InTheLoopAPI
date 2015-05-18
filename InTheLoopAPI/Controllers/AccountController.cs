@@ -17,6 +17,10 @@ using Microsoft.Owin.Security.OAuth;
 using InTheLoopAPI.Models;
 using InTheLoopAPI.Providers;
 using InTheLoopAPI.Results;
+using InTheLoopAPI.Models.Request;
+using System.Text;
+using InTheLoopAPI.Helpers;
+using System.IO;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -347,16 +351,6 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var image = HttpContext.Current.Request.Files[0];
-
-                if (image == null) return BadRequest("No content.");
-
-                var contentType = image.ContentType;
-
-                var byteArray = new byte[image.ContentLength];
-
-                image.InputStream.Read(byteArray, 0, image.ContentLength);
-
                 DatabaseContext context = new DatabaseContext();
 
                 string userId = User.Identity.GetUserId();
@@ -369,7 +363,15 @@ namespace InTheLoopAPI.Controllers
 
                 if (user == null) return BadRequest();
 
-                user.Image = byteArray;
+                var image = HttpContext.Current.Request.Files[0];
+
+                if (image == null) return BadRequest("No content.");
+
+                if (image.ContentType.Substring(0, 6) != "image") return BadRequest("Invalid content type.");
+
+                BinaryReader reader = new BinaryReader(image.InputStream);
+
+                user.Image = reader.ReadBytes(image.ContentLength);
 
                 context.SaveChanges();
 
@@ -381,6 +383,33 @@ namespace InTheLoopAPI.Controllers
             }
 
        }
+
+        // GET api/Account/Profile
+        [Route("Profile/{userId}")]
+        public IHttpActionResult GetProfile(string userId)
+        {
+            try
+            {
+                var user = new DatabaseContext().Users.SingleOrDefault(x => x.Id == userId);
+
+                if (user == null) return BadRequest();
+
+                var profile = new UserModel
+                {
+                    Email = user.Email,
+                    ImageArray = user.Image,
+                    Quote = user.Quote,
+                    UserId = userId,
+                    UserName = user.UserName
+                };
+
+                return Ok(profile);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]
