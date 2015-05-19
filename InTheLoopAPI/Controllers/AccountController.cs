@@ -357,8 +357,6 @@ namespace InTheLoopAPI.Controllers
 
                 if (userId == null) return BadRequest();
 
-                var users = context.Users.ToList();
-
                 var user = context.Users.SingleOrDefault(x => x.Id == userId);
 
                 if (user == null) return BadRequest();
@@ -367,7 +365,7 @@ namespace InTheLoopAPI.Controllers
 
                 if (image == null) return BadRequest("No content.");
 
-                if (image.ContentType.Substring(0, 6) != "image") return BadRequest("Invalid content type.");
+                if (image.ContentType.Substring(0, 5) != "image") return BadRequest("Invalid content type.");
 
                 BinaryReader reader = new BinaryReader(image.InputStream);
 

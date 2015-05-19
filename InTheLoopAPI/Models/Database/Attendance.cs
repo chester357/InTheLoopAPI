@@ -22,6 +22,6 @@ namespace InTheLoopAPI.Models
 
         public bool? Liked { get; set; }
 
-        public string Image { get; set; }
+        public virtual ICollection<ReviewImage> ReviewImages { get; set; }
     }
 }

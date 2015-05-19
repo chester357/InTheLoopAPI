@@ -18,7 +18,7 @@ namespace InTheLoopAPI.Queries
                 {
                     EventId = y.EventHeaderId,
                     Id = y.Id,
-                    Image = y.Image,
+                    Images = y.ReviewImages.Select(v => v.Image).ToList(),
                     Liked = y.Liked,
                     Rating = y.Rating,
                     Review = y.Review
@@ -34,7 +34,7 @@ namespace InTheLoopAPI.Queries
                 {
                     EventId = y.EventHeaderId,
                     Id = y.Id,
-                    Image = y.Image,
+                    Images = y.ReviewImages.Select(t => t.Image).ToList(),
                     Liked = y.Liked,
                     Rating = y.Rating,
                     Review = y.Review

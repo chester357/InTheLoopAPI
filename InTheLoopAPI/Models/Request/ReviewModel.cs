@@ -17,6 +17,6 @@ namespace InTheLoopAPI.Models.Request
 
         public bool? Liked { get; set; }
 
-        public string Image { get; set; }
+        public List<byte[]> Images { get; set; }
     }
 }

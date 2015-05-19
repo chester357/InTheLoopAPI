@@ -239,9 +239,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201505180232425_Initial.cs" />
-    <Compile Include="Migrations\201505180232425_Initial.Designer.cs">
-      <DependentUpon>201505180232425_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201505190128279_Initial.cs" />
+    <Compile Include="Migrations\201505190128279_Initial.Designer.cs">
+      <DependentUpon>201505190128279_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -263,6 +263,7 @@
     <Compile Include="Models\Database\User.cs" />
     <Compile Include="Models\Request\ReviewModel.cs" />
     <Compile Include="Models\Request\UserModel.cs" />
+    <Compile Include="Models\ReviewImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Queries\AttendanceRepository.cs" />
@@ -340,8 +341,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505180232425_Initial.resx">
-      <DependentUpon>201505180232425_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505190128279_Initial.resx">
+      <DependentUpon>201505190128279_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

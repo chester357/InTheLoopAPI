@@ -17,7 +17,6 @@ namespace InTheLoopAPI.Migrations
                         Review = c.String(),
                         Rating = c.Int(nullable: false),
                         Liked = c.Boolean(),
-                        Image = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.EventHeaders", t => t.EventHeaderId, cascadeDelete: true)
@@ -136,6 +135,18 @@ namespace InTheLoopAPI.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.ReviewImages",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        AttendanceId = c.Int(nullable: false),
+                        Image = c.Binary(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Attendances", t => t.AttendanceId, cascadeDelete: true)
+                .Index(t => t.AttendanceId);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -153,12 +164,14 @@ namespace InTheLoopAPI.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.ReviewImages", "AttendanceId", "dbo.Attendances");
             DropForeignKey("dbo.Follows", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.EventFooters", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Attendances", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.EventHeaders", "BaseEventId", "dbo.EventFooters");
             DropForeignKey("dbo.Attendances", "EventHeaderId", "dbo.EventHeaders");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.ReviewImages", new[] { "AttendanceId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -170,6 +183,7 @@ namespace InTheLoopAPI.Migrations
             DropIndex("dbo.Attendances", new[] { "EventHeaderId" });
             DropIndex("dbo.Attendances", new[] { "UserId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ReviewImages");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.Follows");

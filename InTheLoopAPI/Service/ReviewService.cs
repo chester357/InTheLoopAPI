@@ -33,12 +33,17 @@ namespace InTheLoopAPI.Service
             Attendance attendedEvent = _databaseContext.Attendances
                 .SingleOrDefault(x => x.EventHeaderId == review.EventId && x.UserId == userId);
 
+            List<ReviewImage> images = new List<ReviewImage>();
+
+            if (review.Images != null)
+                review.Images.ForEach(x => images.Add(new ReviewImage { Image = x }));
+
             if (attendedEvent == null)
-            {
+            { 
                 attendedEvent = new Attendance
                 {
                     EventHeaderId = review.EventId,
-                    Image = review.Image,
+                    ReviewImages = images,
                     Liked = review.Liked,
                     Rating = review.Rating,
                     Review = review.Review,
@@ -49,7 +54,7 @@ namespace InTheLoopAPI.Service
             }
             else
             {
-                    attendedEvent.Image = review.Image;
+                    attendedEvent.ReviewImages = images;
                     attendedEvent.Liked = review.Liked; 
                     attendedEvent.Rating = review.Rating;
                     attendedEvent.Review = review.Review; 

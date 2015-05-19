@@ -13,7 +13,7 @@ namespace InTheLoopAPI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201505180232425_Initial"; }
+            get { return "201505190128279_Initial"; }
         }
         
         string IMigrationMetadata.Source
