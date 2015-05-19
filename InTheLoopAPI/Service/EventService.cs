@@ -100,9 +100,18 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetEvent(eventId);
         }
 
-        public ValidationResult ArchiveEvent(int eventId)
+        public ValidationResult ArchiveEvent(int eventHeaderId, string userId)
         {
-            throw new NotImplementedException();
+            var eventheader = _eventRepository.GetEventHeader(eventHeaderId, userId);
+
+            if (eventheader == null)
+                return new ValidationResult("Invalid archive request.");
+
+            eventheader.Archived = !eventheader.Archived;
+
+            _repository.SaveChanges();
+
+            return ValidationResult.Success;
         }
 
         public List<ValidationResult> UpdateEvent(EventModel eventModel, int eventId)

@@ -32,5 +32,10 @@ namespace InTheLoopAPI.Helpers
 
             return result;
         }
+
+        public static string ToBase64(byte[] array)
+        {
+            return System.Convert.ToBase64String(array);
+        }
     }
 }

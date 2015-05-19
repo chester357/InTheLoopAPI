@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.OData;
 using Microsoft.AspNet.Identity;
 using InTheLoopAPI.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -85,6 +86,24 @@ namespace InTheLoopAPI.Controllers
 
                 if (results.Any())
                     return BadRequest(results.ToString());
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPut, Route("api/Event/Archive/{eventHeaderId}")]
+        public IHttpActionResult ArchiveEvent(int eventHeaderId)
+        {
+            try
+            {
+                var result = _service.ArchiveEvent(eventHeaderId, User.Identity.GetUserId());
+
+                if (result != ValidationResult.Success)
+                    return BadRequest(result.ErrorMessage);
 
                 return Ok();
             }

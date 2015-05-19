@@ -1,4 +1,5 @@
-﻿using InTheLoopAPI.Models.RequestModels;
+﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,11 @@ namespace InTheLoopAPI.Queries
         public bool ValidUserForEvent(string userId, int eventFooterId)
         {
             return EventFooters.Any(x => x.UserId == userId && x.Id == eventFooterId);
+        }
+
+        public EventHeader GetEventHeader(int eventHeaderId, string userId)
+        {
+            return EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId && x.BaseEvent.UserId == userId);
         }
     }
 }
