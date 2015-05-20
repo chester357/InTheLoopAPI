@@ -1,6 +1,7 @@
 ﻿using InTheLoopAPI.Models;
 using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Queries;
+using InTheLoopAPI.Service.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,21 +15,22 @@ namespace InTheLoopAPI.Service
         private DatabaseContext _databaseContext;
         private AttendanceRepository _attendanceRepository;
         private EventRepository _eventRepository;
+        private AttendanceValidator _validator;
         
         public AttendanceService()
         {
             _databaseContext = new DatabaseContext();
             _attendanceRepository = new AttendanceRepository(_databaseContext);
             _eventRepository = new EventRepository(_databaseContext);
+            _validator = new AttendanceValidator(_eventRepository, _attendanceRepository);
         }
 
         public ValidationResult PlueOne(string userId, int eventHeaderId)
         {
-            if (!_eventRepository.ValidEventHeaderId(eventHeaderId))
-                return new ValidationResult("Invalid Event Id");
+            var result = _validator.PlusOne(userId, eventHeaderId);
 
-            if (_attendanceRepository.IsAttending(eventHeaderId, userId))
-                return new ValidationResult("You are already attending this event");
+            if (result != null)
+                return result;
 
             var attendance = new Attendance { EventHeaderId = eventHeaderId, UserId = userId };
 
@@ -41,10 +43,12 @@ namespace InTheLoopAPI.Service
 
         public ValidationResult RemoveAttendance(string userId, int eventHeaderId)
         {
+            var result = _validator.RemoveAttendance(userId, eventHeaderId);
+
+            if (result != null)
+                return result;
+
             var attendance = _attendanceRepository.GetAttendance(eventHeaderId, userId);
-            
-            if (attendance == null)
-                return new ValidationResult("You are not currently attending this event");
 
             _databaseContext.Attendances.Remove(attendance);
 

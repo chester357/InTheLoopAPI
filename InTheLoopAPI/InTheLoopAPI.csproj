@@ -277,6 +277,7 @@
     <Compile Include="Service\FollowService.cs" />
     <Compile Include="Service\Interfaces\IEventService.cs" />
     <Compile Include="Service\ReviewService.cs" />
+    <Compile Include="Service\Validation\AttendanceValidator.cs" />
     <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
