@@ -8,8 +8,13 @@ using System.Web;
 
 namespace InTheLoopAPI.Queries
 {
-    public class AttendanceRepository : BaseQuery
+    public class    AttendanceRepository : BaseQuery
     {
+        public AttendanceRepository(DatabaseContext db) : base(db)
+        {
+
+        }
+
         public List<ReviewModel> GetReviews(int baseEventId)
         {
             return Attendances

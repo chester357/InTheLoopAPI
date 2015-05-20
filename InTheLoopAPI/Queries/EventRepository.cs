@@ -9,6 +9,11 @@ namespace InTheLoopAPI.Queries
 {
     public class EventRepository : BaseQuery
     {
+        public EventRepository(DatabaseContext db) : base(db)
+        {
+
+        }
+
         public EventModel GetEvent(int eventId)
         {
             var singleEvent = EventHeaders.SingleOrDefault(x => x.Id == eventId);

@@ -11,6 +11,11 @@ namespace InTheLoopAPI.Queries
 {
     public class FollowRepository : BaseQuery
     {
+        public FollowRepository(DatabaseContext db) : base(db)
+        {
+
+        }
+
         public Follow GetFollower(string userId, string followingId)
         {
             return Follows.SingleOrDefault(x => x.UserId == userId && x.FollowingId == followingId);

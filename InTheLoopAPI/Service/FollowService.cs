@@ -18,7 +18,7 @@ namespace InTheLoopAPI.Service
         public FollowService()
         {
             _databaseContext = new DatabaseContext();
-            _followRepository = new FollowRepository();
+            _followRepository = new FollowRepository(_databaseContext);
         }
 
         public ValidationResult AddFollower(string userId, string followingId)

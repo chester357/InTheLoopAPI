@@ -17,9 +17,9 @@ namespace InTheLoopAPI.Queries
         public DbSet<Attendance> Attendances;
         public DbSet<Follow> Follows;
 
-        public BaseQuery()
+        public BaseQuery(DatabaseContext db)
         {
-            Database = new DatabaseContext();
+            Database = db;
             Users = Database.Users;
             EventHeaders = Database.EventHeaders;
             EventFooters = Database.EventFooters;

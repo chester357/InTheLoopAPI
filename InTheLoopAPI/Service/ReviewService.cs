@@ -18,8 +18,8 @@ namespace InTheLoopAPI.Service
         public ReviewService()
         {
             _databaseContext = new DatabaseContext();
-            _eventRepository = new EventRepository();
-            _attendedEventRepository = new AttendanceRepository();
+            _eventRepository = new EventRepository(_databaseContext);
+            _attendedEventRepository = new AttendanceRepository(_databaseContext);
         }
 
         public ValidationResult SetReview(ReviewModel review, string userId)

@@ -9,13 +9,16 @@ using System.Net;
 
 namespace InTheLoopAPI.Service.Validation
 {
-    public class EventValidator : BaseQuery
+    public class EventValidator 
     {
         private EventRepository _eventRepository;
+        public DatabaseContext _databaseContext;
 
         public EventValidator()
         {
-            _eventRepository = new EventRepository();
+            _databaseContext = new DatabaseContext();
+
+            _eventRepository = new EventRepository(_databaseContext);
         }
 
         public IEnumerable<ValidationResult> IsValid(EventHeader newEvent, string userId)

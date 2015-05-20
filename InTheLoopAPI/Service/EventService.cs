@@ -19,9 +19,9 @@ namespace InTheLoopAPI.Service
 
         public EventService()
         {
-            _eventRepository = new EventRepository();
             _validator = new EventValidator();
             _repository = new DatabaseContext();
+            _eventRepository = new EventRepository(_repository);
         }
 
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)

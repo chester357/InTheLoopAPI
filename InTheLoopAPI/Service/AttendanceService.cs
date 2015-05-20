@@ -18,8 +18,8 @@ namespace InTheLoopAPI.Service
         public AttendanceService()
         {
             _databaseContext = new DatabaseContext();
-            _attendanceRepository = new AttendanceRepository();
-            _eventRepository = new EventRepository();
+            _attendanceRepository = new AttendanceRepository(_databaseContext);
+            _eventRepository = new EventRepository(_databaseContext);
         }
 
         public ValidationResult PlueOne(string userId, int eventHeaderId)
