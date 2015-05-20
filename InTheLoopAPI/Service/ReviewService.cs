@@ -13,25 +13,24 @@ namespace InTheLoopAPI.Service
     {
         private DatabaseContext _databaseContext;
         private EventRepository _eventRepository;
-        private AttendanceRepository _attendedEventRepository;
+        private AttendanceRepository _attendanceRepository;
 
         public ReviewService()
         {
             _databaseContext = new DatabaseContext();
             _eventRepository = new EventRepository(_databaseContext);
-            _attendedEventRepository = new AttendanceRepository(_databaseContext);
+            _attendanceRepository = new AttendanceRepository(_databaseContext);
         }
 
         public ValidationResult SetReview(ReviewModel review, string userId)
         {
-            if (!_eventRepository.ValidEventHeaderId(review.EventId))
+            if (!_eventRepository.ValidEventHeaderId(review.EventHeaderId))
                 return new ValidationResult("Invalid Event Id");
 
             if (review.Rating < 1|| review.Rating > 5)
                 return new ValidationResult("Invalid Rating");
 
-            Attendance attendedEvent = _databaseContext.Attendances
-                .SingleOrDefault(x => x.EventHeaderId == review.EventId && x.UserId == userId);
+            Attendance attendedEvent = _attendanceRepository.GetAttendance(review.EventHeaderId, userId);
 
             List<ReviewImage> images = new List<ReviewImage>();
 
@@ -42,7 +41,7 @@ namespace InTheLoopAPI.Service
             { 
                 attendedEvent = new Attendance
                 {
-                    EventHeaderId = review.EventId,
+                    EventHeaderId = review.EventHeaderId,
                     ReviewImages = images,
                     Liked = review.Liked,
                     Rating = review.Rating,
@@ -67,12 +66,12 @@ namespace InTheLoopAPI.Service
 
         public List<ReviewModel> GetReviews(int baseEventId)
         {
-            return _attendedEventRepository.GetReviews(baseEventId);
+            return _attendanceRepository.GetReviews(baseEventId);
         }
 
         public ReviewModel GetReview(int attendedEventId)
         {
-            return _attendedEventRepository.GetReview(attendedEventId);
+            return _attendanceRepository.GetReview(attendedEventId);
         }
     
     }

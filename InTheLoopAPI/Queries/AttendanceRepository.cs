@@ -21,7 +21,7 @@ namespace InTheLoopAPI.Queries
                 .Where(x => x.Event.BaseEventId == baseEventId && x.Rating > 0)
                 .Select(y => new ReviewModel
                 {
-                    EventId = y.EventHeaderId,
+                    EventHeaderId = y.EventHeaderId,
                     Id = y.Id,
                     Images = y.ReviewImages.Select(v => v.Image).ToList(),
                     Liked = y.Liked,
@@ -37,7 +37,7 @@ namespace InTheLoopAPI.Queries
                 .Where(x => x.Id == attendedEventId)
                 .Select(y => new ReviewModel
                 {
-                    EventId = y.EventHeaderId,
+                    EventHeaderId = y.EventHeaderId,
                     Id = y.Id,
                     Images = y.ReviewImages.Select(t => t.Image).ToList(),
                     Liked = y.Liked,

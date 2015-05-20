@@ -9,7 +9,7 @@ namespace InTheLoopAPI.Models.Request
     {
         public int Id { get; set; }
 
-        public int EventId { get; set; }
+        public int EventHeaderId { get; set; }
 
         public string Review { get; set; }
 

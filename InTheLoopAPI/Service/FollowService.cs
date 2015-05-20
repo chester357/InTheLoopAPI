@@ -14,21 +14,22 @@ namespace InTheLoopAPI.Service
     {
         DatabaseContext _databaseContext;
         FollowRepository _followRepository;
+        UserRepository _userRepository;
 
         public FollowService()
         {
             _databaseContext = new DatabaseContext();
             _followRepository = new FollowRepository(_databaseContext);
+            _userRepository = new UserRepository(_databaseContext);
         }
 
         public ValidationResult AddFollower(string userId, string followingId)
         {
-            if (!_databaseContext.Users.Any(x => x.Id == followingId))
+            if (! _userRepository.ValidUserId(followingId))
                 return new ValidationResult("Invalid user to follow");
 
-            if (!_databaseContext.Follows.Any(x => x.UserId == userId && x.FollowingId == followingId))
+            if (_followRepository.IsFollowing(userId, followingId))
                 return new ValidationResult("Already following this user");
-
 
             var follow = new Follow { UserId = userId, FollowingId = followingId };
 

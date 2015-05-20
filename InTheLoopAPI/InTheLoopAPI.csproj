@@ -270,6 +270,7 @@
     <Compile Include="Queries\BaseQuery.cs" />
     <Compile Include="Queries\EventRepository.cs" />
     <Compile Include="Queries\FollowRepository.cs" />
+    <Compile Include="Queries\UserRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Service\AttendanceService.cs" />
     <Compile Include="Service\EventService.cs" />

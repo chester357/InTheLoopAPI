@@ -41,8 +41,7 @@ namespace InTheLoopAPI.Service
 
         public ValidationResult RemoveAttendance(string userId, int eventHeaderId)
         {
-            var attendance = _databaseContext.Attendances
-                .SingleOrDefault(x => x.EventHeaderId == eventHeaderId && x.UserId == userId);
+            var attendance = _attendanceRepository.GetAttendance(eventHeaderId, userId);
             
             if (attendance == null)
                 return new ValidationResult("You are not currently attending this event");

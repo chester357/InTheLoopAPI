@@ -50,5 +50,10 @@ namespace InTheLoopAPI.Queries
                 })
                 .ToList();
         }
+
+        public bool IsFollowing(string userId, string followingId)
+        {
+            return Follows.Any(x => x.UserId == userId && x.FollowingId == followingId);
+        }
     }
 }
