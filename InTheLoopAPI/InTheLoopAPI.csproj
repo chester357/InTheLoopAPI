@@ -280,6 +280,7 @@
     <Compile Include="Service\Validation\AttendanceValidator.cs" />
     <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Service\Validation\FollowValidator.cs" />
+    <Compile Include="Service\Validation\ReviewValidator.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

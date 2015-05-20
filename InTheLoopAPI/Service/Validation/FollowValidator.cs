@@ -9,8 +9,8 @@ namespace InTheLoopAPI.Service.Validation
 {
     public class FollowValidator
     {
-        FollowRepository _followRepository;
-        UserRepository _userRepository;
+        private FollowRepository _followRepository;
+        private UserRepository _userRepository;
 
         public FollowValidator(FollowRepository fr, UserRepository ur)
         {

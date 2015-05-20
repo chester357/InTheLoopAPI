@@ -1,6 +1,7 @@
 ﻿using InTheLoopAPI.Models;
 using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Queries;
+using InTheLoopAPI.Service.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,21 +15,22 @@ namespace InTheLoopAPI.Service
         private DatabaseContext _databaseContext;
         private EventRepository _eventRepository;
         private AttendanceRepository _attendanceRepository;
+        private ReviewValidator _validator;
 
         public ReviewService()
         {
             _databaseContext = new DatabaseContext();
             _eventRepository = new EventRepository(_databaseContext);
             _attendanceRepository = new AttendanceRepository(_databaseContext);
+            _validator = new ReviewValidator(_eventRepository);
         }
 
         public ValidationResult SetReview(ReviewModel review, string userId)
         {
-            if (!_eventRepository.ValidEventHeaderId(review.EventHeaderId))
-                return new ValidationResult("Invalid Event Id");
+            var result = _validator.SetReview(review, userId);
 
-            if (review.Rating < 1|| review.Rating > 5)
-                return new ValidationResult("Invalid Rating");
+            if (result != ValidationResult.Success)
+                return result;
 
             Attendance attendedEvent = _attendanceRepository.GetAttendance(review.EventHeaderId, userId);
 
@@ -61,7 +63,7 @@ namespace InTheLoopAPI.Service
 
             _databaseContext.SaveChanges();
 
-            return ValidationResult.Success;
+            return result;
         }
 
         public List<ReviewModel> GetReviews(int baseEventId)
