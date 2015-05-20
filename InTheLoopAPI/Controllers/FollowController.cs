@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -63,7 +64,7 @@ namespace InTheLoopAPI.Controllers
             {
                 var result = _followService.AddFollower(User.Identity.GetUserId(), followingModel.UserId);
 
-                if (result == null)
+                if (result == ValidationResult.Success)
                     return Ok();
 
                 return BadRequest(result.ErrorMessage);
@@ -81,7 +82,7 @@ namespace InTheLoopAPI.Controllers
             {
                 var result = _followService.StopFollowing(User.Identity.GetUserId(), followingModel.UserId);
 
-                if (result == null)
+                if (result == ValidationResult.Success)
                     return Ok(result);
 
                 return BadRequest(result.ErrorMessage);

@@ -42,16 +42,11 @@ namespace InTheLoopAPI.Controllers
         }
 
         [HttpGet, EnableQuery, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
-        public IHttpActionResult GetEvent(double lat, double lon, double radius)
+        public IHttpActionResult GetEvents(double lat, double lon, double radius)
         {
             try
             {
-                var results = _service.GetEvents(lat, lon ,radius);
-
-                if (!results.Any())
-                    return BadRequest();
-
-                return Ok(results);
+                return Ok(_service.GetEvents(lat, lon ,radius));
             }
             catch (Exception ex)
             {
