@@ -104,7 +104,7 @@ namespace InTheLoopAPI.Service
         {
             var result = _validator.ArchiveEvent(eventHeaderId, userId);
 
-            if (result != null)
+            if (result != ValidationResult.Success)
                 return result;
 
             var eventheader = _eventRepository.GetEventHeader(eventHeaderId, userId);

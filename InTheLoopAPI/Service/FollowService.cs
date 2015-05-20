@@ -2,6 +2,7 @@
 using InTheLoopAPI.Models.Database;
 using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Queries;
+using InTheLoopAPI.Service.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,24 +13,25 @@ namespace InTheLoopAPI.Service
 {
     public class FollowService
     {
-        DatabaseContext _databaseContext;
-        FollowRepository _followRepository;
-        UserRepository _userRepository;
+        private DatabaseContext _databaseContext;
+        private FollowRepository _followRepository;
+        private UserRepository _userRepository;
+        private FollowValidator _validator;
 
         public FollowService()
         {
             _databaseContext = new DatabaseContext();
             _followRepository = new FollowRepository(_databaseContext);
             _userRepository = new UserRepository(_databaseContext);
+            _validator = new FollowValidator(_followRepository, _userRepository);    
         }
 
         public ValidationResult AddFollower(string userId, string followingId)
         {
-            if (! _userRepository.ValidUserId(followingId))
-                return new ValidationResult("Invalid user to follow");
+            var result = _validator.AddFollower(userId, followingId);
 
-            if (_followRepository.IsFollowing(userId, followingId))
-                return new ValidationResult("Already following this user");
+            if (result != ValidationResult.Success)
+                return result;
 
             var follow = new Follow { UserId = userId, FollowingId = followingId };
 
@@ -37,21 +39,23 @@ namespace InTheLoopAPI.Service
 
             _databaseContext.SaveChanges();
 
-            return ValidationResult.Success;
+            return result;
         }
 
         public ValidationResult StopFollowing(string userId, string followingId)
         {
-            var follow = _followRepository.GetFollower(userId, followingId);
+            var result = _validator.StopFollowing(userId, followingId);
 
-            if (follow == null)
-                return new ValidationResult("Invalid user to stop following");
+            if (result != ValidationResult.Success)
+                return result;
+
+            var follow = _followRepository.GetFollower(userId, followingId);
 
             _databaseContext.Follows.Remove(follow);
 
             _databaseContext.SaveChanges();
 
-            return ValidationResult.Success;
+            return result;
         }
 
         public List<UserModel> GetFollowers(string userId)

@@ -27,7 +27,7 @@ namespace InTheLoopAPI.Service.Validation
                 return new ValidationResult("You are already attending this event");
 
             else
-                return null;
+                return ValidationResult.Success;
         }
 
         public ValidationResult RemoveAttendance(string userId, int eventHeaderId)
@@ -35,7 +35,7 @@ namespace InTheLoopAPI.Service.Validation
             if (!_attendanceRepository.IsAttending(eventHeaderId, userId))
                 return new ValidationResult("You are not currently attending this event");
             else
-                return null;
+                return ValidationResult.Success;
         }
     }
 }

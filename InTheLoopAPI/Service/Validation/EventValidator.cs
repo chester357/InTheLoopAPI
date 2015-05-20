@@ -64,7 +64,7 @@ namespace InTheLoopAPI.Service.Validation
             if (!_eventRepository.ValidUserForEventHeader(userId, eventHeaderId))
                 return new ValidationResult("You are not currently attending this event");
             else 
-                return null;
+                return ValidationResult.Success;
         }
     }
 }

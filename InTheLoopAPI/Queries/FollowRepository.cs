@@ -55,5 +55,7 @@ namespace InTheLoopAPI.Queries
         {
             return Follows.Any(x => x.UserId == userId && x.FollowingId == followingId);
         }
+
+
     }
 }

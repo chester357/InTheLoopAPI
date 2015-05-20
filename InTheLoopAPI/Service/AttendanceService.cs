@@ -29,7 +29,7 @@ namespace InTheLoopAPI.Service
         {
             var result = _validator.PlusOne(userId, eventHeaderId);
 
-            if (result != null)
+            if (result != ValidationResult.Success)
                 return result;
 
             var attendance = new Attendance { EventHeaderId = eventHeaderId, UserId = userId };
@@ -45,7 +45,7 @@ namespace InTheLoopAPI.Service
         {
             var result = _validator.RemoveAttendance(userId, eventHeaderId);
 
-            if (result != null)
+            if (result != ValidationResult.Success)
                 return result;
 
             var attendance = _attendanceRepository.GetAttendance(eventHeaderId, userId);
