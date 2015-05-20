@@ -19,9 +19,9 @@ namespace InTheLoopAPI.Service
 
         public EventService()
         {
-            _validator = new EventValidator();
             _repository = new DatabaseContext();
             _eventRepository = new EventRepository(_repository);
+            _validator = new EventValidator(_eventRepository);
         }
 
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
@@ -48,9 +48,9 @@ namespace InTheLoopAPI.Service
                 ZipCode = eventModel.ZipCode
             };
 
-            var footerResults = _validator.IsValid(eventFooter).ToList();
+            var footerResults = _validator.EventFooter(eventFooter).ToList();
 
-            var headerResults = _validator.IsValid(eventHeader, userId).ToList();
+            var headerResults = _validator.EventHeader(eventHeader, userId).ToList();
 
             var results = footerResults.Union(headerResults);
 
@@ -79,7 +79,7 @@ namespace InTheLoopAPI.Service
                 ZipCode = model.ZipCode
             };
 
-            var results = _validator.IsValid(repeatEvent, userId);
+            var results = _validator.EventHeader(repeatEvent, userId);
 
             if (results.Any())
                 return results.ToList();
@@ -102,10 +102,12 @@ namespace InTheLoopAPI.Service
 
         public ValidationResult ArchiveEvent(int eventHeaderId, string userId)
         {
-            var eventheader = _eventRepository.GetEventHeader(eventHeaderId, userId);
+            var result = _validator.ArchiveEvent(eventHeaderId, userId);
 
-            if (eventheader == null)
-                return new ValidationResult("Invalid archive request.");
+            if (result != null)
+                return result;
+
+            var eventheader = _eventRepository.GetEventHeader(eventHeaderId, userId);
 
             eventheader.Archived = !eventheader.Archived;
 

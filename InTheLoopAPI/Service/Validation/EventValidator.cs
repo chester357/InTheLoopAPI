@@ -12,18 +12,15 @@ namespace InTheLoopAPI.Service.Validation
     public class EventValidator 
     {
         private EventRepository _eventRepository;
-        public DatabaseContext _databaseContext;
 
-        public EventValidator()
+        public EventValidator(EventRepository er)
         {
-            _databaseContext = new DatabaseContext();
-
-            _eventRepository = new EventRepository(_databaseContext);
+            _eventRepository = er;
         }
 
-        public IEnumerable<ValidationResult> IsValid(EventHeader newEvent, string userId)
+        public IEnumerable<ValidationResult> EventHeader(EventHeader newEvent, string userId)
         {
-            if (!_eventRepository.ValidUserForEvent(userId, newEvent.Id))
+            if (!_eventRepository.ValidUserForEventFooter(userId, newEvent.Id))
                 yield return new ValidationResult("Invalid valid user for this event");
 
             if (String.IsNullOrEmpty(newEvent.City))
@@ -46,7 +43,7 @@ namespace InTheLoopAPI.Service.Validation
                     yield return new ValidationResult("Invalid Base Event Id.");
         }
 
-        public IEnumerable<ValidationResult> IsValid(EventFooter baseEvent)
+        public IEnumerable<ValidationResult> EventFooter(EventFooter baseEvent)
         {
             if (String.IsNullOrEmpty(baseEvent.Description))
                 yield return new ValidationResult("Invalid Description.");
@@ -62,5 +59,12 @@ namespace InTheLoopAPI.Service.Validation
             
         }
  
+        public ValidationResult ArchiveEvent(int eventHeaderId, string userId)
+        {
+            if (!_eventRepository.ValidUserForEventHeader(userId, eventHeaderId))
+                return new ValidationResult("You are not currently attending this event");
+            else 
+                return null;
+        }
     }
 }
