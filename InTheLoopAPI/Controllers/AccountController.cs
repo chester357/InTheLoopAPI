@@ -333,7 +333,13 @@ namespace InTheLoopAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new User() { UserName = model.UserName, Email = model.Email, Quote = model.Quote };
+            var user = new User() 
+            { 
+                UserName = model.UserName, 
+                Email = model.Email, 
+                Quote = model.Quote,
+                Image = model.ProfileImage
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -343,6 +349,37 @@ namespace InTheLoopAPI.Controllers
             }
 
             return Ok();
+        }
+
+        // POST api/Account/Update
+        [Route("UpdateProfile")]
+        public async Task<IHttpActionResult> UpdateProfile(UpdateBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                DatabaseContext context = new DatabaseContext();
+
+                var user = context.Users.SingleOrDefault(x => x.Id == User.Identity.GetUserId());
+
+                user.Image = model.ProfileImage;
+                user.Email = model.Email;
+                user.UserName = model.UserName;
+                user.Quote = model.Quote;
+
+                context.SaveChanges();
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Profile not updated");
+            }
+            
         }
 
         // POST api/Account/ProfileImage

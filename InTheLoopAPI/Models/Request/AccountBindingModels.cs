@@ -45,6 +45,9 @@ namespace InTheLoopAPI.Models
         [Display(Name = "Quote")]
         public string Quote { get; set; }
 
+        [Display(Name = "Profile Image")]
+        public byte[] ProfileImage { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -56,6 +59,23 @@ namespace InTheLoopAPI.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+    }
+
+    public class UpdateBindingModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "UserName")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Quote")]
+        public string Quote { get; set; }
+
+        [Display(Name = "Profile Image")]
+        public byte[] ProfileImage { get; set; }
     }
 
     public class RegisterExternalBindingModel
