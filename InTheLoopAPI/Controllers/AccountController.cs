@@ -333,7 +333,7 @@ namespace InTheLoopAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new User() { UserName = model.UserName, Email = model.Email, Quote = model.Quote };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
