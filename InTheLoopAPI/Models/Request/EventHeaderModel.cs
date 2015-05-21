@@ -10,7 +10,7 @@ namespace InTheLoopAPI.Models.RequestModels
     {
         public int Id { get; set; }
 
-        public int BaseEventId { get; set; }
+        public int EventFooterId { get; set; }
 
         public bool Active { get; set; }
 

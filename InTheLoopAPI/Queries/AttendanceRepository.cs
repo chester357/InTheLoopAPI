@@ -18,7 +18,7 @@ namespace InTheLoopAPI.Queries
         public List<ReviewModel> GetReviews(int baseEventId)
         {
             return Attendances
-                .Where(x => x.Event.BaseEventId == baseEventId && x.Rating > 0)
+                .Where(x => x.Event.EventFooterId == baseEventId && x.Rating > 0)
                 .Select(y => new ReviewModel
                 {
                     EventHeaderId = y.EventHeaderId,

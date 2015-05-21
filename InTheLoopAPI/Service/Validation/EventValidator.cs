@@ -18,29 +18,29 @@ namespace InTheLoopAPI.Service.Validation
             _eventRepository = er;
         }
 
-        public IEnumerable<ValidationResult> EventHeader(EventHeader newEvent, string userId)
+        public IEnumerable<ValidationResult> EventHeader(EventHeader eventHeader, string userId)
         {
-            if (!_eventRepository.ValidUserForEventFooter(userId, newEvent.Id))
+            if (!_eventRepository.ValidUserForEventFooter(userId, eventHeader.Id))
                 yield return new ValidationResult("Invalid valid user for this event");
 
-            if (String.IsNullOrEmpty(newEvent.City))
+            if (String.IsNullOrEmpty(eventHeader.City))
                 yield return new ValidationResult("Invalid City.");
 
-            if (newEvent.End.CompareTo(newEvent.Start) <= 0)
+            if (eventHeader.End.CompareTo(eventHeader.Start) <= 0)
                 yield return new ValidationResult("Invalid Dates.");
 
-            if (newEvent.Latitude < -90 || newEvent.Latitude > 90)
+            if (eventHeader.Latitude < -90 || eventHeader.Latitude > 90)
                 yield return new ValidationResult("Invalid Latitude.");
 
-            if (newEvent.Longitude < -180 || newEvent.Longitude > 180)
+            if (eventHeader.Longitude < -180 || eventHeader.Longitude > 180)
                 yield return new ValidationResult("Invalid Longitude.");
 
-            if (newEvent.ZipCode.ToString().Length != 5)
+            if (eventHeader.ZipCode.ToString().Length != 5)
                 yield return new ValidationResult("Invalid Zip Code.");
 
-            if (newEvent.BaseEventId != 0)
-                if (!_eventRepository.ValidEventFooterId(newEvent.BaseEventId))
-                    yield return new ValidationResult("Invalid Base Event Id.");
+            if (eventHeader.EventFooterId != 0)
+                if (!_eventRepository.ValidEventFooterId(eventHeader.EventFooterId))
+                    yield return new ValidationResult("Invalid Event Footer Id.");
         }
 
         public IEnumerable<ValidationResult> EventFooter(EventFooter baseEvent)

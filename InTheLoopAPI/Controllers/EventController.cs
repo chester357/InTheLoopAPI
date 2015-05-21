@@ -62,7 +62,7 @@ namespace InTheLoopAPI.Controllers
                 var results = _service.AddEvent(User.Identity.GetUserId(), eventModel);
 
                 if (results.Any())
-                    return BadRequest(HelperMethod.DisplayErrors(results.ToList()));
+                    return BadRequest(HelperMethod.DisplayErrors(results));
 
                 return Ok();
             }
@@ -80,7 +80,7 @@ namespace InTheLoopAPI.Controllers
                 var results = _service.AddEventHeader(User.Identity.GetUserId(), repeatEventModel);
 
                 if (results.Any())
-                    return BadRequest(results.ToString());
+                    return BadRequest(HelperMethod.DisplayErrors(results));
 
                 return Ok();
             }
@@ -103,6 +103,24 @@ namespace InTheLoopAPI.Controllers
                 return Ok();
             }
             catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPut, Route("api/Event/Header")]
+        public IHttpActionResult UpdateEventHeader(EventHeaderModel headerModel)
+        {
+            try
+            {
+                var results = _service.UpdateEventHeader(headerModel, User.Identity.GetUserId());
+
+                if (results.Any())
+                    return BadRequest(HelperMethod.DisplayErrors(results));
+
+                return Ok();
+            }
+            catch(Exception ex)
             {
                 return InternalServerError(ex);
             }

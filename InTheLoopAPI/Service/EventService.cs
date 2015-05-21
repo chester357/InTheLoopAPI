@@ -57,7 +57,7 @@ namespace InTheLoopAPI.Service
             if (results.Any())
                 return results.ToList();
 
-            eventHeader.BaseEvent = eventFooter;
+            eventHeader.EventFooter = eventFooter;
 
             _repository.EventHeaders.Add(eventHeader);
             _repository.SaveChanges();
@@ -69,7 +69,7 @@ namespace InTheLoopAPI.Service
         {
             var repeatEvent = new EventHeader
             {
-                BaseEventId = model.BaseEventId,
+                EventFooterId = model.EventFooterId,
                 City = model.City,
                 End = model.End,
                 Latitude = model.Latitude,
@@ -116,9 +116,29 @@ namespace InTheLoopAPI.Service
             return ValidationResult.Success;
         }
 
-        public List<ValidationResult> UpdateEvent(EventModel eventModel, int eventId)
+        public List<ValidationResult> UpdateEventHeader(EventHeaderModel eventHeaderModel, string userId)
         {
-            throw new NotImplementedException();
+            var eventHeader = _eventRepository.GetEventHeader(eventHeaderModel.Id, userId);
+
+            if (eventHeader == null)
+                return new List<ValidationResult> { new ValidationResult("Invalid Event Header Id.") };
+
+            eventHeader.City = eventHeaderModel.City;
+            eventHeader.Latitude = eventHeaderModel.Latitude;
+            eventHeader.Longitude = eventHeaderModel.Longitude;
+            eventHeader.End = eventHeaderModel.End;
+            eventHeader.Start = eventHeaderModel.Start;
+            eventHeader.State = eventHeaderModel.State;
+            eventHeader.ZipCode = eventHeaderModel.ZipCode;
+
+            var results = _validator.EventHeader(eventHeader, userId);
+
+            if (results.Any())
+                return results.ToList();
+
+            _repository.SaveChanges();
+
+            return results.ToList();
         }
     }
 }

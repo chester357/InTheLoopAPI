@@ -9,8 +9,8 @@ namespace InTheLoopAPI.Models
     {
         public int Id { get; set; }
 
-        public int BaseEventId { get; set; }
-        public virtual EventFooter BaseEvent { get; set; }
+        public int EventFooterId { get; set; }
+        public virtual EventFooter EventFooter { get; set; }
 
         public bool Archived { get; set; }
 

@@ -24,21 +24,21 @@ namespace InTheLoopAPI.Queries
             return new EventModel
             {
                 Active = singleEvent.Archived,
-                AgeGroup = singleEvent.BaseEvent.AgeGroup,
-                BaseEventId = singleEvent.BaseEventId,
-                Category = singleEvent.BaseEvent.Category,
+                AgeGroup = singleEvent.EventFooter.AgeGroup,
+                BaseEventId = singleEvent.EventFooterId,
+                Category = singleEvent.EventFooter.Category,
                 City = singleEvent.City,
-                Description = singleEvent.BaseEvent.Description,
+                Description = singleEvent.EventFooter.Description,
                 End = singleEvent.End,
                 Id = singleEvent.Id,
                 Latitude = singleEvent.Latitude,
-                Logo = singleEvent.BaseEvent.Logo,
+                Logo = singleEvent.EventFooter.Logo,
                 Longitude = singleEvent.Longitude,
                 Loops = singleEvent.Loops,
                 Start = singleEvent.Start,
                 State = singleEvent.State,
-                Title = singleEvent.BaseEvent.Title,
-                Website = singleEvent.BaseEvent.Website,
+                Title = singleEvent.EventFooter.Title,
+                Website = singleEvent.EventFooter.Website,
                 ZipCode = singleEvent.ZipCode
             };
         }
@@ -56,21 +56,21 @@ namespace InTheLoopAPI.Queries
                 .Select(y => new EventModel
                 {
                     Active = y.Archived,
-                    AgeGroup = y.BaseEvent.AgeGroup,
-                    BaseEventId = y.BaseEventId,
-                    Category = y.BaseEvent.Category,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    BaseEventId = y.EventFooterId,
+                    Category = y.EventFooter.Category,
                     City = y.City,
-                    Description = y.BaseEvent.Description,
+                    Description = y.EventFooter.Description,
                     End = y.End,
                     Id = y.Id,
                     Latitude = y.Latitude,
-                    Logo = y.BaseEvent.Logo,
+                    Logo = y.EventFooter.Logo,
                     Longitude = y.Longitude,
                     Loops = y.Loops,
                     Start = y.Start,
                     State = y.State,
-                    Title = y.BaseEvent.Title,
-                    Website = y.BaseEvent.Website,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
                     ZipCode = y.ZipCode
                 })
                 .ToList();
@@ -93,12 +93,12 @@ namespace InTheLoopAPI.Queries
 
         public bool ValidUserForEventHeader(string userId, int eventHeaderId)
         {
-            return EventHeaders.Any(x => x.BaseEvent.UserId == userId && x.Id == eventHeaderId);
+            return EventHeaders.Any(x => x.EventFooter.UserId == userId && x.Id == eventHeaderId);
         }
 
         public EventHeader GetEventHeader(int eventHeaderId, string userId)
         {
-            return EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId && x.BaseEvent.UserId == userId);
+            return EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId && x.EventFooter.UserId == userId);
         }
     }
 }
