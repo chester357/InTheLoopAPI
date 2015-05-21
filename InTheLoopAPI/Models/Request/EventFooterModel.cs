@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using InTheLoopAPI.Models.Database;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.ComponentModel.DataAnnotations;
-using InTheLoopAPI.Models.Database;
+using System.Web;
 
-namespace InTheLoopAPI.Models
+namespace InTheLoopAPI.Models.Request
 {
-    public class EventFooter
+    public class EventFooterModel
     {
         public int Id { get; set; }
 
         public string UserId { get; set; }
-        public virtual User User { get; set; }
 
         public string Title { get; set; }
 
@@ -23,7 +23,5 @@ namespace InTheLoopAPI.Models
         public AgeGroup AgeGroup { get; set; }
 
         public Category Category { get; set; }
-
-        public ICollection<EventHeader> EventHeaders { get; set; }
     }
 }

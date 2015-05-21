@@ -239,13 +239,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201505190128279_Initial.cs" />
-    <Compile Include="Migrations\201505190128279_Initial.Designer.cs">
-      <DependentUpon>201505190128279_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505212040109_RenamedPropInEventFooter.cs" />
-    <Compile Include="Migrations\201505212040109_RenamedPropInEventFooter.Designer.cs">
-      <DependentUpon>201505212040109_RenamedPropInEventFooter.cs</DependentUpon>
+    <Compile Include="Migrations\201505212102119_Initial.cs" />
+    <Compile Include="Migrations\201505212102119_Initial.Designer.cs">
+      <DependentUpon>201505212102119_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -260,6 +256,7 @@
     <Compile Include="Models\Database\EventFooter.cs" />
     <Compile Include="Models\Database\EventHeader.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Request\EventFooterModel.cs" />
     <Compile Include="Models\Request\EventModel.cs" />
     <Compile Include="Models\Request\FollowModel.cs" />
     <Compile Include="Models\Request\GetEventModel.cs" />
@@ -349,11 +346,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505190128279_Initial.resx">
-      <DependentUpon>201505190128279_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505212040109_RenamedPropInEventFooter.resx">
-      <DependentUpon>201505212040109_RenamedPropInEventFooter.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505212102119_Initial.resx">
+      <DependentUpon>201505212102119_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

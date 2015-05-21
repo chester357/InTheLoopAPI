@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Models.RequestModels;
 using InTheLoopAPI.Queries;
 using InTheLoopAPI.Service.Interfaces;
@@ -132,6 +133,30 @@ namespace InTheLoopAPI.Service
             eventHeader.ZipCode = eventHeaderModel.ZipCode;
 
             var results = _validator.EventHeader(eventHeader, userId);
+
+            if (results.Any())
+                return results.ToList();
+
+            _repository.SaveChanges();
+
+            return results.ToList();
+        }
+
+        public List<ValidationResult> UpdateEventFooter(EventFooterModel footerModel, string userId)
+        {
+            var eventFooter = _eventRepository.GetEventFooter(footerModel.Id, userId);
+
+            if (eventFooter == null)
+                return new List<ValidationResult> { new ValidationResult("Invalid Event Footer Id.") };
+
+            eventFooter.AgeGroup = footerModel.AgeGroup;
+            eventFooter.Category = footerModel.Category;
+            eventFooter.Description = footerModel.Description;
+            eventFooter.Logo = footerModel.Logo;
+            eventFooter.Title = footerModel.Title;
+            eventFooter.Website = footerModel.Website;
+
+            var results = _validator.EventFooter(eventFooter);
 
             if (results.Any())
                 return results.ToList();

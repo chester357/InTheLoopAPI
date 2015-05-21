@@ -10,7 +10,7 @@ namespace InTheLoopAPI.Models.RequestModels
     {
         public int Id { get; set; }
 
-        public int BaseEventId { get; set; }
+        public int EventFooterId { get; set; }
 
         public string Title { get; set; }
 
@@ -20,7 +20,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public AgeGroup AgeGroup { get; set; }
 
-        public string Logo { get; set; }
+        public byte[] Logo { get; set; }
 
         public string Website { get; set; }
 

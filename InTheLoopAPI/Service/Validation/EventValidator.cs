@@ -43,18 +43,15 @@ namespace InTheLoopAPI.Service.Validation
                     yield return new ValidationResult("Invalid Event Footer Id.");
         }
 
-        public IEnumerable<ValidationResult> EventFooter(EventFooter baseEvent)
+        public IEnumerable<ValidationResult> EventFooter(EventFooter eventFooter)
         {
-            if (String.IsNullOrEmpty(baseEvent.Description))
+            if (String.IsNullOrEmpty(eventFooter.Description))
                 yield return new ValidationResult("Invalid Description.");
 
-            if (String.IsNullOrEmpty(baseEvent.Logo))
-                yield return new ValidationResult("Invalid Logo.");
-
-            if (String.IsNullOrEmpty(baseEvent.Title))
+            if (String.IsNullOrEmpty(eventFooter.Title))
                 yield return new ValidationResult("Invalid Title.");
 
-            if (!HelperMethod.IsValidUrl(baseEvent.Website))
+            if (!HelperMethod.IsValidUrl(eventFooter.Website))
                 yield return new ValidationResult("Invalid Website.");
             
         }

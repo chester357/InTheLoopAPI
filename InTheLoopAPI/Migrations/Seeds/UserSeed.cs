@@ -33,7 +33,7 @@ namespace InTheLoopAPI.Migrations.Seeds
                             AgeGroup = AgeGroup.TwentyOnePlus,
                             Category = Category.NightLife,
                             Description = "Fundraising party for help fight cancer please come and support",
-                            Logo = "TempLogo.jpg",
+                            //Logo = "TempLogo.jpg",
                             Title = "Redcross Fundraiser",
                             Website = "www.redcross.com",
                             EventHeaders = new List<EventHeader>
@@ -64,7 +64,7 @@ namespace InTheLoopAPI.Migrations.Seeds
                             AgeGroup = AgeGroup.EighteenPlus,
                             Category = Category.Music,
                             Description = "Deftones and Incubus live. Long awaited tour!",
-                            Logo = "TempLogo.jpg",
+                            //Logo = "TempLogo.jpg",
                             Title = "Deftones Concert",
                             Website = "www.ticketmaster.com",
                             EventHeaders = new List<EventHeader>
@@ -96,7 +96,7 @@ namespace InTheLoopAPI.Migrations.Seeds
                             Category = Category.Food,
                             Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
                             of a kind please come check them out.",
-                            Logo = "TempLogo.jpg",
+                            //Logo = "TempLogo.jpg",
                             Title = "Juans Flying Taco Truck",
                             Website = "www.juanstacotruck.com",
                             EventHeaders = new List<EventHeader>
@@ -127,7 +127,7 @@ namespace InTheLoopAPI.Migrations.Seeds
                             AgeGroup = AgeGroup.TwentyOnePlus,
                             Category = Category.Bar,
                             Description = "The best deal in town. A must do for every LSU alum!",
-                            Logo = "TempLogo.jpg",
+                            //Logo = "TempLogo.jpg",
                             Title = "Free drinks",
                             Website = "www.fredsbr.com",
                             EventHeaders = new List<EventHeader>
@@ -158,7 +158,7 @@ namespace InTheLoopAPI.Migrations.Seeds
                             AgeGroup = AgeGroup.All,
                             Category = Category.Automotive,
                             Description = "Some out and show off your sweet ride. Great fun for every so please bring the family",
-                            Logo = "TempLogo.jpg",
+                            //Logo = "TempLogo.jpg",
                             Title = "Speed Club Car Show",
                             Website = "www.classiccarshows.com",
                             EventHeaders = new List<EventHeader>

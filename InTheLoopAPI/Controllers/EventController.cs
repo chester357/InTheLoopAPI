@@ -10,6 +10,7 @@ using System.Web.OData;
 using Microsoft.AspNet.Identity;
 using InTheLoopAPI.Helpers;
 using System.ComponentModel.DataAnnotations;
+using InTheLoopAPI.Models.Request;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -121,6 +122,24 @@ namespace InTheLoopAPI.Controllers
                 return Ok();
             }
             catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPut, Route("api/Event/Footer")]
+        public IHttpActionResult UpdateEventFooter(EventFooterModel footerModel)
+        {
+            try
+            {
+                var results = _service.UpdateEventFooter(footerModel, User.Identity.GetUserId());
+
+                if (results.Any())
+                    return BadRequest(HelperMethod.DisplayErrors(results));
+
+                return Ok();
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

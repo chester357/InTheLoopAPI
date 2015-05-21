@@ -25,7 +25,7 @@ namespace InTheLoopAPI.Queries
             {
                 Active = singleEvent.Archived,
                 AgeGroup = singleEvent.EventFooter.AgeGroup,
-                BaseEventId = singleEvent.EventFooterId,
+                EventFooterId = singleEvent.EventFooterId,
                 Category = singleEvent.EventFooter.Category,
                 City = singleEvent.City,
                 Description = singleEvent.EventFooter.Description,
@@ -57,7 +57,7 @@ namespace InTheLoopAPI.Queries
                 {
                     Active = y.Archived,
                     AgeGroup = y.EventFooter.AgeGroup,
-                    BaseEventId = y.EventFooterId,
+                    EventFooterId = y.EventFooterId,
                     Category = y.EventFooter.Category,
                     City = y.City,
                     Description = y.EventFooter.Description,
@@ -99,6 +99,11 @@ namespace InTheLoopAPI.Queries
         public EventHeader GetEventHeader(int eventHeaderId, string userId)
         {
             return EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId && x.EventFooter.UserId == userId);
+        }
+
+        public EventFooter GetEventFooter(int eventFoooterId, string userId)
+        {
+            return EventFooters.SingleOrDefault(x => x.Id == eventFoooterId && x.UserId == userId);
         }
     }
 }
