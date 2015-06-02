@@ -9,6 +9,7 @@
     <WebStackScaffolding_IsAsyncSelected>True</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_DbContextDialogWidth>600</WebStackScaffolding_DbContextDialogWidth>
     <WebStackScaffolding_DbContextTypeFullName>InTheLoopAPI.Models.InTheLoopAPIContext</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>dev-intheloop-api</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
