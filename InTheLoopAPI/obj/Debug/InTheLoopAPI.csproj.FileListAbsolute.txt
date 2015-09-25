@@ -340,3 +340,4 @@ C:\Users\Chester\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.Generat
 \\psf\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 \\psf\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
 \\psf\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.AddedPricetoEventHeader.resources
+\\psf\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.ChangesUserimagefrombytearraytostring.resources

@@ -333,12 +333,18 @@ namespace InTheLoopAPI.Controllers
                 return BadRequest(ModelState);
             }
 
+            // Generate File name
+            var fileName = "";
+
+            // Save Image To File System
+
+
             var user = new User() 
             { 
                 UserName = model.UserName, 
                 Email = model.Email, 
                 Quote = model.Quote,
-                Image = model.ProfileImage
+                ImageURL = fileName
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -366,7 +372,12 @@ namespace InTheLoopAPI.Controllers
 
                 var user = context.Users.SingleOrDefault(x => x.Id == User.Identity.GetUserId());
 
-                user.Image = model.ProfileImage;
+                // Check if image is in the request
+
+                // If so, insert new image in the old images place
+
+                // No need to change image url
+
                 user.Email = model.Email;
                 user.UserName = model.UserName;
                 user.Quote = model.Quote;
@@ -383,41 +394,40 @@ namespace InTheLoopAPI.Controllers
         }
 
         // POST api/Account/ProfileImage
-        [Route("ProfileImage")]
-        public IHttpActionResult UploadImage()
-        {
-            try
-            {
-                DatabaseContext context = new DatabaseContext();
+       // [Route("ProfileImage")]
+       // public IHttpActionResult UploadImage()
+       // {
+       //     try
+       //     {
+       //         DatabaseContext context = new DatabaseContext();
 
-                string userId = User.Identity.GetUserId();
+       //         string userId = User.Identity.GetUserId();
 
-                if (userId == null) return BadRequest();
+       //         if (userId == null) return BadRequest();
 
-                var user = context.Users.SingleOrDefault(x => x.Id == userId);
+       //         var user = context.Users.SingleOrDefault(x => x.Id == userId);
 
-                if (user == null) return BadRequest();
+       //         if (user == null) return BadRequest();
 
-                var image = HttpContext.Current.Request.Files[0];
+       //         var image = HttpContext.Current.Request.Files[0];
 
-                if (image == null) return BadRequest("No content.");
+       //         if (image == null) return BadRequest("No content.");
 
-                if (image.ContentType.Substring(0, 5) != "image") return BadRequest("Invalid content type.");
+       //         if (image.ContentType.Substring(0, 5) != "image") return BadRequest("Invalid content type.");
 
-                BinaryReader reader = new BinaryReader(image.InputStream);
+       //         BinaryReader reader = new BinaryReader(image.InputStream);
 
-                user.Image = reader.ReadBytes(image.ContentLength);
+       //         user.Image = reader.ReadBytes(image.ContentLength);
 
-                context.SaveChanges();
+       //         context.SaveChanges();
 
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-
-       }
+       //         return Ok();
+       //     }
+       //     catch(Exception ex)
+       //     {
+       //         return InternalServerError(ex);
+       //     }
+       //}
 
         // GET api/Account/Profile
         [Route("Profile/{userId}")]
@@ -432,7 +442,7 @@ namespace InTheLoopAPI.Controllers
                 var profile = new UserModel
                 {
                     Email = user.Email,
-                    ImageArray = user.Image,
+                    ImageURL = user.ImageURL,
                     Quote = user.Quote,
                     UserId = userId,
                     UserName = user.UserName

@@ -9,7 +9,7 @@ namespace InTheLoopAPI.Models
 {
     public class User : ApplicationUser
     {
-        public byte[] Image { get; set; }
+        public String ImageURL { get; set; }
 
         public string Quote { get; set; }
 
