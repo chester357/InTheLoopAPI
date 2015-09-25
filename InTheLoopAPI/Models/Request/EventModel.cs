@@ -40,6 +40,8 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public double Longitude { get; set; }
 
+        public int Price { get; set; }
+
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }

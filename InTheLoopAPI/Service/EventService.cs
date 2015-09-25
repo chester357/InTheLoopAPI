@@ -46,7 +46,8 @@ namespace InTheLoopAPI.Service
                 Longitude = eventModel.Longitude,
                 Start = eventModel.Start,
                 State = eventModel.State,
-                ZipCode = eventModel.ZipCode
+                ZipCode = eventModel.ZipCode,
+                Price = eventModel.Price
             };
 
             var footerResults = _validator.EventFooter(eventFooter).ToList();

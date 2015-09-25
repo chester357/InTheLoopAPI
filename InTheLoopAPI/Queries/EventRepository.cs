@@ -39,7 +39,8 @@ namespace InTheLoopAPI.Queries
                 State = singleEvent.State,
                 Title = singleEvent.EventFooter.Title,
                 Website = singleEvent.EventFooter.Website,
-                ZipCode = singleEvent.ZipCode
+                ZipCode = singleEvent.ZipCode,
+                Price = singleEvent.Price
             };
         }
     
@@ -71,7 +72,8 @@ namespace InTheLoopAPI.Queries
                     State = y.State,
                     Title = y.EventFooter.Title,
                     Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode
+                    ZipCode = y.ZipCode,
+                    Price = y.Price
                 })
                 .ToList();
         }

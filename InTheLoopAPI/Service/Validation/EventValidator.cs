@@ -41,6 +41,9 @@ namespace InTheLoopAPI.Service.Validation
             if (eventHeader.EventFooterId != 0)
                 if (!_eventRepository.ValidEventFooterId(eventHeader.EventFooterId))
                     yield return new ValidationResult("Invalid Event Footer Id.");
+
+            if (eventHeader.Price <= 0 || eventHeader.Price > 4)
+                yield return new ValidationResult("Invalid Event Price");
         }
 
         public IEnumerable<ValidationResult> EventFooter(EventFooter eventFooter)

@@ -30,6 +30,8 @@ namespace InTheLoopAPI.Models
 
         public DateTime End { get; set; }
 
+        public int Price { get; set; }
+
         public ICollection<Attendance> Attendees { get; set; }
     }
 }
