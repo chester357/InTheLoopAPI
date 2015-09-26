@@ -21,6 +21,8 @@ using InTheLoopAPI.Models.Request;
 using System.Text;
 using InTheLoopAPI.Helpers;
 using System.IO;
+using InTheLoopAPI.Service;
+using System.Web.Helpers;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -325,7 +327,7 @@ namespace InTheLoopAPI.Controllers
 
         // POST api/Account/Register
         [AllowAnonymous]
-        [Route("Register")]
+        [HttpPost, Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
             if (!ModelState.IsValid)
@@ -333,18 +335,12 @@ namespace InTheLoopAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            // Generate File name
-            var fileName = "";
-
-            // Save Image To File System
-
-
-            var user = new User() 
-            { 
-                UserName = model.UserName, 
-                Email = model.Email, 
+            var user = new User()
+            {
+                UserName = model.UserName,
+                Email = model.Email,
                 Quote = model.Quote,
-                ImageURL = fileName
+                ImageURL = ""
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);

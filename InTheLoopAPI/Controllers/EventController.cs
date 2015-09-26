@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity;
 using InTheLoopAPI.Helpers;
 using System.ComponentModel.DataAnnotations;
 using InTheLoopAPI.Models.Request;
+using InTheLoopAPI.Models;
+using System.Threading.Tasks;
+using System.Web;
 
 namespace InTheLoopAPI.Controllers
 {
