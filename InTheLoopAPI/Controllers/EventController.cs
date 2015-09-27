@@ -14,10 +14,11 @@ using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Models;
 using System.Threading.Tasks;
 using System.Web;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize]
+    [Authorize, RequireHttps]
     public class EventController : ApiController
     {
         public EventService _service;

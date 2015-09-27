@@ -7,10 +7,11 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize]
+    [Authorize, RequireHttps]
     public class AttendanceController : ApiController
     {
         private AttendanceService _attendanceService;

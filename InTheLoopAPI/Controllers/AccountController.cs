@@ -23,11 +23,11 @@ using InTheLoopAPI.Helpers;
 using System.IO;
 using InTheLoopAPI.Service;
 using System.Web.Helpers;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Account")]
+    [Authorize, RequireHttps, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

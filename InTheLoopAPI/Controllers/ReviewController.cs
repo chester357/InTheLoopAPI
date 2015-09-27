@@ -7,10 +7,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize]
+    [Authorize, RequireHttps]
     public class ReviewController : ApiController
     {
         private ReviewService _reviewService;

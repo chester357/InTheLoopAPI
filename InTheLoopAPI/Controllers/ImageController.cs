@@ -7,9 +7,11 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
+    [Authorize, RequireHttps]
     public class ImageController : ApiController
     {
         ImageService _imageService;
@@ -19,7 +21,7 @@ namespace InTheLoopAPI.Controllers
             _imageService = new ImageService();
         }
 
-        [Authorize, HttpPost, Route("api/Images")]
+        [HttpPost, Route("api/Images")]
         public IHttpActionResult PostImage()
         {
             try
