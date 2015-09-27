@@ -368,21 +368,15 @@ namespace InTheLoopAPI.Controllers
 
                 var user = context.Users.SingleOrDefault(x => x.Id == User.Identity.GetUserId());
 
-                // Check if image is in the request
-
-                // If so, insert new image in the old images place
-
-                // No need to change image url
-
                 user.Email = model.Email;
                 user.UserName = model.UserName;
                 user.Quote = model.Quote;
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
                 return Ok();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return BadRequest("Profile not updated");
             }
