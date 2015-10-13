@@ -40,6 +40,7 @@ namespace InTheLoopAPI
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = false
+                //AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users

@@ -1,0 +1,15 @@
+﻿<Properties StartupItem="InTheLoopAPI/InTheLoopAPI.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="InTheLoopAPI/Migrations/Configuration.cs">
+    <Files>
+      <File FileName="InTheLoopAPI.v12.suo" />
+      <File FileName="InTheLoopAPI/Migrations/Seeds/UserSeed.cs" Line="1" Column="1" />
+      <File FileName="InTheLoopAPI/Migrations/201505212102119_Initial.cs" Line="1" Column="1" />
+      <File FileName="InTheLoopAPI/Migrations/Configuration.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

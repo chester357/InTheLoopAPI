@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="DatabaseContext-Web.config Connection String" description="DatabaseContext Connection String used in web.config by the application to access the database." defaultValue="Server=tcp:x62iuoosvc.database.windows.net,1433; Database=Dev-InTheLoop; User ID=Chester@x62iuoosvc; Password=TvOnTheRadio123!; Encrypt=True; Connection Timeout=30;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="\\\\psf\\Google\ Drive\\Development\\InTheLoop\\Backend\ Development\\InTheLoopAPI\\InTheLoopAPI\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseContext']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="Z:\\Users\\Chester\\Google\ Drive\\Development\\InTheLoop\\Backend\ Development\\InTheLoopAPI\\InTheLoopAPI\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseContext']/@connectionString" />
   </parameter>
   <parameter name="StorageConnectionString-Web.config Connection String" description="StorageConnectionString Connection String used in web.config by the application to access the database." defaultValue="DefaultEndpointsProtocol=https;AccountName=intheloop;AccountKey=KRMtM8/xoB4hLH2sVkfaPQ15Carb19Kx71dwUKsALazaIw7VVYz1IGM1QM80q3iDOcwRz0Wal2NXM56K9gooKQ==" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="\\\\psf\\Google\ Drive\\Development\\InTheLoop\\Backend\ Development\\InTheLoopAPI\\InTheLoopAPI\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='StorageConnectionString']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="Z:\\Users\\Chester\\Google\ Drive\\Development\\InTheLoop\\Backend\ Development\\InTheLoopAPI\\InTheLoopAPI\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='StorageConnectionString']/@connectionString" />
   </parameter>
 </parameters>

@@ -28,6 +28,7 @@ namespace InTheLoopAPI.Controllers
             _service = new EventService();
         }
 
+        [AllowAnonymous]
         [HttpGet, Route("api/Event/{eventId}")]
         public IHttpActionResult GetEvent(int eventId)
         {
@@ -46,6 +47,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet, EnableQuery, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
         public IHttpActionResult GetEvents(double lat, double lon, double radius)
         {

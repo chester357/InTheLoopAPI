@@ -27,7 +27,8 @@ using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps, RoutePrefix("api/Account")]
+    [RequireHttps]
+    [Authorize, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -353,6 +354,23 @@ namespace InTheLoopAPI.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
+        [HttpPost, Route("TakenEmail")]
+        public IHttpActionResult TakenEmail(EmailModel model)
+        {
+            try
+            {
+                var isTaken = new DatabaseContext().Users.Any(x => x.Email == model.Email);
+
+                var jsonResult = new Dictionary<String, Boolean>() {{"IsTaken", isTaken}};
+
+                return Ok(jsonResult);
+            }
+            catch {
+                return InternalServerError();
+            }
+        }
+
         // POST api/Account/Update
         [Route("UpdateProfile")]
         public async Task<IHttpActionResult> UpdateProfile(UpdateBindingModel model)
@@ -441,6 +459,35 @@ namespace InTheLoopAPI.Controllers
                 return Ok(profile);
             }
             catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        // GET api/Account/Profile
+        [Route("Profile")]
+        public IHttpActionResult GetProfile()
+        {
+            try
+            {
+                String userId = User.Identity.GetUserId();
+
+                var user = new DatabaseContext().Users.SingleOrDefault(x => x.Id == userId);
+
+                if (user == null) return BadRequest();
+
+                var profile = new UserModel
+                {
+                    Email = user.Email,
+                    ImageURL = user.ImageURL,
+                    Quote = user.Quote,
+                    UserId = user.Id,
+                    UserName = user.UserName
+                };
+
+                return Ok(profile);
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

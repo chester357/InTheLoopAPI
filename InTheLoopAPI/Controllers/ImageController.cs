@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using InTheLoopAPI.App_Start;
+using System.Web.UI.WebControls;
+using System.IO;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -29,14 +31,18 @@ namespace InTheLoopAPI.Controllers
                 var path = _imageService.UploadImage(HttpContext.Current.Request.Files, User.Identity.GetUserId());
 
                 _imageService.UpdateProfileImage(User.Identity.GetUserId(), path);
-                
-                return Ok(path);
+
+                return Ok(new ImageResponse { ImageURL = path });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
 
+        public class ImageResponse
+        {
+            public String ImageURL { get; set; }
+        }
     }
 }

@@ -46,6 +46,9 @@ namespace InTheLoopAPI.Models
         [Display(Name = "Quote")]
         public string Quote { get; set; }
 
+        [Display(Name = "ImageURL")]
+        public string ImageURL { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
