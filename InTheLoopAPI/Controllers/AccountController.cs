@@ -27,7 +27,7 @@ using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [RequireHttps]
+    //[RequireHttps]
     [Authorize, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -524,6 +524,78 @@ namespace InTheLoopAPI.Controllers
                 return GetErrorResult(result); 
             }
             return Ok();
+        }
+
+        [AllowAnonymous, Route("ForgotPassword")]
+        public IHttpActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            try
+            {
+                var user = UserManager.FindByEmail(model.SendTo);
+
+                if (user == null) { return BadRequest(); }
+
+                var items = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray();
+                var ran = new Random();
+                var ranArray = new char[10];
+
+                for (int i = 0; i < ranArray.Length; i++ )
+                {
+                    ranArray[i] = items[ran.Next(items.Length)];
+                }
+
+                var tempPassword = new String(ranArray);
+
+                if (tempPassword.Length != 10) { return BadRequest(); }
+
+                //var token = UserManager.GeneratePasswordResetToken(user.Id);
+
+                var emailService = new EmailService();
+
+                try
+                {
+                    emailService.SendEmail(user.Email, tempPassword);
+
+                    return Ok();
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
+        }
+
+        [AllowAnonymous, Route("ResetPassword")]
+        public IHttpActionResult ResetPassword(ResetPasswordModel model)
+        {
+            try
+            {
+                if (model.EmailAddress == "" || model.EmailAddress == null) { return BadRequest(); }
+
+                if (model.Token == "" || model.Token == null) { return BadRequest(); }
+
+                if (model.NewPassword.Length < 6) { return BadRequest(); }
+
+                var user = UserManager.FindByEmail(model.EmailAddress);
+
+                if (user == null) { return BadRequest(); }
+
+                var result = UserManager.ResetPassword(user.Id, model.Token, model.NewPassword);
+
+                if (result.Succeeded)
+                    return Ok();
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+            }
         }
 
         protected override void Dispose(bool disposing)

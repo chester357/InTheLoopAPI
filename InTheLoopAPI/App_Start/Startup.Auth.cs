@@ -38,7 +38,8 @@ namespace InTheLoopAPI
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                // Token set to expire every 30 seconds for testing
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(0.00069444444 / 2),
                 AllowInsecureHttp = false
                 //AllowInsecureHttp = true
             };
