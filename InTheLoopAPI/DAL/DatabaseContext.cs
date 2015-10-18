@@ -33,6 +33,6 @@ namespace InTheLoopAPI.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Follow> Follows { get; set; }
-    
+        public DbSet<ResetToken> ResetTokens { get; set; }
     }
 }

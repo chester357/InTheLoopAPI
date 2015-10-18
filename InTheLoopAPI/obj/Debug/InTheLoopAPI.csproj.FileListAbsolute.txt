@@ -506,3 +506,4 @@ Z:\Users\Chester\Google Drive\Development\InTheLoop\Backend Development\InTheLoo
 Z:\Users\Chester\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
 Z:\Users\Chester\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 Z:\Users\Chester\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
+Z:\Users\Chester\Google Drive\Development\InTheLoop\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.ResetTokenTable.resources

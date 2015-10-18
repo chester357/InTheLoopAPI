@@ -24,10 +24,11 @@ using System.IO;
 using InTheLoopAPI.Service;
 using System.Web.Helpers;
 using InTheLoopAPI.App_Start;
+using InTheLoopAPI.Models.Database;
 
 namespace InTheLoopAPI.Controllers
 {
-    //[RequireHttps]
+    [RequireHttps]
     [Authorize, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -556,6 +557,27 @@ namespace InTheLoopAPI.Controllers
                 {
                     emailService.SendEmail(user.Email, tempPassword);
 
+                    var repository = new DatabaseContext();
+
+                    var resetToken = repository.ResetTokens.SingleOrDefault(x => x.UserId == user.Id);
+
+                    if (resetToken != null) 
+                    {
+                        repository.ResetTokens.Remove(resetToken);
+
+                        repository.SaveChanges();
+                    }
+                    
+                    repository.ResetTokens.Add(
+                        new ResetToken
+                        {
+                            LongToken = UserManager.GeneratePasswordResetToken(user.Id),
+                            ShortToken = tempPassword,
+                            UserId = user.Id
+                        });
+
+                    repository.SaveChanges();
+
                     return Ok();
                 }
                 catch (Exception ex)
@@ -585,7 +607,17 @@ namespace InTheLoopAPI.Controllers
 
                 if (user == null) { return BadRequest(); }
 
-                var result = UserManager.ResetPassword(user.Id, model.Token, model.NewPassword);
+                var repo = new DatabaseContext();
+                
+                var resetToken = repo.ResetTokens.SingleOrDefault(x => x.UserId == user.Id && x.ShortToken == model.Token);
+
+                if (resetToken == null) { return BadRequest(); }
+
+                repo.ResetTokens.Remove(resetToken);
+
+                repo.SaveChanges();
+
+                var result = UserManager.ResetPassword(user.Id, resetToken.LongToken, model.NewPassword);
 
                 if (result.Succeeded)
                     return Ok();
