@@ -22,9 +22,13 @@ namespace InTheLoopAPI.Models
 
         public int Loops { get; set; }
 
+        public int Views { get; set; }
+
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+
+        public string ImageURL { get; set; }
 
         public DateTime Start { get; set; }
 

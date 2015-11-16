@@ -16,64 +16,23 @@
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.DynamicModelResources">
             <summary>
-            
+            For internal microsoft use only.
             </summary>
         </member>
         <member name="F:Microsoft.AspNet.Scaffolding.EntityFramework.DynamicModelResources.Instance">
             <summary>
-            
+            For internal microsoft use only.
             </summary>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.DynamicModelResources.UnableToRetrieveMetadata">
             <summary>
-            
+            For internal microsoft use only.
             </summary>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.DynamicModelResources.UnableToFindType">
             <summary>
-            
+            For internal microsoft use only.
             </summary>
-        </member>
-        <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService">
-            <summary>
-            Provides infrastructure services for scaffolding Entity Framework.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.AddRequiredEntity(Microsoft.AspNet.Scaffolding.CodeGenerationContext,System.String,System.String)">
-            <summary>
-            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata"/> for the provided context type and 
-            entity type. If an Entity Framework context type does not exist matching the given type name, it will
-            be created. If the context does not contain a entity set property matching the provided entity type, then 
-            a property will be added.
-            </summary>
-            <param name="context">The <see cref="T:Microsoft.AspNet.Scaffolding.CodeGenerationContext"/> for the operation.</param>
-            <param name="contextTypeFullName">The full type name of the Entity Framework context type.</param>
-            <param name="entityTypeFullName">The full type name of the Entity Framework entity type.</param>
-            <returns>
-            The <see cref="T:Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata"/> for the provided entity type 
-            and context type
-            </returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.GetPluralizedWord(System.String,System.Globalization.CultureInfo)">
-            <summary>
-            Gets the plural form of word for the provided culture. 
-            </summary>
-            <returns>If the <see cref="T:System.Data.Entity.Design.PluralizationServices.PluralizationService"/> 
-            does not support the given culture, falls back to PluralizationService for English.</returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.GetSingularizedWord(System.String,System.Globalization.CultureInfo)">
-            <summary>
-            Gets the singular form of word for the passed in culture.
-            </summary>
-            <returns>If the <see cref="T:System.Data.Entity.Design.PluralizationServices.PluralizationService"/> 
-            does not support the given culture, falls back to PluralizationService for English.</returns>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.Dependencies">
-            <summary>
-            Gets a list of <see cref="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage"/> dependencies required in order to 
-            use Entity Framework.
-            </summary>
-            <returns>The list of <see cref="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage"/> dependencies for Entity Framework.</returns>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.EntityFrameworkService.GetPluralizedWord(System.String,System.Globalization.CultureInfo)">
             <summary>
@@ -149,6 +108,16 @@
             For internal use by the scaffolding framework.
             </summary>
         </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModel.IsDirty">
+            <summary>
+            For internal use by the scaffolding framework.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModel.IsReadOnly">
+            <summary>
+            For internal use by the scaffolding framework.
+            </summary>
+        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModel.AddEntitySet(System.String)">
             <summary>
             For internal use by the scaffolding framework.
@@ -169,26 +138,10 @@
             <param name="entityTypeQualifiedName"></param>
             <returns></returns>
         </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModel.IsDirty">
-            <summary>
-            For internal use by the scaffolding framework.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModel.IsReadOnly">
-            <summary>
-            For internal use by the scaffolding framework.
-            </summary>
-        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModelFactory">
             <summary>
             For internal use by the scaffolding framework.
             </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModelFactory.CreateDynamicModel">
-            <summary>
-            For internal use by the scaffolding framework.
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModelFactory.ConnectionStringName">
             <summary>
@@ -209,6 +162,12 @@
             <summary>
             For internal use by the scaffolding framework.
             </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IDynamicModelFactory.CreateDynamicModel">
+            <summary>
+            For internal use by the scaffolding framework.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.Infrastructure.IEFColumnPropertiesProvider">
             <summary>
@@ -237,6 +196,47 @@
             </summary>
             <param name="table"></param>
             <returns></returns>
+        </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService">
+            <summary>
+            Provides infrastructure services for scaffolding Entity Framework.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.Dependencies">
+            <summary>
+            Gets a list of <see cref="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage"/> dependencies required in order to 
+            use Entity Framework.
+            </summary>
+            <returns>The list of <see cref="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage"/> dependencies for Entity Framework.</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.AddRequiredEntity(Microsoft.AspNet.Scaffolding.CodeGenerationContext,System.String,System.String)">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata"/> for the provided context type and 
+            entity type. If an Entity Framework context type does not exist matching the given type name, it will
+            be created. If the context does not contain a entity set property matching the provided entity type, then 
+            a property will be added.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNet.Scaffolding.CodeGenerationContext"/> for the operation.</param>
+            <param name="contextTypeFullName">The full type name of the Entity Framework context type.</param>
+            <param name="entityTypeFullName">The full type name of the Entity Framework entity type.</param>
+            <returns>
+            The <see cref="T:Microsoft.AspNet.Scaffolding.Core.Metadata.ModelMetadata"/> for the provided entity type 
+            and context type
+            </returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.GetPluralizedWord(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Gets the plural form of word for the provided culture. 
+            </summary>
+            <returns>If the <see cref="T:System.Data.Entity.Design.PluralizationServices.PluralizationService"/> 
+            does not support the given culture, falls back to PluralizationService for English.</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.EntityFramework.IEntityFrameworkService.GetSingularizedWord(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Gets the singular form of word for the passed in culture.
+            </summary>
+            <returns>If the <see cref="T:System.Data.Entity.Design.PluralizationServices.PluralizationService"/> 
+            does not support the given culture, falls back to PluralizationService for English.</returns>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.EntityFramework.Resources">
             <summary>

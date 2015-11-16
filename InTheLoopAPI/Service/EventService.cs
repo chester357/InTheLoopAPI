@@ -32,7 +32,6 @@ namespace InTheLoopAPI.Service
                 AgeGroup = eventModel.AgeGroup,
                 Category = eventModel.Category,
                 Description = eventModel.Description,
-                Logo = eventModel.Logo,
                 Title = eventModel.Title,
                 UserId = userId,
                 Website = eventModel.Website
@@ -47,7 +46,10 @@ namespace InTheLoopAPI.Service
                 Start = eventModel.Start,
                 State = eventModel.State,
                 ZipCode = eventModel.ZipCode,
-                Price = eventModel.Price
+                Price = eventModel.Price,
+                ImageURL = eventModel.EventImageURL,
+                Archived = false,
+                Views = 0
             };
 
             var footerResults = _validator.EventFooter(eventFooter).ToList();
@@ -129,6 +131,7 @@ namespace InTheLoopAPI.Service
             eventHeader.Latitude = eventHeaderModel.Latitude;
             eventHeader.Longitude = eventHeaderModel.Longitude;
             eventHeader.End = eventHeaderModel.End;
+            eventHeader.ImageURL = eventHeaderModel.EventImageURL;
             eventHeader.Start = eventHeaderModel.Start;
             eventHeader.State = eventHeaderModel.State;
             eventHeader.ZipCode = eventHeaderModel.ZipCode;
@@ -153,7 +156,6 @@ namespace InTheLoopAPI.Service
             eventFooter.AgeGroup = footerModel.AgeGroup;
             eventFooter.Category = footerModel.Category;
             eventFooter.Description = footerModel.Description;
-            eventFooter.Logo = footerModel.Logo;
             eventFooter.Title = footerModel.Title;
             eventFooter.Website = footerModel.Website;
 

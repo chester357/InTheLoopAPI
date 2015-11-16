@@ -16,8 +16,6 @@ namespace InTheLoopAPI.Models
 
         public string Description { get; set; }
 
-        public byte[] Logo { get; set; }
-
         public string Website { get; set; }
 
         public AgeGroup AgeGroup { get; set; }

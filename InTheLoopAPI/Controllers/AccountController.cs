@@ -342,7 +342,7 @@ namespace InTheLoopAPI.Controllers
                 UserName = model.UserName,
                 Email = model.Email,
                 Quote = model.Quote,
-                ImageURL = ""
+                ImageURL = model.ImageURL
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);

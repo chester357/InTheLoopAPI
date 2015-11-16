@@ -20,11 +20,13 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public AgeGroup AgeGroup { get; set; }
 
-        public byte[] Logo { get; set; }
+        public string EventImageURL { get; set; }
 
         public string Website { get; set; }
 
         public string UserId { get; set; }
+
+        public string UserProfileURL { get; set; }
 
         public bool Active { get; set; }
 
@@ -36,6 +38,8 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public int Loops { get; set; }
 
+        public int Views { get; set; }
+
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
@@ -45,5 +49,6 @@ namespace InTheLoopAPI.Models.RequestModels
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
+
     }
 }

@@ -17,6 +17,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -248,6 +249,14 @@
     <Compile Include="Migrations\201510180230472_Reset Token Table.Designer.cs">
       <DependentUpon>201510180230472_Reset Token Table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511160036019_AddedViewsToEvents.cs" />
+    <Compile Include="Migrations\201511160036019_AddedViewsToEvents.Designer.cs">
+      <DependentUpon>201511160036019_AddedViewsToEvents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511160242145_AddedImageUrlToEventHeader.cs" />
+    <Compile Include="Migrations\201511160242145_AddedImageUrlToEventHeader.Designer.cs">
+      <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -372,6 +381,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510180230472_Reset Token Table.resx">
       <DependentUpon>201510180230472_Reset Token Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511160036019_AddedViewsToEvents.resx">
+      <DependentUpon>201511160036019_AddedViewsToEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511160242145_AddedImageUrlToEventHeader.resx">
+      <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

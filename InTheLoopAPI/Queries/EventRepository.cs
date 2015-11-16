@@ -16,10 +16,20 @@ namespace InTheLoopAPI.Queries
 
         public EventModel GetEvent(int eventId)
         {
-            var singleEvent = EventHeaders.SingleOrDefault(x => x.Id == eventId);
+            var singleEvent = EventHeaders.SingleOrDefault(x => 
+            x.Id == eventId &&
+            x.Archived == false);
 
+            singleEvent.Views++;
+
+            Database.SaveChanges();
+            
             if (singleEvent == null)
                 return null;
+
+            var userID = singleEvent.EventFooter.UserId;
+
+            var user = Users.SingleOrDefault(x => x.Id == userID);
 
             return new EventModel
             {
@@ -32,7 +42,7 @@ namespace InTheLoopAPI.Queries
                 End = singleEvent.End,
                 Id = singleEvent.Id,
                 Latitude = singleEvent.Latitude,
-                Logo = singleEvent.EventFooter.Logo,
+                EventImageURL = singleEvent.ImageURL,
                 Longitude = singleEvent.Longitude,
                 Loops = singleEvent.Loops,
                 Start = singleEvent.Start,
@@ -40,20 +50,20 @@ namespace InTheLoopAPI.Queries
                 Title = singleEvent.EventFooter.Title,
                 Website = singleEvent.EventFooter.Website,
                 ZipCode = singleEvent.ZipCode,
-                Price = singleEvent.Price
+                Price = singleEvent.Price,
+                Views = singleEvent.Views
             };
         }
-    
-        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
-        {
-            double degrees = radius / 69;
-            double maxLat = latitude + degrees;
-            double minLat = latitude - degrees;
-            double maxLong = longitude + degrees;
-            double minLong = longitude - degrees;
 
+        public List<EventModel> GetHomeEvents(String userId)
+        {
             return EventHeaders
-                .Where(x => x.Latitude > minLat && x.Latitude < maxLat && x.Longitude > minLong && x.Longitude < maxLong)
+                .Where(x => 
+                    x.Archived == false &&
+                    x.Attendees.Any(n => n.UserId == userId) &&
+                    (x.End.CompareTo(DateTime.UtcNow) >= 0)
+                )
+                .OrderBy(x => x.Start)
                 .Select(y => new EventModel
                 {
                     Active = y.Archived,
@@ -65,7 +75,7 @@ namespace InTheLoopAPI.Queries
                     End = y.End,
                     Id = y.Id,
                     Latitude = y.Latitude,
-                    Logo = y.EventFooter.Logo,
+                    EventImageURL = y.ImageURL,
                     Longitude = y.Longitude,
                     Loops = y.Loops,
                     Start = y.Start,
@@ -73,7 +83,48 @@ namespace InTheLoopAPI.Queries
                     Title = y.EventFooter.Title,
                     Website = y.EventFooter.Website,
                     ZipCode = y.ZipCode,
-                    Price = y.Price
+                    Price = y.Price,
+                    Views = y.Views
+                })
+                .ToList();
+        }
+    
+        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
+        {
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            return EventHeaders
+                .Where(x => 
+                    x.Latitude > minLat && 
+                    x.Latitude < maxLat && 
+                    x.Longitude > minLong && 
+                    x.Longitude < maxLong && 
+                    x.Archived == false)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    Category = y.EventFooter.Category,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views
                 })
                 .ToList();
         }

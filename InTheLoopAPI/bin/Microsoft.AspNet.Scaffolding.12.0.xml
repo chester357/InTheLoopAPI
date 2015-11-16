@@ -76,41 +76,27 @@
             For more details <see cref="T:Microsoft.AspNet.Scaffolding.ICodeGenerator"/> interface.
             </summary>
         </member>
-        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGenerator">
-            <summary>
-            An interface representing a code generator.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGenerator.GenerateCode">
-            <summary>
-            Performs code generation.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGenerator.ShowUIAndValidate">
-            <summary>
-            Gathers and validates information necessary for code generation.
-            Any UI for the code generator should be displayed in this method.
-            </summary>
-            <returns>
-            Return value indicates whether information was gathered and code
-            generation can be performed.
-            </returns>
-            <remarks>
-            Implement and return true, if scaffolder needs no user interface.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.ICodeGenerator.Dependencies">
-            <summary>
-            A list of NuGet packages upon which this
-            code generator depends in order to run successfully. Packages listed here will be installed
-            after ShowUIAndValidate succeeded and before the 
-            GenerateCode method is invoked. 
-            </summary>
-            <returns>A list containing the NuGet package dependencies</returns>
-        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGenerator.#ctor(Microsoft.AspNet.Scaffolding.CodeGenerationContext,Microsoft.AspNet.Scaffolding.CodeGeneratorInformation)">
             <summary>
             Constructor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Context">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.CodeGenerationContext"/>
+            for the current code generation operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.ServiceProvider">
+            <summary>
+            Gets the <see cref="T:System.IServiceProvider"/> for the
+            current code generation operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Information">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation"/>
+            for the current code generation operation.
             </summary>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGenerator.ShowUIAndValidate">
@@ -126,9 +112,27 @@
             Implement and return true, if scaffolder needs no user interface.
             </remarks>
         </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Dependencies">
+            <summary>
+            A list of NuGet packages upon which this
+            code generator depends in order to run successfully. Packages listed here will be installed
+            after ShowUIAndValidate succeeded and before the 
+            GenerateCode method is invoked. 
+            </summary>
+            <returns>A list containing the NuGet package dependencies</returns>
+        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGenerator.GenerateCode">
             <summary>
             Performs code generation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.TemplateFolders">
+            <summary>
+            List of search paths of this code generator where templates/static files are searched for.
+            By default, this list contains only one folder which is a sub-directory named 
+            "Templates\<see cref="P:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation.Id"/> 
+            inside the directory containing the CodeGenerator assembly. Custom code generators
+            can override the default behavior.
             </summary>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGenerator.AddClassMemberFromTemplate(EnvDTE.Project,EnvDTE.CodeType,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
@@ -198,121 +202,11 @@
             If false and file exists, then file is overwritten.</param>
             <returns>True if the file was added. False otherwise.</returns>
         </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Context">
-            <summary>
-            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.CodeGenerationContext"/>
-            for the current code generation operation.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.ServiceProvider">
-            <summary>
-            Gets the <see cref="T:System.IServiceProvider"/> for the
-            current code generation operation.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Information">
-            <summary>
-            Gets the <see cref="T:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation"/>
-            for the current code generation operation.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.Dependencies">
-            <summary>
-            A list of NuGet packages upon which this
-            code generator depends in order to run successfully. Packages listed here will be installed
-            after ShowUIAndValidate succeeded and before the 
-            GenerateCode method is invoked. 
-            </summary>
-            <returns>A list containing the NuGet package dependencies</returns>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGenerator.TemplateFolders">
-            <summary>
-            List of search paths of this code generator where templates/static files are searched for.
-            By default, this list contains only one folder which is a sub-directory named 
-            "Templates\<see cref="P:Microsoft.AspNet.Scaffolding.CodeGeneratorInformation.Id"/> 
-            inside the directory containing the CodeGenerator assembly. Custom code generators
-            can override the default behavior.
-            </summary>
-        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.CodeGeneratorActionsService">
             <summary>
             Provides a default implementation for <see cref="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService"/>.
             See ICodeGeneratorActionsService.cs for public API documentation
             </summary>
-        </member>
-        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService">
-            <summary>
-            A service providing support for various code generator actions.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFileFromTemplate(EnvDTE.Project,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
-            <summary>
-            Adds the result of running a visual studio T4 text template
-            as a new file in the project.
-            </summary>
-            <param name="project">Project to which the file should be added.</param>
-            <param name="outputPath">
-            The path of the file to be added relative to current project.
-            This should not include the file extension. 
-            The file extension is inferred from running the text template.
-            </param>
-            <param name="templatePath">Full path of the text template file
-            to execute.</param>
-            <param name="templateParameters">Parameters for text template.</param>
-            <param name="skipIfExists">If true and the file exists, then no action is taken.  If false and the file exists, then the file will be overwritten.</param>
-            <returns>True if the file was added. False otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFile(EnvDTE.Project,System.String,System.String,System.Boolean)">
-            <summary>
-            Adds a new file to the given project at the given relative path.
-            </summary>
-            <param name="project">Project to which the file should be added.</param>
-            <param name="projectRelativePath">
-            This should be relative path of the file to be added.
-            </param>
-            <param name="sourceFilePath">Full path of the source file.</param>
-            <param name="skipIfExists">If true and the file exists, then no action is taken.
-            If false and the file exists, then the file will be overwritten.</param>
-            <returns>True if the file was added. False otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFolder(EnvDTE.Project,System.String)">
-            <summary>
-            Adds a new folder to the given project at the given relative path. 
-            If a project item already exists for the active project
-            at the given projectRelativePath, nothing is done.
-            If there is already a folder on the disk but that is not
-            part of the project, the folder is added to the project.
-            </summary>
-            <param name="project">Project to which the folder should be added.</param>
-            <param name="projectRelativePath">
-            This should be relative path of the the folder to be added.
-            </param>
-            <returns>ProjectItem added.</returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddClassMemberFromTemplate(EnvDTE.CodeType,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
-            <summary>
-            Adds the result of running a visual studio T4 text template
-            to an existing source file as a class member at the end.
-            </summary>
-            <param name="codeClass">
-            The class to which the new member should be added.
-            </param>
-            <param name="templatePath">
-            Full path of the text template file to execute.
-            </param>
-            <param name="templateParameters">Parameters for text template.</param>
-            <param name="memberName">
-            Name of the member to be generated by the template. 
-            If a member with that name already exists in the class, nothing is done.
-            </param>
-            <returns>True if the member was added. False otherwise (e.g. the member already existed).</returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.CreateAppDataFolder(EnvDTE.Project)">
-            <summary>
-            Creates the App_Data folder in the given project. The provided project must be an
-            ASP.NET Web Application Project, Otherwise an exception is thrown.
-            </summary>
-            <param name="project">The visual studio project into which the App_Data folder should be added.</param>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGeneratorActionsService.ItemExistsInProjectOrOnDisk(System.String,EnvDTE.Project,EnvDTE.ProjectItem@)">
             <summary>
@@ -341,6 +235,11 @@
             </summary>
             <param name="codeGeneratorInformation"></param>
         </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.CodeGeneratorFactory.Information">
+            <summary>
+            Code generator information.
+            </summary>
+        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGeneratorFactory.CreateInstance(Microsoft.AspNet.Scaffolding.CodeGenerationContext)">
             <summary>
             Method for creating the code generator instance.
@@ -354,38 +253,10 @@
             the supplied context.
             </summary>
         </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.CodeGeneratorFactory.Information">
-            <summary>
-            Code generator information.
-            </summary>
-        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.CodeGeneratorFilesLocator">
             <summary>
             A default implementation of <see cref="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator"/>.
             </summary>
-        </member>
-        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator">
-            <summary>
-            A service responsible for finding static files or T4 Text Templates.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator.GetTextTemplatePath(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
-            <summary>
-            Resolves the full path of a Visual Studio T4 Text Template from a template name and file extension.
-            </summary>
-            <param name="templateName">Name of the template file without the extension.</param>
-            <param name="searchFolders">Folders to search the file.</param>
-            <param name="templateFileExtension">The extension for template file. This is
-            usually code language based file extension like "cs" or "vb".</param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator.GetStaticFilePath(System.String,System.Collections.Generic.IEnumerable{System.String})">
-            <summary>
-            Resolves the full path of a static file from a file name.
-            </summary>
-            <param name="fileName">Name of the file including the extension.</param>
-            <param name="searchFolders">Folders to search the file.</param>
-            <returns></returns>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeGeneratorFilesLocator.GetTextTemplatePath(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
             <summary>
@@ -477,22 +348,6 @@
             example values.
             </summary>
         </member>
-        <member name="T:Microsoft.AspNet.Scaffolding.ICodeTypeService">
-            <summary>
-            Service for getting the types of a project.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeTypeService.GetCodeType(EnvDTE.Project,System.String)">
-            <summary>
-            Get the type in the given project matching the specified fullName.
-            </summary>
-            <returns>The type matching the specified fullName if an exact match is found or null (nothing) if no match is found.  If multiple matches are found, an exception is thrown.</returns>        
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeTypeService.GetAllCodeTypes(EnvDTE.Project)">
-            <summary>
-            Gets all visible types from a project.
-            </summary>
-        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.CodeTypeService.GetAllCodeTypes(EnvDTE.Project)">
             <summary>
             Gets all visible types from a project.
@@ -504,13 +359,13 @@
             We're only interested in types defined in the project itself, so we disregard elements that 
             contain one or more type with InfoLocation != vsCMInfoLocation.vsCMInfoLocationProject.
             However unfortunately for code namespaces, the InfoLocation is external for all the namespaces
-            including the ones in the project, so we have to use a hack.
+            including the ones in the project, so we have to use a workaround.
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.ICategoryRegistrationService">
             <summary>
             Service to register localized names for custom category 
-            node names displayed in the Add -&gt; New Scaffolded Item dialog
+            node names displayed in the Add -> New Scaffolded Item dialog
             which are defined by other VSPackages. The VSPackage implementors
             should use <see cref="T:Microsoft.AspNet.Scaffolding.SCodeGeneratorDialog"/>
             to get this service.
@@ -524,29 +379,121 @@
             <param name="displayName">The localized name of the category.</param>
             <returns>True if an existing registration for the given category path was not present.  False otherwise.</returns>
         </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGenerator">
+            <summary>
+            An interface representing a code generator.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.ICodeGenerator.Dependencies">
+            <summary>
+            A list of NuGet packages upon which this
+            code generator depends in order to run successfully. Packages listed here will be installed
+            after ShowUIAndValidate succeeded and before the 
+            GenerateCode method is invoked. 
+            </summary>
+            <returns>A list containing the NuGet package dependencies</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGenerator.GenerateCode">
+            <summary>
+            Performs code generation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGenerator.ShowUIAndValidate">
+            <summary>
+            Gathers and validates information necessary for code generation.
+            Any UI for the code generator should be displayed in this method.
+            </summary>
+            <returns>
+            Return value indicates whether information was gathered and code
+            generation can be performed.
+            </returns>
+            <remarks>
+            Implement and return true, if scaffolder needs no user interface.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService">
+            <summary>
+            A service providing support for various code generator actions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFileFromTemplate(EnvDTE.Project,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Adds the result of running a visual studio T4 text template
+            as a new file in the project.
+            </summary>
+            <param name="project">Project to which the file should be added.</param>
+            <param name="outputPath">
+            The path of the file to be added relative to current project.
+            This should not include the file extension. 
+            The file extension is inferred from running the text template.
+            </param>
+            <param name="templatePath">Full path of the text template file
+            to execute.</param>
+            <param name="templateParameters">Parameters for text template.</param>
+            <param name="skipIfExists">If true and the file exists, then no action is taken.  If false and the file exists, then the file will be overwritten.</param>
+            <returns>True if the file was added. False otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFile(EnvDTE.Project,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a new file to the given project at the given relative path.
+            </summary>
+            <param name="project">Project to which the file should be added.</param>
+            <param name="projectRelativePath">
+            This should be relative path of the file to be added.
+            </param>
+            <param name="sourceFilePath">Full path of the source file.</param>
+            <param name="skipIfExists">If true and the file exists, then no action is taken.
+            If false and the file exists, then the file will be overwritten.</param>
+            <returns>True if the file was added. False otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddFolder(EnvDTE.Project,System.String)">
+            <summary>
+            Adds a new folder to the given project at the given relative path. 
+            If a project item already exists for the active project
+            at the given projectRelativePath, nothing is done.
+            If there is already a folder on the disk but that is not
+            part of the project, the folder is added to the project.
+            </summary>
+            <param name="project">Project to which the folder should be added.</param>
+            <param name="projectRelativePath">
+            This should be relative path of the the folder to be added.
+            </param>
+            <returns>ProjectItem added.</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.AddClassMemberFromTemplate(EnvDTE.CodeType,System.String,System.Collections.Generic.IDictionary{System.String,System.Object},System.String)">
+            <summary>
+            Adds the result of running a visual studio T4 text template
+            to an existing source file as a class member at the end.
+            </summary>
+            <param name="codeClass">
+            The class to which the new member should be added.
+            </param>
+            <param name="templatePath">
+            Full path of the text template file to execute.
+            </param>
+            <param name="templateParameters">Parameters for text template.</param>
+            <param name="memberName">
+            Name of the member to be generated by the template. 
+            If a member with that name already exists in the class, nothing is done.
+            </param>
+            <returns>True if the member was added. False otherwise (e.g. the member already existed).</returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorActionsService.CreateAppDataFolder(EnvDTE.Project)">
+            <summary>
+            Creates the App_Data folder in the given project. The provided project must be an
+            ASP.NET Web Application Project, Otherwise an exception is thrown.
+            </summary>
+            <param name="project">The visual studio project into which the App_Data folder should be added.</param>
+        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker">
             <summary>
-            Used to invoke Add -&gt; New Scaffolded Item dialog from
+            Used to invoke Add -> New Scaffolded Item dialog from
             other VSPackage functionalities like 
             custom visual studio menu implementation.
             The VSPackage implementors should use 
             <see cref="T:Microsoft.AspNet.Scaffolding.SCodeGeneratorDialog"/>
             to get this service.
             </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.ShowCodeGenerationDialog(Microsoft.AspNet.Scaffolding.CodeGenerationContext,System.String)">
-            <summary>
-            Shows the dialog which displays all the code generators.
-            </summary>
-            <param name="context">Current CodeGenerationContext.</param>
-            <param name="requestedGesture">Current gesture used for filtering
-            the code generators shown in the dialog.</param>
-            <remarks>
-            CodeGenerationContext can be obtained from 
-            <see cref="P:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.CodeGenerationContext"/> 
-            property and additional context can be added to that
-            before invoking this method.
-            </remarks>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.CodeGenerationContext">
             <summary>
@@ -565,6 +512,43 @@
             call the method 
             <see cref="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.ShowCodeGenerationDialog(Microsoft.AspNet.Scaffolding.CodeGenerationContext,System.String)"/>.
             </remarks>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.ShowCodeGenerationDialog(Microsoft.AspNet.Scaffolding.CodeGenerationContext,System.String)">
+            <summary>
+            Shows the dialog which displays all the code generators.
+            </summary>
+            <param name="context">Current CodeGenerationContext.</param>
+            <param name="requestedGesture">Current gesture used for filtering
+            the code generators shown in the dialog.</param>
+            <remarks>
+            CodeGenerationContext can be obtained from 
+            <see cref="P:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker.CodeGenerationContext"/> 
+            property and additional context can be added to that
+            before invoking this method.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator">
+            <summary>
+            A service responsible for finding static files or T4 Text Templates.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator.GetTextTemplatePath(System.String,System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Resolves the full path of a Visual Studio T4 Text Template from a template name and file extension.
+            </summary>
+            <param name="templateName">Name of the template file without the extension.</param>
+            <param name="searchFolders">Folders to search the file.</param>
+            <param name="templateFileExtension">The extension for template file. This is
+            usually code language based file extension like "cs" or "vb".</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeGeneratorFilesLocator.GetStaticFilePath(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Resolves the full path of a static file from a file name.
+            </summary>
+            <param name="fileName">Name of the file including the extension.</param>
+            <param name="searchFolders">Folders to search the file.</param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.CodePropertyExtensions">
             <summary>
@@ -710,6 +694,22 @@
             So this method returns just the string represenation.
             </summary>
         </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.ICodeTypeService">
+            <summary>
+            Service for getting the types of a project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeTypeService.GetCodeType(EnvDTE.Project,System.String)">
+            <summary>
+            Get the type in the given project matching the specified fullName.
+            </summary>
+            <returns>The type matching the specified fullName if an exact match is found or null (nothing) if no match is found.  If multiple matches are found, an exception is thrown.</returns>        
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.ICodeTypeService.GetAllCodeTypes(EnvDTE.Project)">
+            <summary>
+            Gets all visible types from a project.
+            </summary>
+        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.IReflectedTypesService">
             <summary>
             Service for getting the types within a project.
@@ -722,6 +722,18 @@
             <param name="project">The project to be used to get the type resolution service.</param>
             <param name="fullName">Full name of the type to get.</param>
             <returns>A type if exists matching the full name, otherwise null.</returns>
+        </member>
+        <member name="T:Microsoft.AspNet.Scaffolding.IRegistryValueProviderService">
+            <summary>
+            Internal service for abstracting getting registry values
+            so that unit tests can have mock implementations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.IRegistryValueProviderService.GetRegistryValue(System.String,System.String,System.String)">
+            <summary>
+            May return null if any of the parameters point
+            to non existing keys, caller should handle that properly.
+            </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.IRollbackService">
             <summary>
@@ -1035,11 +1047,6 @@
             Contains data required for a NuGet package installation request.
             </summary>
         </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage.#ctor(System.String,System.String,Microsoft.AspNet.Scaffolding.NuGet.NuGetRepository)">
-            <summary>
-            Constructs an item containing information necessary for a NuGet package installation.
-            </summary>
-        </member>
         <member name="P:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage.PackageId">
             <summary>
             Package Id.
@@ -1055,11 +1062,30 @@
             Repository for the package.
             </summary>
         </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage.#ctor(System.String,System.String,Microsoft.AspNet.Scaffolding.NuGet.NuGetRepository)">
+            <summary>
+            Constructs an item containing information necessary for a NuGet package installation.
+            </summary>
+        </member>
         <member name="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetRegistryRepository">
             <summary>
             Represents a NuGet repository for which 
             the source is defined by a registry key under
             NuGet's repository registry key.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetRegistryRepository.#ctor(System.String,System.Boolean)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="registryKey">The registry key name (under NuGet's repository key)
+            that defines the folder on disk containing the packages.</param>
+            <param name="isPreUnzipped">Specifies whether the packages are
+            installed pre unzipped on disk.</param>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetRegistryRepository.InstallPackageCore(Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage,System.IServiceProvider,EnvDTE.Project)">
+            <summary>
+            Package installation logic for this repository.
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.NuGet.NuGetRepository">
@@ -1082,20 +1108,6 @@
             <returns></returns>
         </member>
         <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetRepository.InstallPackageCore(Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage,System.IServiceProvider,EnvDTE.Project)">
-            <summary>
-            Package installation logic for this repository.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetRegistryRepository.#ctor(System.String,System.Boolean)">
-            <summary>
-            Constructor.
-            </summary>
-            <param name="registryKey">The registry key name (under NuGet's repository key)
-            that defines the folder on disk containing the packages.</param>
-            <param name="isPreUnzipped">Specifies whether the packages are
-            installed pre unzipped on disk.</param>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.NuGet.NuGetRegistryRepository.InstallPackageCore(Microsoft.AspNet.Scaffolding.NuGet.NuGetPackage,System.IServiceProvider,EnvDTE.Project)">
             <summary>
             Package installation logic for this repository.
             </summary>
@@ -1275,6 +1287,16 @@
             Represents unsupported project language.
             </summary>
         </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.ProjectLanguage.CodeFileExtension">
+            <summary>
+            Represents the file extension of the project language.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.ProjectLanguage.ProjectLanguageGuid">
+            <summary>
+            Gets the Project Type Guid for this language.
+            </summary>
+        </member>
         <member name="M:Microsoft.AspNet.Scaffolding.ProjectLanguage.Equals(System.Object)">
             <summary>
             Overriding the base implementation.
@@ -1288,16 +1310,6 @@
         <member name="M:Microsoft.AspNet.Scaffolding.ProjectLanguage.ToString">
             <summary>
             Friendly debugger name for developers.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.ProjectLanguage.CodeFileExtension">
-            <summary>
-            Represents the file extension of the project language.
-            </summary>
-        </member>
-        <member name="P:Microsoft.AspNet.Scaffolding.ProjectLanguage.ProjectLanguageGuid">
-            <summary>
-            Gets the Project Type Guid for this language.
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.Resources">
@@ -1584,7 +1596,7 @@
             Interfaces that can be obtained from this service are:
             
             <see cref="T:Microsoft.AspNet.Scaffolding.ICodeGeneratorDialogInvoker"/>
-            to invoke Add -&gt; New Scaffolded Item dialog from
+            to invoke Add -> New Scaffolded Item dialog from
             other VSPackage functionalities like 
             custom visual studio menu implementation.
             
@@ -1613,7 +1625,7 @@
             The values passed in must be either serializable or 
             extend <see cref="T:System.MarshalByRefObject"/> type.</param>
             <returns>Generated code if there were no processing errors. Throws 
-            <see cref="T:System.InvalidOperationException"/> otherwise.
+            <see cref="T:System.InvalidOperationException" /> otherwise.
             </returns>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor">
@@ -1625,9 +1637,103 @@
             and then can import any namespaces from there to execute code in them.
             </summary>
         </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.Initialize(Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost)">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.Initialize(Microsoft.VisualStudio.TextTemplating.ITextTemplatingEngineHost)"/>.
+            Does nothing.
+            </summary>
+            <param name="host"></param>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.IsDirectiveSupported(System.String)">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.IsDirectiveSupported(System.String)"/>.
+            Returns true is the directive is "ScaffoldingAssembly", otherwise returns false.
+            </summary>
+            <param name="directiveName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.ProcessDirective(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.ProcessDirective(System.String,System.Collections.Generic.IDictionary{System.String,System.String})"/>.
+            Does nothing.
+            </summary>
+            <param name="directiveName"></param>
+            <param name="arguments"></param>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.StartProcessingRun(System.CodeDom.Compiler.CodeDomProvider,System.String,System.CodeDom.Compiler.CompilerErrorCollection)">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.StartProcessingRun(System.CodeDom.Compiler.CodeDomProvider,System.String,System.CodeDom.Compiler.CompilerErrorCollection)"/>.
+            Sets the errors.
+            </summary>
+            <param name="languageProvider"></param>
+            <param name="templateContents"></param>
+            <param name="errors"></param>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.FinishProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.FinishProcessingRun"/>.
+            Does nothing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetPreInitializationCodeForProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetPreInitializationCodeForProcessingRun"/>.
+            Returns empty string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetClassCodeForProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetClassCodeForProcessingRun"/>.
+            Returns empty string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetPostInitializationCodeForProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetPostInitializationCodeForProcessingRun"/>.
+            Returns empty string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetTemplateClassCustomAttributes">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetTemplateClassCustomAttributes"/>.
+            Returns nothing.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetImportsForProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetImportsForProcessingRun"/>.
+            Returns the "Microsoft.AspNet.Scaffolding" namespace.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.GetReferencesForProcessingRun">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.GetReferencesForProcessingRun"/>.
+            Returns the scaffolding assembly reference path.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.Errors">
             <summary>
+            Implementation of <see cref="P:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.Errors"/>.
             Error collection for DirectiveProcessor to add Errors/Warnings to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.SetProcessingRunIsHostSpecific(System.Boolean)">
+            <summary>
+            Implementation of <see cref="M:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.SetProcessingRunIsHostSpecific(System.Boolean)"/>.
+            Does nothing.
+            </summary>
+            <param name="hostSpecific"></param>
+        </member>
+        <member name="P:Microsoft.AspNet.Scaffolding.Templating.ScaffoldingAssemblyDirectiveProcessor.RequiresProcessingRunIsHostSpecific">
+            <summary>
+            Implementation of <see cref="P:Microsoft.VisualStudio.TextTemplating.IDirectiveProcessor.RequiresProcessingRunIsHostSpecific"/>.
+            Returns false.
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.Templating.TemplateInvoker">
@@ -1653,18 +1759,13 @@
             The values passed in must be either serializable or 
             extend <see cref="T:System.MarshalByRefObject"/> type.</param>
             <returns>Generated code if there were no processing errors. Throws 
-            <see cref="T:System.InvalidOperationException"/> otherwise.
+            <see cref="T:System.InvalidOperationException" /> otherwise.
             </returns>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingError">
             <summary>
             Contains information about errors resulted in running a
             visual studio T4 text template transformation.
-            </summary>
-        </member>
-        <member name="M:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingError.ToString">
-            <summary>
-            Overriding base implementation.
             </summary>
         </member>
         <member name="P:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingError.Message">
@@ -1680,6 +1781,11 @@
         <member name="P:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingError.ColumnNumber">
             <summary>
             Column number within the line.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingError.ToString">
+            <summary>
+            Overriding base implementation.
             </summary>
         </member>
         <member name="T:Microsoft.AspNet.Scaffolding.Templating.TemplateProcessingResult">
