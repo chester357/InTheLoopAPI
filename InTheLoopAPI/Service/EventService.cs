@@ -99,6 +99,11 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetEvents(latitude, longitude, radius);
         }
 
+        public List<EventModel> GetHomeEvents(string userId)
+        {
+            return _eventRepository.GetHomeEvents(userId);
+        }
+
         public EventModel GetEvent(int eventId)
         {
             return _eventRepository.GetEvent(eventId);

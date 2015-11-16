@@ -48,12 +48,25 @@ namespace InTheLoopAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet, EnableQuery, Route("api/Events/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
+        [HttpGet, EnableQuery, Route("api/Event/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
         public IHttpActionResult GetEvents(double lat, double lon, double radius)
         {
             try
             {
                 return Ok(_service.GetEvents(lat, lon ,radius));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, EnableQuery, Route("api/Event/Home")]
+        public IHttpActionResult GetHomeEvents()
+        {
+            try
+            {
+                return Ok(_service.GetHomeEvents(User.Identity.GetUserId()));
             }
             catch (Exception ex)
             {

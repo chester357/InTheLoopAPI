@@ -39,7 +39,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Reviews/{baseEventId}")]
+        [HttpGet, Route("api/Review/{baseEventId}")]
         public IHttpActionResult GetReviews(int baseEventId)
         {
             try
