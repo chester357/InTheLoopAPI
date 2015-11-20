@@ -10,7 +10,8 @@ using System.Web.Http.OData;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps]
+    [Authorize]
+    //[Authorize, RequireHttps]
     public class FollowController : ApiController
     {
         FollowService _followService;
@@ -20,12 +21,12 @@ namespace InTheLoopAPI.Controllers
             _followService = new FollowService();
         }
 
-        [HttpDelete, EnableQuery, Route("api/Follow/Tag")]
-        public IHttpActionResult UnfollowEventTag(TagModel tag)
+        [HttpDelete, EnableQuery, Route("api/Follow/Tag/{name}")]
+        public IHttpActionResult UnfollowEventTag(String name)
         {
             try
             {
-                var result = _followService.UnfollowTag(User.Identity.GetUserId(), tag);
+                var result = _followService.UnfollowTag(User.Identity.GetUserId(), name);
 
                 if (result != null)
                     return BadRequest(result.ErrorMessage);
@@ -49,6 +50,19 @@ namespace InTheLoopAPI.Controllers
                     return BadRequest(result.ErrorMessage);
 
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, EnableQuery, Route("api/Follow/Tag")]
+        public IHttpActionResult GetFollowTags()
+        {
+            try
+            {
+                return Ok(_followService.GetTags(User.Identity.GetUserId()));
             }
             catch (Exception ex)
             {

@@ -17,7 +17,7 @@ namespace InTheLoopAPI.Queries
 
         public EventModel GetEvent(int eventId)
         {
-            var singleEvent = EventHeaders.SingleOrDefault(x => 
+            var singleEvent = EventHeaders.Include("TagEvents").SingleOrDefault(x => 
             x.Id == eventId &&
             x.Archived == false);
             
@@ -48,41 +48,49 @@ namespace InTheLoopAPI.Queries
                 ZipCode = singleEvent.ZipCode,
                 Price = singleEvent.Price,
                 Views = singleEvent.Views,
-                Tags = singleEvent.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
+                UserId = singleEvent.EventFooter.UserId,
+                UserProfileURL = singleEvent.EventFooter.User.ImageURL,
+                Tags = singleEvent.TagEvents.Select(t => new TagModel
+                {
+                    TagId = t.TagId,
+                    TagName = t.Tag.Name
+                }).ToList()
             };
         }
 
-        public List<EventModel> GetHomeEvents(String userId)
+        public List<EventModel> GetHomeEvents(String userId, double latitude, double longitude, double radius)
         {
-            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).ToList();
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
             return EventHeaders
                 .Where(x =>
                     (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
                         // All events that I'm attending
-                        x.Attendees.Any(n => n.UserId == userId) &&
+                        x.Attendees.Any(n => n.UserId == userId) ||
                         // All of my events I posted
                         x.EventFooter.UserId == userId ||
                         // All events for the tags I follow
-                        x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag.Id == tagEvent.TagId)) ||
+                        (
+                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.Latitude > minLat &&
+                            x.Latitude < maxLat &&
+                            x.Longitude > minLong &&
+                            x.Longitude < maxLong
+                        ) ||
 
                         // All events for people I follow (their posted events)
                         x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
                         // All events for people I follow (their attended events)
                         x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
                     )
-                )
-                //.Where(Follows.Where(f => f.FollowingId == userId)
-                //    .Select(e => e.User.EventFooters.Select(me => me.EventHeaders))
-                //    .ToList()
-               
+                )               
                 .OrderBy(x => x.Start)
                 .Select(y => new EventModel
                 {
@@ -104,6 +112,8 @@ namespace InTheLoopAPI.Queries
                     ZipCode = y.ZipCode,
                     Price = y.Price,
                     Views = y.Views,
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
                     Tags = y.TagEvents
                     .Select(t => new TagModel
                     {
@@ -129,7 +139,8 @@ namespace InTheLoopAPI.Queries
                     x.Latitude < maxLat && 
                     x.Longitude > minLong && 
                     x.Longitude < maxLong && 
-                    x.Archived == false)
+                    x.Archived == false &&
+                    x.End.CompareTo(DateTime.UtcNow) >= 0)
                 .Select(y => new EventModel
                 {
                     Active = y.Archived,
@@ -150,6 +161,8 @@ namespace InTheLoopAPI.Queries
                     ZipCode = y.ZipCode,
                     Price = y.Price,
                     Views = y.Views,
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
                     Tags = y.TagEvents
                     .Select(t => new TagModel
                     {

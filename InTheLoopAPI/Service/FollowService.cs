@@ -26,9 +26,23 @@ namespace InTheLoopAPI.Service
             _validator = new FollowValidator(_followRepository, _userRepository);    
         }
 
-        public ValidationResult UnfollowTag(String userId, TagModel tag)
+        public List<TagModel> GetTags(String userId)
         {
-            var userTag = _databaseContext.TagUsers.SingleOrDefault(t => t.Tag.Name == tag.TagName && t.UserId == userId);
+            return _databaseContext.Tags.Where(x => x.TagUsers.Any(t => t.UserId == userId))
+                .Select(tm => new TagModel
+                {
+                    TagName = tm.Name,
+                    TagId = tm.Id
+                })
+                .ToList();
+        }
+
+        public ValidationResult UnfollowTag(String userId, String name)
+        {
+            name = name.Trim();
+
+            var userTag = _databaseContext.TagUsers
+                .SingleOrDefault(t => t.Tag.Name.ToLower() == name.ToLower() && t.UserId == userId);
 
             if (userTag == null)
                 return new ValidationResult("User was not following this tag");
@@ -42,7 +56,9 @@ namespace InTheLoopAPI.Service
 
         public ValidationResult FollowTag(String userId, TagModel tag)
         {
-            var existingTag = _databaseContext.Tags.SingleOrDefault(x => x.Name == tag.TagName);
+            tag.TagName = tag.TagName.Trim();
+
+            var existingTag = _databaseContext.Tags.SingleOrDefault(x => x.Name.ToLower() == tag.TagName.ToLower());
 
             if (existingTag == null)
                 return new ValidationResult("No tag found with this name");

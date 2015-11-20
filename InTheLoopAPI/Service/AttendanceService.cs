@@ -36,6 +36,10 @@ namespace InTheLoopAPI.Service
 
             _databaseContext.Attendances.Add(attendance);
 
+            var evnt = _databaseContext.EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId);
+
+            evnt.Loops++;
+
             _databaseContext.SaveChanges();
 
             return ValidationResult.Success;
@@ -51,6 +55,10 @@ namespace InTheLoopAPI.Service
             var attendance = _attendanceRepository.GetAttendance(eventHeaderId, userId);
 
             _databaseContext.Attendances.Remove(attendance);
+
+            var evnt = _databaseContext.EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId);
+
+            evnt.Loops--;
 
             _databaseContext.SaveChanges();
 

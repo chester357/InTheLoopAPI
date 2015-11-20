@@ -26,17 +26,6 @@ namespace InTheLoopAPI.Service
             _validator = new EventValidator(_eventRepository);
         }
 
-        public List<TagModel> GetTags(String userId)
-        {
-            return _repository.Tags.Where(x => x.TagUsers.Any(t => t.UserId == userId))
-                .Select(tm => new TagModel
-                {
-                    TagName = tm.Name,
-                    TagId = tm.Id
-                })
-                .ToList();
-        }
-
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
         {
             if(!eventModel.Website.Contains("http://") && !eventModel.Website.Contains("https://"))
@@ -69,7 +58,9 @@ namespace InTheLoopAPI.Service
 
             foreach(TagModel t in eventModel.Tags)
             {
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+                t.TagName = t.TagName.Trim();
+
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
 
                 if(tag == null)
                 {
@@ -115,7 +106,9 @@ namespace InTheLoopAPI.Service
 
             foreach (TagModel t in model.Tags)
             {
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+                t.TagName = t.TagName.Trim();
+
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
 
                 if (tag == null)
                 {
@@ -143,9 +136,9 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetEvents(latitude, longitude, radius);
         }
 
-        public List<EventModel> GetHomeEvents(string userId)
+        public List<EventModel> GetHomeEvents(string userId, double latitude, double longitude, double radius)
         {
-            return _eventRepository.GetHomeEvents(userId);
+            return _eventRepository.GetHomeEvents(userId, latitude, longitude, radius);
         }
 
         public EventModel GetEvent(int eventId)
