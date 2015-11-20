@@ -16,6 +16,9 @@ namespace InTheLoopAPI.Queries
         public DbSet<EventFooter> EventFooters;
         public DbSet<Attendance> Attendances;
         public DbSet<Follow> Follows;
+        public DbSet<Tag> Tags;
+        public DbSet<TagUser> TagUsers;
+        public DbSet<TagEvent> TagEvents;
 
         public BaseQuery(DatabaseContext db)
         {
@@ -25,6 +28,9 @@ namespace InTheLoopAPI.Queries
             EventFooters = Database.EventFooters;
             Attendances = Database.Attendances;
             Follows = Database.Follows;
+            Tags = Database.Tags;
+            TagEvents = Database.TagEvents;
+            TagUsers = Database.TagUsers;
         }
     }
 }

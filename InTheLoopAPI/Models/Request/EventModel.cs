@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models.Database;
+using InTheLoopAPI.Models.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,6 @@ namespace InTheLoopAPI.Models.RequestModels
         public string Title { get; set; }
 
         public string Description { get; set; }
-
-        public Category Category { get; set; }   
 
         public AgeGroup AgeGroup { get; set; }
 
@@ -50,5 +49,6 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public DateTime End { get; set; }
 
+        public List<TagModel> Tags { get; set; }
     }
 }

@@ -1,14 +1,12 @@
 ﻿using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Service;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
 using InTheLoopAPI.App_Start;
+using System.Web.Http.OData;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -22,7 +20,43 @@ namespace InTheLoopAPI.Controllers
             _followService = new FollowService();
         }
 
-        [HttpGet, Route("api/Followers")]
+        [HttpDelete, EnableQuery, Route("api/Follow/Tag")]
+        public IHttpActionResult UnfollowEventTag(TagModel tag)
+        {
+            try
+            {
+                var result = _followService.UnfollowTag(User.Identity.GetUserId(), tag);
+
+                if (result != null)
+                    return BadRequest(result.ErrorMessage);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost, EnableQuery, Route("api/Follow/Tag")]
+        public IHttpActionResult FollowEventTag(TagModel tag)
+        {
+            try
+            {
+                var result = _followService.FollowTag(User.Identity.GetUserId(), tag);
+
+                if (result != null)
+                    return BadRequest(result.ErrorMessage);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, Route("api/Follow/User/Followers")]
         public IHttpActionResult GetFollowers()
         {
             try
@@ -40,7 +74,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Following")]
+        [HttpGet, Route("api/Follow/User/Following")]
         public IHttpActionResult GetFollowing()
         {
             try
@@ -58,7 +92,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, Route("api/Follow")]
+        [HttpPost, Route("api/Follow/User")]
         public IHttpActionResult PostFollower(FollowModel followingModel)
         {
              try
@@ -76,7 +110,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpDelete, Route("api/Follow")]
+        [HttpDelete, Route("api/Follow/User")]
         public IHttpActionResult StopFollowing(FollowModel followingModel)
         {
              try

@@ -21,7 +21,5 @@ namespace InTheLoopAPI.Models.Request
         public string Website { get; set; }
 
         public AgeGroup AgeGroup { get; set; }
-
-        public Category Category { get; set; }
     }
 }

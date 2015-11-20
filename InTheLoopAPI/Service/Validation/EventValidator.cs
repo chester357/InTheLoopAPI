@@ -1,5 +1,6 @@
 ﻿using InTheLoopAPI.Helpers;
 using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Queries;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,9 @@ namespace InTheLoopAPI.Service.Validation
 
         public IEnumerable<ValidationResult> EventHeader(EventHeader eventHeader, string userId)
         {
-            if (!_eventRepository.ValidUserForEventFooter(userId, eventHeader.Id))
-                yield return new ValidationResult("Invalid valid user for this event");
+            if (eventHeader.Id != 0)
+                if (!_eventRepository.ValidUserForEventFooter(userId, eventHeader.Id))
+                    yield return new ValidationResult("Invalid valid user for this event");
 
             if (String.IsNullOrEmpty(eventHeader.City))
                 yield return new ValidationResult("Invalid City.");

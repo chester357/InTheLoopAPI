@@ -31,7 +31,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.TwentyOnePlus,
-                            Category = Category.NightLife,
                             Description = "Fundraising party for help fight cancer please come and support",
                             //Logo = "TempLogo.jpg",
                             Title = "Redcross Fundraiser",
@@ -62,7 +61,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.EighteenPlus,
-                            Category = Category.Music,
                             Description = "Deftones and Incubus live. Long awaited tour!",
                             //Logo = "TempLogo.jpg",
                             Title = "Deftones Concert",
@@ -93,7 +91,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.All,
-                            Category = Category.Food,
                             Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
                             of a kind please come check them out.",
                             //Logo = "TempLogo.jpg",
@@ -125,7 +122,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.TwentyOnePlus,
-                            Category = Category.Bar,
                             Description = "The best deal in town. A must do for every LSU alum!",
                             //Logo = "TempLogo.jpg",
                             Title = "Free drinks",
@@ -156,7 +152,6 @@ namespace InTheLoopAPI.Migrations.Seeds
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.All,
-                            Category = Category.Automotive,
                             Description = "Some out and show off your sweet ride. Great fun for every so please bring the family",
                             //Logo = "TempLogo.jpg",
                             Title = "Speed Club Car Show",

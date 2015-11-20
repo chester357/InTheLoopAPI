@@ -37,5 +37,7 @@ namespace InTheLoopAPI.Models
         public int Price { get; set; }
 
         public ICollection<Attendance> Attendees { get; set; }
+
+        public ICollection<TagEvent> TagEvents { get; set; }
     }
 }

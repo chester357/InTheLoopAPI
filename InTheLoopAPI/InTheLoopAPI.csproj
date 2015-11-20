@@ -257,6 +257,18 @@
     <Compile Include="Migrations\201511160242145_AddedImageUrlToEventHeader.Designer.cs">
       <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201511180432220_AddedTags.cs" />
+    <Compile Include="Migrations\201511180432220_AddedTags.Designer.cs">
+      <DependentUpon>201511180432220_AddedTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511190133270_ChangedUserIdToString.cs" />
+    <Compile Include="Migrations\201511190133270_ChangedUserIdToString.Designer.cs">
+      <DependentUpon>201511190133270_ChangedUserIdToString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511190424592_UpdatedTagUser.cs" />
+    <Compile Include="Migrations\201511190424592_UpdatedTagUser.Designer.cs">
+      <DependentUpon>201511190424592_UpdatedTagUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -265,6 +277,9 @@
     <Compile Include="Models\Database\Follow.cs" />
     <Compile Include="Models\Database\ResetToken.cs" />
     <Compile Include="Models\Database\State.cs" />
+    <Compile Include="Models\Database\Tag.cs" />
+    <Compile Include="Models\Database\TagEvent.cs" />
+    <Compile Include="Models\Database\TagUser.cs" />
     <Compile Include="Models\Request\AccountBindingModels.cs" />
     <Compile Include="Models\Request\AccountViewModels.cs" />
     <Compile Include="Models\Database\Attendance.cs" />
@@ -281,6 +296,7 @@
     <Compile Include="Models\Request\ForgotPasswordModel.cs" />
     <Compile Include="Models\Request\ResetPasswordModel.cs" />
     <Compile Include="Models\Request\ReviewModel.cs" />
+    <Compile Include="Models\Request\TagModel.cs" />
     <Compile Include="Models\Request\UserModel.cs" />
     <Compile Include="Models\ReviewImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -387,6 +403,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511160242145_AddedImageUrlToEventHeader.resx">
       <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511180432220_AddedTags.resx">
+      <DependentUpon>201511180432220_AddedTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511190133270_ChangedUserIdToString.resx">
+      <DependentUpon>201511190133270_ChangedUserIdToString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511190424592_UpdatedTagUser.resx">
+      <DependentUpon>201511190424592_UpdatedTagUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

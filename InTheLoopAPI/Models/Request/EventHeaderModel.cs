@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models.Database;
+using InTheLoopAPI.Models.Request;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +32,7 @@ namespace InTheLoopAPI.Models.RequestModels
         public DateTime End { get; set; }
 
         public string EventImageURL { get; set; }
+
+        public List<TagModel> Tags { get; set; }
     }
 }

@@ -39,9 +39,10 @@ namespace InTheLoopAPI
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 // Token set to expire every 30 seconds for testing
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(0.00069444444 / 2),
-                AllowInsecureHttp = false
-                //AllowInsecureHttp = true
+                //AccessTokenExpireTimeSpan = TimeSpan.FromDays(0.00069444444 / 2),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                //AllowInsecureHttp = false
+                AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users

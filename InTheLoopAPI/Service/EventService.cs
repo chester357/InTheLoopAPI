@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Database;
 using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Models.RequestModels;
 using InTheLoopAPI.Queries;
@@ -25,12 +26,25 @@ namespace InTheLoopAPI.Service
             _validator = new EventValidator(_eventRepository);
         }
 
+        public List<TagModel> GetTags(String userId)
+        {
+            return _repository.Tags.Where(x => x.TagUsers.Any(t => t.UserId == userId))
+                .Select(tm => new TagModel
+                {
+                    TagName = tm.Name,
+                    TagId = tm.Id
+                })
+                .ToList();
+        }
+
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
         {
+            if(!eventModel.Website.Contains("http://") && !eventModel.Website.Contains("https://"))
+                eventModel.Website = "http://" + eventModel.Website;
+
             EventFooter eventFooter = new EventFooter
             {
                 AgeGroup = eventModel.AgeGroup,
-                Category = eventModel.Category,
                 Description = eventModel.Description,
                 Title = eventModel.Title,
                 UserId = userId,
@@ -49,8 +63,23 @@ namespace InTheLoopAPI.Service
                 Price = eventModel.Price,
                 ImageURL = eventModel.EventImageURL,
                 Archived = false,
-                Views = 0
+                Views = 0,
+                TagEvents = new List<TagEvent>()
             };
+
+            foreach(TagModel t in eventModel.Tags)
+            {
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+
+                if(tag == null)
+                {
+                    tag = new Tag { Name = t.TagName };
+
+                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                }
+                else
+                    eventHeader.TagEvents.Add(new TagEvent { TagId = tag.Id });
+            }
 
             var footerResults = _validator.EventFooter(eventFooter).ToList();
 
@@ -80,8 +109,23 @@ namespace InTheLoopAPI.Service
                 Longitude = model.Longitude,
                 Start = model.Start,
                 State = model.State,
-                ZipCode = model.ZipCode
+                ZipCode = model.ZipCode,
+                TagEvents = new List<TagEvent>()
             };
+
+            foreach (TagModel t in model.Tags)
+            {
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+
+                if (tag == null)
+                {
+                    tag = new Tag { Name = t.TagName };
+
+                    repeatEvent.TagEvents.Add(new TagEvent { Tag = tag });
+                }
+                else
+                    repeatEvent.TagEvents.Add(new TagEvent { TagId = tag.Id });
+            }
 
             var results = _validator.EventHeader(repeatEvent, userId);
 
@@ -140,6 +184,21 @@ namespace InTheLoopAPI.Service
             eventHeader.Start = eventHeaderModel.Start;
             eventHeader.State = eventHeaderModel.State;
             eventHeader.ZipCode = eventHeaderModel.ZipCode;
+            eventHeader.TagEvents = new List<TagEvent>();
+
+            foreach (TagModel t in eventHeaderModel.Tags)
+            {
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+
+                if (tag == null)
+                {
+                    tag = new Tag { Name = t.TagName };
+
+                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                }
+                else
+                    eventHeader.TagEvents.Add(new TagEvent { TagId = tag.Id });
+            }
 
             var results = _validator.EventHeader(eventHeader, userId);
 
@@ -159,7 +218,6 @@ namespace InTheLoopAPI.Service
                 return new List<ValidationResult> { new ValidationResult("Invalid Event Footer Id.") };
 
             eventFooter.AgeGroup = footerModel.AgeGroup;
-            eventFooter.Category = footerModel.Category;
             eventFooter.Description = footerModel.Description;
             eventFooter.Title = footerModel.Title;
             eventFooter.Website = footerModel.Website;

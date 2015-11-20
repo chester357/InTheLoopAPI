@@ -16,7 +16,7 @@ namespace InTheLoopAPI.Models
         // automatically whenever you change your model schema, please use data migrations.
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
-    
+
         public DatabaseContext() : base("DatabaseContext")
         {
 
@@ -34,5 +34,8 @@ namespace InTheLoopAPI.Models
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Follow> Follows { get; set; }
         public DbSet<ResetToken> ResetTokens { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<TagEvent> TagEvents { get; set; }
+        public DbSet<TagUser> TagUsers { get; set; }
     }
 }

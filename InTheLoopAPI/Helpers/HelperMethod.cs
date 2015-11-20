@@ -19,7 +19,7 @@ namespace InTheLoopAPI.Helpers
                 WebResponse response = request.GetResponse();
                 return true;
             }
-            catch 
+            catch(Exception ex)
             { 
                 return false;
             }

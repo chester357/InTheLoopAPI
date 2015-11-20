@@ -26,6 +26,41 @@ namespace InTheLoopAPI.Service
             _validator = new FollowValidator(_followRepository, _userRepository);    
         }
 
+        public ValidationResult UnfollowTag(String userId, TagModel tag)
+        {
+            var userTag = _databaseContext.TagUsers.SingleOrDefault(t => t.Tag.Name == tag.TagName && t.UserId == userId);
+
+            if (userTag == null)
+                return new ValidationResult("User was not following this tag");
+
+            _databaseContext.TagUsers.Remove(userTag);
+
+            _databaseContext.SaveChanges();
+
+            return ValidationResult.Success;
+        }
+
+        public ValidationResult FollowTag(String userId, TagModel tag)
+        {
+            var existingTag = _databaseContext.Tags.SingleOrDefault(x => x.Name == tag.TagName);
+
+            if (existingTag == null)
+                return new ValidationResult("No tag found with this name");
+
+            var existingTagForUser = _databaseContext.TagUsers.Any(x => x.TagId == existingTag.Id && x.UserId == userId);
+
+            if (existingTagForUser)
+                return new ValidationResult("Uses is already following this tag");
+
+            var userTag = new TagUser { UserId = userId, TagId = existingTag.Id };
+
+            _databaseContext.TagUsers.Add(userTag);
+
+            _databaseContext.SaveChanges();
+
+            return ValidationResult.Success;
+        }
+
         public ValidationResult AddFollower(string userId, string followingId)
         {
             var result = _validator.AddFollower(userId, followingId);

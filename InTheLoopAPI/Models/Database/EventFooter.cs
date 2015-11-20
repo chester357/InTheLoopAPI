@@ -20,8 +20,6 @@ namespace InTheLoopAPI.Models
 
         public AgeGroup AgeGroup { get; set; }
 
-        public Category Category { get; set; }
-
         public ICollection<EventHeader> EventHeaders { get; set; }
     }
 }

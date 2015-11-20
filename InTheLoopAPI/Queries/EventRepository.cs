@@ -1,4 +1,5 @@
 ﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Models.RequestModels;
 using System;
 using System.Collections.Generic;
@@ -19,24 +20,19 @@ namespace InTheLoopAPI.Queries
             var singleEvent = EventHeaders.SingleOrDefault(x => 
             x.Id == eventId &&
             x.Archived == false);
-
-            singleEvent.Views++;
-
-            Database.SaveChanges();
             
             if (singleEvent == null)
                 return null;
 
-            var userID = singleEvent.EventFooter.UserId;
+            singleEvent.Views++;
 
-            var user = Users.SingleOrDefault(x => x.Id == userID);
+            Database.SaveChanges();
 
             return new EventModel
             {
                 Active = singleEvent.Archived,
                 AgeGroup = singleEvent.EventFooter.AgeGroup,
                 EventFooterId = singleEvent.EventFooterId,
-                Category = singleEvent.EventFooter.Category,
                 City = singleEvent.City,
                 Description = singleEvent.EventFooter.Description,
                 End = singleEvent.End,
@@ -51,25 +47,48 @@ namespace InTheLoopAPI.Queries
                 Website = singleEvent.EventFooter.Website,
                 ZipCode = singleEvent.ZipCode,
                 Price = singleEvent.Price,
-                Views = singleEvent.Views
+                Views = singleEvent.Views,
+                Tags = singleEvent.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
             };
         }
 
         public List<EventModel> GetHomeEvents(String userId)
         {
+            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).ToList();
+
             return EventHeaders
-                .Where(x => 
-                    x.Archived == false &&
-                    x.Attendees.Any(n => n.UserId == userId) &&
-                    (x.End.CompareTo(DateTime.UtcNow) >= 0)
+                .Where(x =>
+                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                    (
+                        // All events that I'm attending
+                        x.Attendees.Any(n => n.UserId == userId) &&
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId ||
+                        // All events for the tags I follow
+                        x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag.Id == tagEvent.TagId)) ||
+
+                        // All events for people I follow (their posted events)
+                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        // All events for people I follow (their attended events)
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                    )
                 )
+                //.Where(Follows.Where(f => f.FollowingId == userId)
+                //    .Select(e => e.User.EventFooters.Select(me => me.EventHeaders))
+                //    .ToList()
+               
                 .OrderBy(x => x.Start)
                 .Select(y => new EventModel
                 {
                     Active = y.Archived,
                     AgeGroup = y.EventFooter.AgeGroup,
                     EventFooterId = y.EventFooterId,
-                    Category = y.EventFooter.Category,
                     City = y.City,
                     Description = y.EventFooter.Description,
                     End = y.End,
@@ -84,7 +103,14 @@ namespace InTheLoopAPI.Queries
                     Website = y.EventFooter.Website,
                     ZipCode = y.ZipCode,
                     Price = y.Price,
-                    Views = y.Views
+                    Views = y.Views,
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
                 })
                 .ToList();
         }
@@ -109,7 +135,6 @@ namespace InTheLoopAPI.Queries
                     Active = y.Archived,
                     AgeGroup = y.EventFooter.AgeGroup,
                     EventFooterId = y.EventFooterId,
-                    Category = y.EventFooter.Category,
                     City = y.City,
                     Description = y.EventFooter.Description,
                     End = y.End,
@@ -124,7 +149,14 @@ namespace InTheLoopAPI.Queries
                     Website = y.EventFooter.Website,
                     ZipCode = y.ZipCode,
                     Price = y.Price,
-                    Views = y.Views
+                    Views = y.Views,
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
                 })
                 .ToList();
         }

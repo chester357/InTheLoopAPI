@@ -1,24 +1,18 @@
 ﻿using InTheLoopAPI.Models.RequestModels;
 using InTheLoopAPI.Service;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.OData;
 using Microsoft.AspNet.Identity;
 using InTheLoopAPI.Helpers;
 using System.ComponentModel.DataAnnotations;
 using InTheLoopAPI.Models.Request;
-using InTheLoopAPI.Models;
-using System.Threading.Tasks;
-using System.Web;
-using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps]
+    [Authorize]
+    //[Authorize, RequireHttps]
     public class EventController : ApiController
     {
         public EventService _service;
@@ -61,7 +55,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, EnableQuery, Route("api/Event/Home")]
+        [HttpPost, EnableQuery, Route("api/Event/Home/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
         public IHttpActionResult GetHomeEvents()
         {
             try

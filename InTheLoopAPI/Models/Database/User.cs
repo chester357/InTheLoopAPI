@@ -18,5 +18,6 @@ namespace InTheLoopAPI.Models
         public virtual ICollection<EventFooter> EventFooters { get; set; }
 
         public virtual ICollection<Follow> Followers { get; set; }
+
     }
 }
