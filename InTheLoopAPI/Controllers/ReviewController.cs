@@ -11,7 +11,8 @@ using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps]
+    [Authorize]
+    //[Authorize, RequireHttps]
     public class ReviewController : ApiController
     {
         private ReviewService _reviewService;

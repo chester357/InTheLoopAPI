@@ -19,5 +19,7 @@ namespace InTheLoopAPI.Models
 
         public virtual ICollection<Follow> Followers { get; set; }
 
+        public virtual ICollection<TagUser> Tags { get; set; }
+
     }
 }

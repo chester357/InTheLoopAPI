@@ -25,6 +25,8 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string UserId { get; set; }
 
+        public UserModel User { get; set; }
+
         public string UserProfileURL { get; set; }
 
         public bool Active { get; set; }
@@ -44,6 +46,8 @@ namespace InTheLoopAPI.Models.RequestModels
         public double Longitude { get; set; }
 
         public int Price { get; set; }
+
+        public bool IsAttending { get; set; }
 
         public DateTime Start { get; set; }
 

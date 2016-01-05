@@ -131,9 +131,9 @@ namespace InTheLoopAPI.Service
             return results.ToList();
         }
 
-        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
+        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
         {
-            return _eventRepository.GetEvents(latitude, longitude, radius);
+            return _eventRepository.GetEvents(userId, latitude, longitude, radius);
         }
 
         public List<EventModel> GetHomeEvents(string userId, double latitude, double longitude, double radius)
@@ -141,9 +141,9 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetHomeEvents(userId, latitude, longitude, radius);
         }
 
-        public EventModel GetEvent(int eventId)
+        public EventModel GetEvent(string userId, int eventId)
         {
-            return _eventRepository.GetEvent(eventId);
+            return _eventRepository.GetEvent(eventId, userId);
         }
 
         public ValidationResult ArchiveEvent(int eventHeaderId, string userId)

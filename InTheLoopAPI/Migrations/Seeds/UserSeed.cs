@@ -11,41 +11,90 @@ namespace InTheLoopAPI.Migrations.Seeds
 {
     public static class UserSeed
     {
+        public static List<TagUser> TagUserList(List<int> tagIds)
+        {
+            var tagUsers = new List<TagUser>();
+
+            tagIds.ForEach(tagId => tagUsers.Add( new TagUser { TagId = tagId }));
+
+            return tagUsers;
+        }
+
         public static void Run(DatabaseContext context)
         {
-            var password = "Password123!";
+            var password = "password";
 
             var userStore = new UserStore<User>(context);
             var userManager = new UserManager<User>(userStore);
 
+            var tagNames = new List<String>
+            {
+                "Music",
+                "Night Life",
+                "Drink",
+                "Food",
+                "For Sale",
+                "Bar",
+                "Educational",
+                "College",
+                "Arts and Crafts",
+                "Sports"
+            };
+
+            tagNames.ForEach(tagName => context.Tags.Add(new Tag { Name = tagName }));
+            context.SaveChanges();
+
+            var tagIds = new List<int>();
+            var tagDict = new Dictionary<String, int>();
+            tagNames.ForEach(tagName =>
+            {
+                var tag = context.Tags.SingleOrDefault(t => t.Name == tagName);
+
+                if (tag != null)
+                {
+                    tagDict.Add(tagName, tag.Id);
+                    tagIds.Add(tag.Id);
+                }
+            });
+            
+
             #region Users
             var users = new List<User>
             {
-                new User 
-                { 
-                    Email = "chester@gmail.com", 
-                    UserName = "chester357",
-                    Quote = "Just going with the flow",
+                new User
+                {
+                    Email = "chester@gmail.com",
+                    UserName = "chester",
+                    ImageURL = "chesterprofilepic.jpg",
+                    Tags = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.TwentyOnePlus,
-                            Description = "Fundraising party for help fight cancer please come and support",
-                            //Logo = "TempLogo.jpg",
-                            Title = "Redcross Fundraiser",
-                            Website = "www.redcross.com",
+                            AgeGroup = AgeGroup.EighteenPlus,
+                            Description = "Deftones are an American alternative metal band from Sacramento, California. The band, which was founded in 1988, consists of Chino Moreno (lead vocals, rhythm guitar), Stephen Carpenter (lead guitar), Frank Delgado (keyboards and turntables), Abe Cunningham (drums and percussion) and Sergio Vega (bass). ",
+                            Title = "Deftones Live At the House of Blues",
+                            Website = "www.deftones.com",
                             EventHeaders = new List<EventHeader>
                             {
                                 new EventHeader
                                 {
                                     City = "New Orleans",
-                                    End = DateTime.Now.AddHours(5),
-                                    Latitude = 29.9500,
-                                    Longitude = -90.0667,
+                                    End = DateTime.Now.AddYears(1),
+                                    Latitude = 29.953354,
+                                    Longitude = -90.0683657,
                                     Start = DateTime.Now,
                                     State = State.LA,
-                                    ZipCode = 70131
+                                    ZipCode = 70131,
+                                    ImageURL = "deftones.jpg",
+                                    Price = 3,
+                                    TagEvents = new List<TagEvent>
+                                    {
+                                        new TagEvent
+                                        {
+                                            TagId = tagDict["Music"] 
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -53,29 +102,38 @@ namespace InTheLoopAPI.Migrations.Seeds
                 },
                  new User 
                 { 
-                    Email = "james@gmail.com", 
-                    UserName = "jamestheman",
-                    Quote = "I know the best events",
+                    Email = "jpugh457@gmail.com", 
+                    UserName = "jake",
+                    ImageURL = "jakep.jpg",
+                    Tags = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.EighteenPlus,
-                            Description = "Deftones and Incubus live. Long awaited tour!",
-                            //Logo = "TempLogo.jpg",
-                            Title = "Deftones Concert",
-                            Website = "www.ticketmaster.com",
+                            AgeGroup = AgeGroup.TwentyOnePlus,
+                            Description = "Found out Barrel Proof offers half off their whiskey tasting on Tuesdays",
+                            Title = "Whiskey Tasting at Barrel Proof",
+                            Website = "http://www.barrelproofnola.com/",
                             EventHeaders = new List<EventHeader>
                             {
                                 new EventHeader
                                 {
-                                    City = "New Orleans",
-                                    End = DateTime.Now.AddHours(10),
-                                    Latitude = 29.9500,
-                                    Longitude = -90.0667,
+                                    City = "Garden District",
+                                    End = DateTime.Now.AddYears(1),
+                                    Latitude = 29.9392218,
+                                    Longitude = -90.073399,
                                     Start = DateTime.Now.AddHours(5),
                                     State = State.LA,
-                                    ZipCode = 70131
+                                    ZipCode = 70131,
+                                    Price = 2,
+                                    ImageURL = "barrelproof.jpg",
+                                    TagEvents = new List<TagEvent>
+                                    {
+                                        new TagEvent
+                                        {
+                                            TagId =  tagDict["Drink"] 
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -83,9 +141,10 @@ namespace InTheLoopAPI.Migrations.Seeds
                 },
                 new User 
                 { 
-                    Email = "desiree@gmail.com", 
-                    UserName = "dezzybaby",
-                    Quote = "Keeping it real 24/7",
+                    Email = "desireewashington@gmail.com", 
+                    UserName = "desiree",
+                    ImageURL = "desiree.jpg",
+                    Tags = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
@@ -93,20 +152,28 @@ namespace InTheLoopAPI.Migrations.Seeds
                             AgeGroup = AgeGroup.All,
                             Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
                             of a kind please come check them out.",
-                            //Logo = "TempLogo.jpg",
-                            Title = "Juans Flying Taco Truck",
-                            Website = "www.juanstacotruck.com",
+                            Title = "La Cocinta Taco Saturday",
+                            Website = "http://lacocinitafoodtruck.com/",
                             EventHeaders = new List<EventHeader>
                             {
                                 new EventHeader
                                 {
-                                    City = "New Orleans",
-                                    End = DateTime.Now.AddHours(19),
-                                    Latitude = 29.9500,
-                                    Longitude = -90.0667,
+                                    City = "Uptown",
+                                    End = DateTime.Now.AddYears(1),
+                                    Latitude = 29.9245555,
+                                    Longitude = -90.0878073,
                                     Start = DateTime.Now,
                                     State = State.LA,
-                                    ZipCode = 70131
+                                    ZipCode = 70131,
+                                    Price = 1,
+                                    ImageURL = "lacocinta.jpg",
+                                    TagEvents = new List<TagEvent>
+                                    {
+                                        new TagEvent
+                                        {
+                                            TagId = tagDict["Food"] 
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -114,59 +181,37 @@ namespace InTheLoopAPI.Migrations.Seeds
                 },
                 new User 
                 { 
-                    Email = "mike@gmail.com", 
-                    UserName = "mikethetiger",
-                    Quote = "LSU is the coolest",
-                    EventFooters = new List<EventFooter>
-                    {
-                        new EventFooter
-                        {
-                            AgeGroup = AgeGroup.TwentyOnePlus,
-                            Description = "The best deal in town. A must do for every LSU alum!",
-                            //Logo = "TempLogo.jpg",
-                            Title = "Free drinks",
-                            Website = "www.fredsbr.com",
-                            EventHeaders = new List<EventHeader>
-                            {
-                                new EventHeader
-                                {
-                                    City = "Baton Rouge",
-                                    End = DateTime.Now.AddHours(7),
-                                    Latitude = 30.4500,
-                                    Longitude = -91.1400,
-                                    Start = DateTime.Now.AddHours(3),
-                                    State = State.LA,
-                                    ZipCode = 70816
-                                }
-                            }
-                        }
-                    }
-                },
-                new User 
-                { 
-                    Email = "jackie@gmail.com", 
-                    UserName = "jackiesgarage",
-                    Quote = "I just wanna go fast",
+                    Email = "steezyknees9@gmail.com", 
+                    UserName = "patrick",
+                    ImageURL = "patrick.jpg",
+                    Tags = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
                             AgeGroup = AgeGroup.All,
-                            Description = "Some out and show off your sweet ride. Great fun for every so please bring the family",
-                            //Logo = "TempLogo.jpg",
-                            Title = "Speed Club Car Show",
-                            Website = "www.classiccarshows.com",
+                            Description = "Some items I have for sale include, 50 inch flat screen, leather couch, 2 road bikes, kitchen set, flower pot, swing set",
+                            Title = "Mid City Garage Sale",
                             EventHeaders = new List<EventHeader>
                             {
                                 new EventHeader
                                 {
-                                    City = "New Orleans",
-                                    End = DateTime.Now.AddHours(19),
-                                    Latitude = 29.9500,
-                                    Longitude = -90.0667,
+                                    City = "Mid City",
+                                    End = DateTime.Now.AddYears(1),
+                                    Latitude = 29.972715,
+                                    Longitude = -90.0883457,
                                     Start = DateTime.Now,
                                     State = State.LA,
-                                    ZipCode = 70131
+                                    ZipCode = 70131,
+                                    Price = 1,
+                                    ImageURL = "garagesale.jpeg",
+                                    TagEvents = new List<TagEvent>
+                                    {
+                                        new TagEvent
+                                        {
+                                            TagId = tagDict["For Sale"] 
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -174,16 +219,43 @@ namespace InTheLoopAPI.Migrations.Seeds
                 },
                 new User
                 {
-                    Email = "courney@gmail.com", 
-                    UserName = "Number1Party",
-                    Quote = "Going to the hottest parties"
-                },
-                new User
-                {
-                    Email = "anthony@gmail.com", 
-                    UserName = "anthony12",
-                    Quote = "Not much to say"
+                    Email = "republic@gmail.com",
+                    UserName = "RepublicNOLA",
+                    ImageURL = "republic.jpg",
+                    Tags = TagUserList(tagIds),
+                    EventFooters = new List<EventFooter>
+                    {
+                        new EventFooter
+                        {
+                            AgeGroup = AgeGroup.All,
+                            Description = "Don’t miss the annual HOLIDAY BOUNCE featuring Big Freedia, DJ Jubilee, Walt Wiggady, Lucky Lou, Deedie Phat, DJ Lil Man and more on Friday December 18th! Under the twerk tree in our wobble winter wonderland, this stacked line up of greats will put on the bounce show of the year! Start your holiday shopping early and get discount tickets for all your friends for just $5 now.",
+                            Title = "BOUNCE: HOLIDAY EDITION FT BIG FREEDIA & DJ JUBILEE",
+                            EventHeaders = new List<EventHeader>
+                            {
+                                new EventHeader
+                                {
+                                    City = "New Orleans",
+                                    End = DateTime.Now.AddYears(1),
+                                    Latitude = 29.9440558,
+                                    Longitude = -90.0678621,
+                                    Start = DateTime.Now,
+                                    State = State.LA,
+                                    ZipCode = 70131,
+                                    Price = 2,
+                                    ImageURL = "bounce.jpg",
+                                    TagEvents = new List<TagEvent>
+                                    {
+                                        new TagEvent
+                                        {
+                                            TagId = tagDict["Music"] 
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
+
             };
             #endregion
 
@@ -194,4 +266,6 @@ namespace InTheLoopAPI.Migrations.Seeds
             }
         }
     }
+
+    
 }

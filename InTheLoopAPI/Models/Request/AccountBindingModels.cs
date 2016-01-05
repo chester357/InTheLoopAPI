@@ -86,6 +86,15 @@ namespace InTheLoopAPI.Models
         public string Email { get; set; }
     }
 
+    public class ContactBindingModel
+    {
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Display(Name = "Nmail")]
+        public string Name { get; set; }
+    }
+
     public class RemoveLoginBindingModel
     {
         [Required]

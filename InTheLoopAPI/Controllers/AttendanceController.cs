@@ -11,7 +11,8 @@ using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps]
+    [Authorize]
+    //[Authorize, RequireHttps]
     public class AttendanceController : ApiController
     {
         private AttendanceService _attendanceService;

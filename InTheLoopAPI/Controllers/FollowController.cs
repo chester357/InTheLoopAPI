@@ -57,12 +57,27 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, EnableQuery, Route("api/Follow/Tag")]
-        public IHttpActionResult GetFollowTags()
+        [HttpGet, Route("api/Follow/IsFollowing/{userId}")]
+        public IHttpActionResult IsFollowing(String userId)
         {
             try
             {
-                return Ok(_followService.GetTags(User.Identity.GetUserId()));
+                var result = _followService.IsFollowingUser(User.Identity.GetUserId(), userId);
+
+                return Ok(new { IsFollowing = result });
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, EnableQuery, Route("api/Follow/Tag/{userId}")]
+        public IHttpActionResult GetFollowTags(String userId)
+        {
+            try
+            {
+                return Ok(_followService.GetTags(userId));
             }
             catch (Exception ex)
             {

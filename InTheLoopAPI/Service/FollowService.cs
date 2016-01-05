@@ -26,6 +26,11 @@ namespace InTheLoopAPI.Service
             _validator = new FollowValidator(_followRepository, _userRepository);    
         }
 
+        public Boolean IsFollowingUser(String myUserId, String theirUserId)
+        {
+            return _databaseContext.Follows.Any(x => x.UserId == myUserId && x.FollowingId == theirUserId);
+        }
+
         public List<TagModel> GetTags(String userId)
         {
             return _databaseContext.Tags.Where(x => x.TagUsers.Any(t => t.UserId == userId))

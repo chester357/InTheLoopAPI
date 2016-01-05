@@ -28,7 +28,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var result = _service.GetEvent(eventId);
+                var result = _service.GetEvent(User.Identity.GetUserId() ,eventId);
 
                 if (result == null)
                     return BadRequest();
@@ -47,7 +47,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                return Ok(_service.GetEvents(lat, lon ,radius));
+                return Ok(_service.GetEvents(User.Identity.GetUserId() ,lat, lon ,radius));
             }
             catch (Exception ex)
             {

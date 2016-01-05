@@ -37,5 +37,6 @@ namespace InTheLoopAPI.Models
         public DbSet<Tag> Tags { get; set; }
         public DbSet<TagEvent> TagEvents { get; set; }
         public DbSet<TagUser> TagUsers { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

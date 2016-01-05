@@ -15,7 +15,7 @@ namespace InTheLoopAPI.Queries
 
         }
 
-        public EventModel GetEvent(int eventId)
+        public EventModel GetEvent(int eventId, string userId)
         {
             var singleEvent = EventHeaders.Include("TagEvents").SingleOrDefault(x => 
             x.Id == eventId &&
@@ -50,6 +50,15 @@ namespace InTheLoopAPI.Queries
                 Views = singleEvent.Views,
                 UserId = singleEvent.EventFooter.UserId,
                 UserProfileURL = singleEvent.EventFooter.User.ImageURL,
+                IsAttending = singleEvent.Attendees.Any(u => u.UserId == userId),
+                User = new UserModel
+                {
+                    FollowersCount = singleEvent.EventFooter.User.Followers.Count,
+                    UserName =  singleEvent.EventFooter.User.UserName,
+                    Loops = singleEvent.EventFooter.User.AttendEvents.Count,
+                    UserId = singleEvent.EventFooter.UserId,
+                    ImageURL = singleEvent.EventFooter.User.ImageURL
+                },
                 Tags = singleEvent.TagEvents.Select(t => new TagModel
                 {
                     TagId = t.TagId,
@@ -114,6 +123,15 @@ namespace InTheLoopAPI.Queries
                     Views = y.Views,
                     UserId = y.EventFooter.UserId,
                     UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
                     Tags = y.TagEvents
                     .Select(t => new TagModel
                     {
@@ -125,7 +143,7 @@ namespace InTheLoopAPI.Queries
                 .ToList();
         }
     
-        public List<EventModel> GetEvents(double latitude, double longitude, double radius)
+        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
         {
             double degrees = radius / 69;
             double maxLat = latitude + degrees;
@@ -163,6 +181,15 @@ namespace InTheLoopAPI.Queries
                     Views = y.Views,
                     UserId = y.EventFooter.UserId,
                     UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
                     Tags = y.TagEvents
                     .Select(t => new TagModel
                     {
@@ -177,7 +204,7 @@ namespace InTheLoopAPI.Queries
         public bool ValidEventFooterId(int id)
         {
             return EventFooters.Any(x => x.Id == id);
-        }
+        }   
 
         public bool ValidEventHeaderId(int id)
         {

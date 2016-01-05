@@ -25,10 +25,14 @@ using InTheLoopAPI.Service;
 using System.Web.Helpers;
 using InTheLoopAPI.App_Start;
 using InTheLoopAPI.Models.Database;
+using System.Web.Http.Cors;
 
 namespace InTheLoopAPI.Controllers
 {
-    [RequireHttps]
+    // Allow CORS for all origins. (Caution!)
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
+
+    // [RequireHttps]
     [Authorize, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -473,9 +477,21 @@ namespace InTheLoopAPI.Controllers
             {
                 String userId = User.Identity.GetUserId();
 
-                var user = new DatabaseContext().Users.SingleOrDefault(x => x.Id == userId);
+                var datacontext = new DatabaseContext();
+
+                var user = datacontext.Users.SingleOrDefault(x => x.Id == userId);
 
                 if (user == null) return BadRequest();
+
+                var following = datacontext.Follows.Count(x => x.UserId == userId);
+
+                var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
+
+                var tags = datacontext.TagUsers.Count(x => x.UserId == userId);
+
+                var attendedEvents = datacontext.Attendances.Count(x => x.UserId == userId);
+
+                var postedEvents = datacontext.EventFooters.Count(x => x.UserId == userId);
 
                 var profile = new UserModel
                 {
@@ -483,10 +499,30 @@ namespace InTheLoopAPI.Controllers
                     ImageURL = user.ImageURL,
                     Quote = user.Quote,
                     UserId = user.Id,
-                    UserName = user.UserName
+                    UserName = user.UserName,
+                    FollowersCount = followers,
+                    FollowingCount = following,
+                    TagCount = tags,
+                    EventCount = attendedEvents + postedEvents
                 };
 
                 return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        // GET api/Account/Profile
+        [Route("Profile/UserId")]
+        public IHttpActionResult GetUserId()
+        {
+            try
+            {
+                String userId = User.Identity.GetUserId();
+
+                return Ok(new { UserId = userId });
             }
             catch (Exception ex)
             {
@@ -525,6 +561,26 @@ namespace InTheLoopAPI.Controllers
                 return GetErrorResult(result); 
             }
             return Ok();
+        }
+
+        [AllowAnonymous, Route("Contact")]
+        public IHttpActionResult AddContact(ContactBindingModel model)
+        {
+            try
+            {
+                var db = new DatabaseContext();
+
+                db.Contacts.Add(new Contact { Email = model.Email, Name = model.Name });
+
+                db.SaveChanges();
+
+                return Ok();
+               
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         [AllowAnonymous, Route("ForgotPassword")]
