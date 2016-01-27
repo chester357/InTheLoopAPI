@@ -136,15 +136,33 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetEvents(userId, latitude, longitude, radius);
         }
 
+        public List<EventModel> GetUserEvents(string userId)
+        {
+            return _eventRepository.GetUserEvents(userId, false);
+        }
+
         public List<EventModel> GetHomeEvents(string userId, double latitude, double longitude, double radius)
         {
             return _eventRepository.GetHomeEvents(userId, latitude, longitude, radius);
         }
 
         public EventModel GetEvent(string userId, int eventId)
-        {
+        {            
             return _eventRepository.GetEvent(eventId, userId);
         }
+
+        public ValidationResult UpdateViewCount(int eventId)
+        {
+            var evt =_repository.EventHeaders.SingleOrDefault(x => x.Id == eventId);
+
+            if(evt == null) { return new ValidationResult("No event found"); }
+
+            evt.Views++;
+
+            _repository.SaveChanges();
+
+            return ValidationResult.Success;
+        }       
 
         public ValidationResult ArchiveEvent(int eventHeaderId, string userId)
         {

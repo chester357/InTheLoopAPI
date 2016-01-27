@@ -75,6 +75,7 @@ namespace InTheLoopAPI.Models
         [Display(Name = "Quote")]
         public string Quote { get; set; }
 
+        [Required]
         [Display(Name = "Profile Image")]
         public String ImageURL { get; set; }
     }

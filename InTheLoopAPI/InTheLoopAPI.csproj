@@ -331,8 +331,11 @@
     <Compile Include="Models\Request\ForgotPasswordModel.cs" />
     <Compile Include="Models\Request\ResetPasswordModel.cs" />
     <Compile Include="Models\Request\ReviewModel.cs" />
+    <Compile Include="Models\Request\TagAutoModel.cs" />
     <Compile Include="Models\Request\TagModel.cs" />
+    <Compile Include="Models\Request\UpdatePasswordModel.cs" />
     <Compile Include="Models\Request\UserModel.cs" />
+    <Compile Include="Models\Request\UserModelLite.cs" />
     <Compile Include="Models\ReviewImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />

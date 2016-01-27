@@ -378,30 +378,46 @@ namespace InTheLoopAPI.Controllers
 
         // POST api/Account/Update
         [Route("UpdateProfile")]
-        public async Task<IHttpActionResult> UpdateProfile(UpdateBindingModel model)
+        public IHttpActionResult UpdateProfile(UpdateBindingModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             try
             {
                 DatabaseContext context = new DatabaseContext();
 
-                var user = context.Users.SingleOrDefault(x => x.Id == User.Identity.GetUserId());
+                var userId = User.Identity.GetUserId();
 
-                user.Email = model.Email;
-                user.UserName = model.UserName;
-                user.Quote = model.Quote;
+                var user = context.Users.SingleOrDefault(x => x.Id == userId);
 
-                await context.SaveChangesAsync();
+                if(user.Email != model.Email)
+                {
+                    var taken = context.Users.Any(x => x.Email == model.Email);
+
+                    if(taken) { return BadRequest("This email address is already taken"); }
+
+                    user.Email = model.Email;
+                }
+
+                if (user.UserName != model.UserName)
+                {
+                    var taken = context.Users.Any(x => x.UserName == model.UserName);
+
+                    if (taken) { return BadRequest("This username is already taken"); }
+
+                    user.UserName = model.UserName;
+                }
+
+                if (user.ImageURL != model.ImageURL)
+                {
+                    user.ImageURL = model.ImageURL;
+                }
+
+                context.SaveChanges();
 
                 return Ok();
             }
-            catch(Exception)
+            catch(Exception ex)
             {
-                return BadRequest("Profile not updated");
+                return InternalServerError(ex);
             }
             
         }
@@ -448,17 +464,33 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var user = new DatabaseContext().Users.SingleOrDefault(x => x.Id == userId);
+                var datacontext = new DatabaseContext();
+
+                var user = datacontext.Users.SingleOrDefault(x => x.Id == userId);
 
                 if (user == null) return BadRequest();
+
+                var following = datacontext.Follows.Count(x => x.UserId == userId);
+
+                var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
+
+                var tags = datacontext.TagUsers.Count(x => x.UserId == userId);
+
+                var attendedEvents = datacontext.Attendances.Count(x => x.UserId == userId);
+
+                var postedEvents = datacontext.EventFooters.Count(x => x.UserId == userId);
 
                 var profile = new UserModel
                 {
                     Email = user.Email,
                     ImageURL = user.ImageURL,
                     Quote = user.Quote,
-                    UserId = userId,
-                    UserName = user.UserName
+                    UserId = user.Id,
+                    UserName = user.UserName,
+                    FollowersCount = followers,
+                    FollowingCount = following,
+                    TagCount = tags,
+                    EventCount = attendedEvents + postedEvents
                 };
 
                 return Ok(profile);
@@ -580,6 +612,23 @@ namespace InTheLoopAPI.Controllers
             catch
             {
                 return InternalServerError();
+            }
+        }
+
+        [Route("UpdatePassword")]
+        public IHttpActionResult UpdatePassword(UpdatePasswordModel model)
+        {
+            try
+            {
+                var token = _userManager.GeneratePasswordResetToken(User.Identity.GetUserId());
+
+                _userManager.ResetPassword(User.Identity.GetUserId(), token, model.Password);
+
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
 

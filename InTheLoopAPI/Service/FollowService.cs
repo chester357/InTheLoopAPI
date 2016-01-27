@@ -59,6 +59,24 @@ namespace InTheLoopAPI.Service
             return ValidationResult.Success;
         }
 
+        public List<TagAutoModel> TagAutocomplete(String tagName, String userId)
+        {
+            return _databaseContext.Tags.Where(x =>
+                x.Name.StartsWith(tagName) ||
+                x.Name.EndsWith(tagName) ||
+                x.Name.Contains(tagName))
+                .Select(s => new TagAutoModel
+                {
+                    TagName = s.Name,
+                    Following = s.TagUsers.Any(t => t.UserId == userId)
+                }).ToList();
+        }
+
+        public List<UserModelLite> UserAutocomplete(String term, String userId)
+        {
+            return _followRepository.UsersAutoComplete(userId, term);
+        }
+
         public ValidationResult FollowTag(String userId, TagModel tag)
         {
             tag.TagName = tag.TagName.Trim();
@@ -114,14 +132,26 @@ namespace InTheLoopAPI.Service
             return result;
         }
 
-        public List<UserModel> GetFollowers(string userId)
+        public List<FollowModel> GetFollowers(string userId)
         {
-            return _followRepository.GetFollowers(userId);
+            return _followRepository.GetFollowers(userId)
+                .Select(c => new FollowModel
+                {
+                    UserId = c.UserId,
+                    Username = c.UserName,
+                    ProfileImageURL = c.ImageURL
+                }).ToList();
         }
 
-        public List<UserModel> GetFollowing(string userId)
+        public List<FollowModel> GetFollowing(string userId)
         {
-            return _followRepository.GetFollowing(userId);
+            return _followRepository.GetFollowing(userId)
+                .Select(c => new FollowModel
+                {
+                    UserId = c.UserId,
+                    Username = c.UserName,
+                    ProfileImageURL = c.ImageURL
+                }).ToList(); ;
         }
     }
 }

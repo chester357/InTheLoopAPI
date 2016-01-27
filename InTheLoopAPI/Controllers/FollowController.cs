@@ -72,6 +72,66 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpGet, Route("api/Follow/Tag/Autocomplete")]
+        public IHttpActionResult TagAutoCompleteAll()
+        {
+            try
+            {
+                var result = _followService.TagAutocomplete("", User.Identity.GetUserId());
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route("api/Follow/Tag/Autocomplete/{tagName}")]
+        public IHttpActionResult TagAutoComplete(String tagName)
+        {
+            try
+            {
+                var results = _followService.TagAutocomplete(tagName, User.Identity.GetUserId());
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route("api/Follow/User/Autocomplete/{term}")]
+        public IHttpActionResult UserAutoComplete(String term)
+        {
+            try
+            {
+                var results = _followService.UserAutocomplete(term, User.Identity.GetUserId());
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route("api/Follow/User/Autocomplete")]
+        public IHttpActionResult UserAutoCompleteAll()
+        {
+            try
+            {
+                var results = _followService.UserAutocomplete("", User.Identity.GetUserId());
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet, EnableQuery, Route("api/Follow/Tag/{userId}")]
         public IHttpActionResult GetFollowTags(String userId)
         {
@@ -84,18 +144,15 @@ namespace InTheLoopAPI.Controllers
                 return InternalServerError(ex);
             }
         }
-
-        [HttpGet, Route("api/Follow/User/Followers")]
-        public IHttpActionResult GetFollowers()
+              
+        [HttpGet, Route("api/Follow/User/Followers/{userId}")]
+        public IHttpActionResult GetFollowers(String userId)
         {
             try
             {
-                var results = _followService.GetFollowers(User.Identity.GetUserId());
+                var results = _followService.GetFollowers(userId);
 
-                if (results.Any())
-                    return Ok(results);
-
-                return BadRequest("No followers found");
+                return Ok(results);
             }
             catch(Exception ex)
             {
@@ -103,17 +160,14 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Follow/User/Following")]
-        public IHttpActionResult GetFollowing()
+        [HttpGet, Route("api/Follow/User/Following/{userId}")]
+        public IHttpActionResult GetFollowing(String userId)
         {
             try
             {
-                var results = _followService.GetFollowing(User.Identity.GetUserId());
+                var results = _followService.GetFollowing(userId);
 
-                if (results.Any())
-                    return Ok(results);
-
-                return BadRequest("This user is not following anyone");
+                return Ok(results);
             }
             catch(Exception ex)
             {
@@ -139,12 +193,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpDelete, Route("api/Follow/User")]
-        public IHttpActionResult StopFollowing(FollowModel followingModel)
+        [HttpDelete, Route("api/Follow/User/{userId}")]
+        public IHttpActionResult StopFollowing(String userId)
         {
              try
             {
-                var result = _followService.StopFollowing(User.Identity.GetUserId(), followingModel.UserId);
+                var result = _followService.StopFollowing(User.Identity.GetUserId(), userId);
 
                 if (result == ValidationResult.Success)
                     return Ok(result);

@@ -27,9 +27,9 @@ namespace InTheLoopAPI.Queries
                 .Where(x => x.FollowingId == userId)
                 .Select(y => new UserModel
                 {
-                    Email = y.User.Email,
+                    //Email = y.User.Email,
                     ImageURL = y.User.ImageURL,
-                    Quote = y.User.Quote,
+                    //Quote = y.User.Quote,
                     UserId = y.UserId,
                     UserName = y.User.UserName
                 })
@@ -38,15 +38,38 @@ namespace InTheLoopAPI.Queries
 
         public List<UserModel> GetFollowing(string userId)
         {
+            // TODO: Find a way to make this faster
             return Follows
                 .Where(x => x.UserId == userId)
                 .Select(y => new UserModel
                 {
-                    Email = y.User.Email,
-                    ImageURL = y.User.ImageURL,
-                    Quote = y.User.Quote,
-                    UserId = y.UserId,
-                    UserName = y.User.UserName
+                    //Email = Users.SingleOrDefault(u => u.Id == y.FollowingId).Email
+                    ImageURL = Users.FirstOrDefault(u => u.Id == y.FollowingId).ImageURL,
+                    //Quote = y.User.Quote,
+                    UserId = Users.FirstOrDefault(u => u.Id == y.FollowingId).Id,
+                    UserName = Users.FirstOrDefault(u => u.Id == y.FollowingId).UserName
+                })
+                .ToList();
+        }
+
+        public List<UserModelLite> UsersAutoComplete(string userId, string search)
+        {
+            return Users
+                .Where
+                (x =>
+                    x.Id != userId &&
+                    (
+                        x.UserName.Contains(search) ||
+                        x.UserName.EndsWith(search) ||
+                        x.UserName.StartsWith(search)
+                    )
+                )
+                .Select(u => new UserModelLite
+                {
+                    UserId = u.Id,
+                    ProfileImageURL = u.ImageURL,
+                    IsFollowing = Follows.Any(f => f.UserId == userId && f.FollowingId == u.Id),
+                    Username = u.UserName
                 })
                 .ToList();
         }
@@ -55,7 +78,5 @@ namespace InTheLoopAPI.Queries
         {
             return Follows.Any(x => x.UserId == userId && x.FollowingId == followingId);
         }
-
-
     }
 }

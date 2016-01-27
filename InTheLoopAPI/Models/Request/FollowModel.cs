@@ -8,5 +8,9 @@ namespace InTheLoopAPI.Models.Request
     public class FollowModel
     {
         public string UserId { get; set; }
+
+        public string Username { get; set; }
+
+        public string ProfileImageURL { get; set; }
     }
 }

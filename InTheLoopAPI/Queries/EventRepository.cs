@@ -201,6 +201,115 @@ namespace InTheLoopAPI.Queries
                 .ToList();
         }
 
+        public List<EventModel> GetUserEvents(string userId, bool privateAccount)
+        {
+            if (!privateAccount)
+            {
+                return EventHeaders
+                .Where(x =>
+                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                    (
+                        // All events that I'm attending
+                        x.Attendees.Any(n => n.UserId == userId) ||
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId
+                    )
+                )
+                .OrderBy(x => x.Start)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views,
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
+                })
+                .ToList();
+            }
+            else
+            {
+                return EventHeaders
+                .Where(x =>
+                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                    (
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId 
+                    )
+                )
+                .OrderBy(x => x.Start)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views,
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
+                })
+                .ToList();
+            }
+        }
         public bool ValidEventFooterId(int id)
         {
             return EventFooters.Any(x => x.Id == id);

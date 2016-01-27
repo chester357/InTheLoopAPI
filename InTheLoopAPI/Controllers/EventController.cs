@@ -68,6 +68,21 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpGet, EnableQuery, Route("api/Event/User/{userId}")]
+        public IHttpActionResult GetUserHomeEvents(string userId)
+        {
+            try
+            {
+                var evnts = _service.GetUserEvents(User.Identity.GetUserId());
+
+                return Ok(evnts);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpPost, Route("api/Event")]
         public IHttpActionResult PostEvent(EventModel eventModel)
         {
@@ -101,6 +116,21 @@ namespace InTheLoopAPI.Controllers
             catch (Exception ex)
             {
                 return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost, Route("api/Event/UpdateViewCount/{eventId}")]
+        public IHttpActionResult UpdateEventCount(int eventId)
+        {
+            try
+            {
+                _service.UpdateViewCount(eventId);
+
+                return Ok();
+            }
+            catch
+            {
+                return InternalServerError();
             }
         }
 
