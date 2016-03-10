@@ -121,6 +121,16 @@ namespace InTheLoopAPI.Queries
                     ZipCode = y.ZipCode,
                     Price = y.Price,
                     Views = y.Views,
+
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
+
                     UserId = y.EventFooter.UserId,
                     UserProfileURL = y.EventFooter.User.ImageURL,
                     IsAttending = y.Attendees.Any(u => u.UserId == userId),
@@ -142,7 +152,223 @@ namespace InTheLoopAPI.Queries
                 })
                 .ToList();
         }
-    
+
+        public List<EventModel> GetMostPopularToday(String userId, double latitude, double longitude, double radius, DateTime today)
+        {
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
+
+            return EventHeaders
+                .Where(x =>
+                    (x.Archived == false && (x.Start.Year == today.Year && x.Start.Month == today.Month && x.Start.Day == today.Day)) &&
+                    (
+                        // All events that I'm attending
+                        x.Attendees.Any(n => n.UserId == userId) ||
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId ||
+                        // All events for the tags I follow
+                        (
+                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.Latitude > minLat &&
+                            x.Latitude < maxLat &&
+                            x.Longitude > minLong &&
+                            x.Longitude < maxLong
+                        ) ||
+
+                        // All events for people I follow (their posted events)
+                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        // All events for people I follow (their attended events)
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                    )
+                )
+                .OrderBy(x => x.Views)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views,
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
+                })
+                .ToList();
+        }
+
+        public List<EventModel> GetMostPopularThisWeekend(String userId, double latitude, double longitude, double radius, DateTime today)
+        {
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            var start = DateTime.UtcNow;
+            var end = DateTime.UtcNow;
+
+            switch (today.DayOfWeek) {
+                case DayOfWeek.Monday:
+                    //daysToFriday = 4;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(4);
+                    //daysToSunday = 6;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(6);
+                    break;
+                case DayOfWeek.Tuesday:
+                    //daysToFriday = 3;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(3);
+                    //daysToSunday = 5;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(5);
+                    break;
+                case DayOfWeek.Wednesday:
+                    //daysToFriday = 2;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(2);
+                    //daysToSunday = 4;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(4);
+                    break;
+                case DayOfWeek.Thursday:
+                    //daysToFriday = 1;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(1);
+                    //daysToSunday = 3;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(3);
+                    break;
+                case DayOfWeek.Friday:
+                    //daysToFriday = 0;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(0);
+                    //daysToSunday = 2;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(2);
+                    break;
+                case DayOfWeek.Saturday:
+                    //daysToFriday = 6;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(0);
+                    //daysToSunday = 1;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(1);
+                    break;
+                case DayOfWeek.Sunday:
+                    //daysToFriday = 5;
+                    start = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddDays(0);
+                    //daysToSunday = 0;
+                    end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day).AddHours(23).AddMinutes(59).AddDays(0);
+                    break;
+            }
+
+            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
+
+            return EventHeaders
+                .Where(x =>
+                    (x.Archived == false && start.CompareTo(DateTime.UtcNow) >= 0 && end.CompareTo(DateTime.UtcNow) < 0) &&
+                    (
+                        // All events that I'm attending
+                        x.Attendees.Any(n => n.UserId == userId) ||
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId ||
+                        // All events for the tags I follow
+                        (
+                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.Latitude > minLat &&
+                            x.Latitude < maxLat &&
+                            x.Longitude > minLong &&
+                            x.Longitude < maxLong
+                        ) ||
+
+                        // All events for people I follow (their posted events)
+                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        // All events for people I follow (their attended events)
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                    )
+                )
+                .OrderBy(x => x.Views)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views,
+                    UserId = y.EventFooter.UserId,
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
+                })
+                .ToList();
+        }
+
         public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
         {
             double degrees = radius / 69;
@@ -179,6 +405,14 @@ namespace InTheLoopAPI.Queries
                     ZipCode = y.ZipCode,
                     Price = y.Price,
                     Views = y.Views,
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
                     UserId = y.EventFooter.UserId,
                     UserProfileURL = y.EventFooter.User.ImageURL,
                     IsAttending = y.Attendees.Any(u => u.UserId == userId),
@@ -236,6 +470,14 @@ namespace InTheLoopAPI.Queries
                     ZipCode = y.ZipCode,
                     Price = y.Price,
                     Views = y.Views,
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
                     UserId = y.EventFooter.UserId,
                     UserProfileURL = y.EventFooter.User.ImageURL,
                     IsAttending = y.Attendees.Any(u => u.UserId == userId),
@@ -310,6 +552,7 @@ namespace InTheLoopAPI.Queries
                 .ToList();
             }
         }
+
         public bool ValidEventFooterId(int id)
         {
             return EventFooters.Any(x => x.Id == id);

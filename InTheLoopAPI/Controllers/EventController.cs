@@ -68,6 +68,34 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpGet, EnableQuery, Route("api/Event/MostPopularToday/Latitude/{lat}/Longitude/{lon}/Radius/{radius}/Today/{today}")]
+        public IHttpActionResult MostPopularToday(double lat, double lon, double radius, string today)
+        {
+            try
+            {
+                var date = DateTime.Parse(today);
+
+                return Ok(_service.GetMostPopularToday(User.Identity.GetUserId(), lat, lon, radius, date));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, EnableQuery, Route("api/Event/MostPopularThisWeekend/Latitude/{lat}/Longitude/{lon}/Radius/{radius}/Today/{today}")]
+        public IHttpActionResult GetMostPopularThisWeekend(double lat, double lon, double radius, DateTime today)
+        {
+            try
+            {
+                return Ok(_service.GetMostPopularToday(User.Identity.GetUserId(), lat, lon, radius, today));
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpGet, EnableQuery, Route("api/Event/User/{userId}")]
         public IHttpActionResult GetUserHomeEvents(string userId)
         {

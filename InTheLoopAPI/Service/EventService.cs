@@ -146,6 +146,16 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetHomeEvents(userId, latitude, longitude, radius);
         }
 
+        public List<EventModel> GetMostPopularToday(string userId, double latitude, double longitude, double radius, DateTime today)
+        {
+            return _eventRepository.GetMostPopularToday(userId, latitude, longitude, radius, today);
+        }
+
+        public List<EventModel> GetMostPopularThisWeekend(string userId, double latitude, double longitude, double radius, DateTime today)
+        {
+            return _eventRepository.GetMostPopularThisWeekend(userId, latitude, longitude, radius, today);
+        }
+
         public EventModel GetEvent(string userId, int eventId)
         {            
             return _eventRepository.GetEvent(eventId, userId);

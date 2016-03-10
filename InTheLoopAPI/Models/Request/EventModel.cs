@@ -49,6 +49,22 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public bool IsAttending { get; set; }
 
+        public bool Published { get; set; }
+
+        public bool Featured { get; set; }
+
+        public string TicketUrl { get; set; }
+
+        public string OrgContact { get; set; }
+
+        public string OrgName { get; set; }
+
+        public string OrgUrl { get; set; }
+
+        public string VenueContact { get; set; }
+
+        public string VenueName { get; set; }
+
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }

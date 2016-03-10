@@ -476,9 +476,16 @@ namespace InTheLoopAPI.Controllers
 
                 var tags = datacontext.TagUsers.Count(x => x.UserId == userId);
 
-                var attendedEvents = datacontext.Attendances.Count(x => x.UserId == userId);
-
-                var postedEvents = datacontext.EventFooters.Count(x => x.UserId == userId);
+                var eventCounts = datacontext.EventHeaders
+                .Count(x =>
+                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                    (
+                        // All events that I'm attending
+                        x.Attendees.Any(n => n.UserId == userId) ||
+                        // All of my events I posted
+                        x.EventFooter.UserId == userId
+                    )
+                );
 
                 var profile = new UserModel
                 {
@@ -490,7 +497,7 @@ namespace InTheLoopAPI.Controllers
                     FollowersCount = followers,
                     FollowingCount = following,
                     TagCount = tags,
-                    EventCount = attendedEvents + postedEvents
+                    EventCount = eventCounts
                 };
 
                 return Ok(profile);

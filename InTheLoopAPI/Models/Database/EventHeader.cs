@@ -36,6 +36,22 @@ namespace InTheLoopAPI.Models
 
         public int Price { get; set; }
 
+        public bool Published { get; set; }
+
+        public bool Featured { get; set; }
+
+        public string TicketUrl { get; set; }
+
+        public string OrgContact { get; set; }
+
+        public string OrgName { get; set; }
+
+        public string OrgUrl { get; set; }
+
+        public string VenueContact { get; set; }
+
+        public string VenueName { get; set; }
+
         public ICollection<Attendance> Attendees { get; set; }
 
         public ICollection<TagEvent> TagEvents { get; set; }
