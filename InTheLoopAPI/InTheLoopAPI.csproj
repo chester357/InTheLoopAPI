@@ -303,6 +303,10 @@
     <Compile Include="Migrations\201512180248112_AddedContactTable.Designer.cs">
       <DependentUpon>201512180248112_AddedContactTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603100344151_AddedNewFeaturedEventField.cs" />
+    <Compile Include="Migrations\201603100344151_AddedNewFeaturedEventField.Designer.cs">
+      <DependentUpon>201603100344151_AddedNewFeaturedEventField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -463,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512180248112_AddedContactTable.resx">
       <DependentUpon>201512180248112_AddedContactTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603100344151_AddedNewFeaturedEventField.resx">
+      <DependentUpon>201603100344151_AddedNewFeaturedEventField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

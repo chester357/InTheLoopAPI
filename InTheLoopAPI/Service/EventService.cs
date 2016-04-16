@@ -26,6 +26,101 @@ namespace InTheLoopAPI.Service
             _validator = new EventValidator(_eventRepository);
         }
 
+        public List<EventModel> GetPartialEvents(string userId)
+        {
+            return _eventRepository.GetPartialEventsForUser(userId);
+        }
+
+        public ValidationResult DeletePartialEvent(EventModel eventModel)
+        {
+            if(eventModel != null && eventModel.Id != 0)
+            {
+                var eventHeader = _repository.EventHeaders.SingleOrDefault(x => x.Id == eventModel.Id);
+
+                var result = _repository.EventHeaders.Remove(eventHeader);
+
+                _repository.SaveChanges();
+
+                if (result != null)
+                {
+                    return ValidationResult.Success;
+                }
+            }
+
+            return new ValidationResult("Event not removed");
+        }
+
+        public EventModel AddPartialEvent(string userId, EventModel eventModel)
+        {
+            // THIS IS A BRAND NEW EVENT, CREATE A NEW EVENT HEADER AND FOOTER
+
+            var eventHeader = eventModel.ToEventHeader(userId);
+
+            if (eventModel.Tags != null)
+            {
+                foreach (TagModel t in eventModel.Tags)
+                {
+                    t.TagName = t.TagName.Trim();
+
+                    var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
+
+                    if (tag == null)
+                    {
+                        tag = new Tag { Name = t.TagName };
+
+                        eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                    }
+                    else
+                        eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                }
+            }
+
+            _repository.EventHeaders.Add(eventHeader);
+            _repository.SaveChanges();
+
+            var model = eventHeader.ToEventModel(userId);
+
+            return model;
+        }
+
+        public EventModel AddOrUpdatePartialEvent(string userId, EventModel eventModel)
+        {
+
+            var eventHeader = eventModel.ToEventHeader(userId);
+
+            if (eventHeader.Id <= 0 || eventHeader.EventFooterId <= 0)
+            {
+                return AddPartialEvent(userId, eventModel);
+            }
+
+            var existingEventHeader = _repository.EventHeaders.Any(x => x.Id == eventModel.Id);
+
+            if (!existingEventHeader)
+                return null;
+
+            foreach (TagModel t in eventModel.Tags)
+            {
+                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+
+                if (tag == null)
+                {
+                    tag = new Tag { Name = t.TagName };
+
+                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                }
+                else
+                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+            }
+
+            // UPDATE EVENT HEADER AND FOOTER
+
+            _repository.SaveChanges();
+
+            var model = eventHeader.ToEventModel(userId);
+
+            return model;
+        }
+
         public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
         {
             if(!eventModel.Website.Contains("http://") && !eventModel.Website.Contains("https://"))

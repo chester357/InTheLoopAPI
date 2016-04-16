@@ -70,5 +70,77 @@ namespace InTheLoopAPI.Models.RequestModels
         public DateTime End { get; set; }
 
         public List<TagModel> Tags { get; set; }
+
+        public EventHeader ToEventHeader(string userId)
+        {
+            var eventHeader = new EventHeader
+            {
+                Id = this.Id,
+                EventFooterId = this.EventFooterId,
+                EventFooter = new EventFooter
+                {
+                    //public int Id { get; set; }
+                    Id = this.EventFooterId,
+                    //public string UserId { get; set; }
+                    UserId = userId,
+                    //public virtual User User { get; set; }
+
+                    //public string Title { get; set; }
+                    Title = this.Title,
+                    //public string Description { get; set; }
+                    Description = this.Description,
+                    //public string Website { get; set; }
+                    Website = this.Website,
+                    //public AgeGroup AgeGroup { get; set; }
+                    AgeGroup = this.AgeGroup
+                },
+                //public bool Archived { get; set; }
+                Archived = this.Active,
+                //public string City { get; set; }
+                City = this.City,
+                //public State State { get; set; }
+                State = this.State,
+                //public int ZipCode { get; set; }
+                ZipCode = this.ZipCode,
+                //public int Loops { get; set; }
+                Loops = this.Loops,
+                //public int Views { get; set; }
+                Views = this.Views,
+                //public double Latitude { get; set; }
+                Latitude = this.Latitude,
+                //public double Longitude { get; set; }
+                Longitude = this.Longitude,
+                //public string ImageURL { get; set; }
+                ImageURL = this.EventImageURL,
+                //public DateTime Start { get; set; }
+                Start = this.Start.CompareTo(DateTime.UtcNow) < 0 ? DateTime.UtcNow : this.Start,
+                //public DateTime End { get; set; }
+                End = this.End.CompareTo(DateTime.UtcNow) < 0 ? DateTime.UtcNow : this.End,
+                //public int Price { get; set; }
+                Price = this.Price,
+                //public bool Published { get; set; }
+                Published = this.Published,
+                //public bool Featured { get; set; }
+                Featured = this.Featured,
+                //public string TicketUrl { get; set; }
+                TicketUrl = this.TicketUrl,
+                //public string OrgContact { get; set; }
+                OrgContact = this.OrgContact,
+                //public string OrgName { get; set; }
+                OrgName = this.OrgName,
+                //public string OrgUrl { get; set; }
+                OrgUrl = this.OrgUrl,
+                //public string VenueContact { get; set; }
+                VenueContact = this.VenueContact,
+                //public string VenueName { get; set; }
+                VenueName = this.VenueName,
+                //public ICollection<Attendance> Attendees { get; set; }
+                Attendees = new List<Attendance>(),
+                //public ICollection<TagEvent> TagEvents { get; set; }
+                TagEvents = new List<TagEvent>()
+            };
+
+            return eventHeader;
+        }
     }
 }

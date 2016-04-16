@@ -15,6 +15,67 @@ namespace InTheLoopAPI.Queries
 
         }
 
+        public List<EventModel> GetPartialEventsForUser(string userId)
+        {
+            var events = EventHeaders
+                .Where(
+                    x => x.Published == false &&
+                    x.Archived == false &&
+                    x.EventFooter.UserId == userId)
+                .Select(y => new EventModel
+                {
+                    Active = y.Archived,
+                    AgeGroup = y.EventFooter.AgeGroup,
+                    EventFooterId = y.EventFooterId,
+                    City = y.City,
+                    Description = y.EventFooter.Description,
+                    End = y.End,
+                    Id = y.Id,
+                    Latitude = y.Latitude,
+                    EventImageURL = y.ImageURL,
+                    Longitude = y.Longitude,
+                    Loops = y.Loops,
+                    Start = y.Start,
+                    State = y.State,
+                    Title = y.EventFooter.Title,
+                    Website = y.EventFooter.Website,
+                    ZipCode = y.ZipCode,
+                    Price = y.Price,
+                    Views = y.Views,
+
+                    Published = y.Published,
+                    Featured = y.Featured,
+                    TicketUrl = y.TicketUrl,
+                    OrgUrl = y.OrgUrl,
+                    OrgContact = y.OrgContact,
+                    OrgName = y.OrgName,
+                    VenueContact = y.VenueContact,
+                    VenueName = y.VenueName,
+
+                    UserId = y.EventFooter.UserId,
+                    UserProfileURL = y.EventFooter.User.ImageURL,
+                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
+                    User = new UserModel
+                    {
+                        FollowersCount = y.EventFooter.User.Followers.Count,
+                        UserName = y.EventFooter.User.UserName,
+                        Loops = y.EventFooter.User.AttendEvents.Count,
+                        UserId = y.EventFooter.UserId,
+                        ImageURL = y.EventFooter.User.ImageURL
+                    },
+                    Tags = y.TagEvents
+                    .Select(t => new TagModel
+                    {
+                        TagName = t.Tag.Name,
+                        TagId = t.TagId
+                    })
+                    .ToList()
+                })
+                .ToList();
+
+            return events;
+        }
+
         public EventModel GetEvent(int eventId, string userId)
         {
             var singleEvent = EventHeaders.Include("TagEvents").SingleOrDefault(x => 

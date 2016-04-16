@@ -129,6 +129,77 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpPost, Route("api/Event/Partial")]
+        public IHttpActionResult PostPartialEvent(EventModel eventModel)
+        {
+            try
+            {
+                var results = _service.AddOrUpdatePartialEvent(User.Identity.GetUserId(), eventModel);
+
+                if (results == null)
+                    return BadRequest();
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpDelete, Route("api/Event/Partial")]
+        public IHttpActionResult DeletePartialEvent(EventModel eventModel)
+        {
+            try
+            {
+                var result = _service.DeletePartialEvent(eventModel);
+
+                if(result == ValidationResult.Success)
+                {
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPut, Route("api/Event/Partial")]
+        public IHttpActionResult UpdatePartialEvent(EventModel eventModel)
+        {
+            try
+            {
+                var results = _service.AddOrUpdatePartialEvent(User.Identity.GetUserId(), eventModel);
+
+                if (results == null)
+                    return BadRequest();
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, Route("api/Event/Partial")]
+        public IHttpActionResult GetPartialEvents()
+        {
+            try
+            {
+                var results = _service.GetPartialEvents(User.Identity.GetUserId());
+
+                return Ok(results);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpPost, Route("api/Event/Header")]
         public IHttpActionResult PostEvent(EventHeaderModel repeatEventModel)
         {

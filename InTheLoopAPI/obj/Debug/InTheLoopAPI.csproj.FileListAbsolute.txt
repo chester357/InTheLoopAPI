@@ -1013,3 +1013,4 @@ Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoo
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
+Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.AddedNewFeaturedEventField.resources
