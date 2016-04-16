@@ -254,6 +254,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="DAL\BlobContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -356,6 +357,7 @@
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\Interfaces\IEventService.cs" />
     <Compile Include="Service\ReviewService.cs" />
+    <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\Validation\AttendanceValidator.cs" />
     <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Service\Validation\FollowValidator.cs" />
