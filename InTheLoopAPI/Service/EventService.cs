@@ -26,6 +26,27 @@ namespace InTheLoopAPI.Service
             _validator = new EventValidator(_eventRepository);
         }
 
+        public ValidationResult PublishEvent(EventModel eventModel, string userId)
+        {
+            if(eventModel == null || eventModel.Id == 0)
+            {
+                return new ValidationResult("No Event Found");
+            }
+
+            var eventHeader = _repository.EventHeaders.Single(x => x.Id == eventModel.Id);
+
+            if(eventHeader.EventFooter.UserId != userId)
+            {
+                return new ValidationResult("Not your event, Asshole");
+            }
+
+            eventHeader.Published = true;
+
+            _repository.SaveChanges();
+
+            return ValidationResult.Success;
+        }
+
         public List<EventModel> GetPartialEvents(string userId)
         {
             return _eventRepository.GetPartialEventsForUser(userId);

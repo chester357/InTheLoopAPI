@@ -200,6 +200,26 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpPut, Route("api/Event/Partial/Publish")]
+        public IHttpActionResult PublishPartialEvent(EventModel eventModel)
+        {
+            try
+            {
+                var result = _service.PublishEvent(eventModel, User.Identity.GetUserId());
+
+                if(result == ValidationResult.Success)
+                {
+                    return Ok();
+                }
+
+                return BadRequest(result.ErrorMessage);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpPost, Route("api/Event/Header")]
         public IHttpActionResult PostEvent(EventHeaderModel repeatEventModel)
         {

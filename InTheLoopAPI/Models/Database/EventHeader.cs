@@ -16,6 +16,8 @@ namespace InTheLoopAPI.Models
 
         public bool Archived { get; set; }
 
+        public string Steet { get; set; }
+
         public string City { get; set; }
 
         public State State { get; set; }
@@ -75,6 +77,7 @@ namespace InTheLoopAPI.Models
                 Loops = this.Loops,
                 Start = this.Start,
                 State = this.State,
+                Steet = this.Steet,
                 Title = this.EventFooter.Title,
                 Website = this.EventFooter.Website,
                 ZipCode = this.ZipCode,
