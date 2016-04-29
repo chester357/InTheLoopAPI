@@ -47,6 +47,11 @@ namespace InTheLoopAPI.Service
             return ValidationResult.Success;
         }
 
+        public List<EventModel> GetMyPublishedEvents(string userId)
+        {
+            return _eventRepository.GetMyPublishedEvents(userId);
+        }
+
         public List<EventModel> GetPartialEvents(string userId)
         {
             return _eventRepository.GetPartialEventsForUser(userId);

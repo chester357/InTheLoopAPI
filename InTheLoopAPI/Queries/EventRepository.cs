@@ -128,6 +128,15 @@ namespace InTheLoopAPI.Queries
             };
         }
 
+        public List<EventModel> GetMyPublishedEvents(string userId)
+        {
+
+            return EventHeaders.Where(x => x.EventFooter.UserId == userId && x.Published == true)
+                .OrderByDescending(o => o.Start)
+                .Select(s => s.ToEventModel(userId))
+                .ToList();
+        }
+
         public List<EventModel> GetHomeEvents(String userId, double latitude, double longitude, double radius)
         {
             double degrees = radius / 69;

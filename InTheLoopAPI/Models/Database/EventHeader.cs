@@ -16,7 +16,7 @@ namespace InTheLoopAPI.Models
 
         public bool Archived { get; set; }
 
-        public string Steet { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 
@@ -77,7 +77,7 @@ namespace InTheLoopAPI.Models
                 Loops = this.Loops,
                 Start = this.Start,
                 State = this.State,
-                Steet = this.Steet,
+                Street = this.Street,
                 Title = this.EventFooter.Title,
                 Website = this.EventFooter.Website,
                 ZipCode = this.ZipCode,

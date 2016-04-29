@@ -31,7 +31,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public bool Active { get; set; }
 
-        public string Steet { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 
@@ -100,7 +100,7 @@ namespace InTheLoopAPI.Models.RequestModels
                 Archived = this.Active,
                 //public string City { get; set; }
                 City = this.City,
-                Steet = this.Steet,
+                Street = this.Street,
                 //public State State { get; set; }
                 State = this.State,
                 //public int ZipCode { get; set; }

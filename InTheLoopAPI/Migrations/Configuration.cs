@@ -16,9 +16,9 @@ namespace InTheLoopAPI.Migrations
 
         protected override void Seed(DatabaseContext context)
         {
-            UserSeed.Run(context);
+            //UserSeed.Run(context);
 
-            context.SaveChanges();
+            //context.SaveChanges();
         }
     }
 }

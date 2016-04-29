@@ -41,8 +41,8 @@ namespace InTheLoopAPI.Migrations.Seeds
                 "Sports"
             };
 
-            tagNames.ForEach(tagName => context.Tags.Add(new Tag { Name = tagName }));
-            context.SaveChanges();
+            //tagNames.ForEach(tagName => context.Tags.Add(new Tag { Name = tagName }));
+            //context.SaveChanges();
 
             var tagIds = new List<int>();
             var tagDict = new Dictionary<String, int>();

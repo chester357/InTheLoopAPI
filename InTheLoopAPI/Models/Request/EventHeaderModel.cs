@@ -17,6 +17,8 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string City { get; set; }
 
+        public string Street { get; set; }
+
         public State State { get; set; }
 
         public int ZipCode { get; set; }

@@ -185,6 +185,21 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
+        [HttpGet, Route("api/Event/MyPublishedEvents")]
+        public IHttpActionResult GetMyPublishedEvents()
+        {
+            try
+            {
+                var results = _service.GetMyPublishedEvents(User.Identity.GetUserId());
+
+                return Ok(results);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet, Route("api/Event/Partial")]
         public IHttpActionResult GetPartialEvents()
         {
