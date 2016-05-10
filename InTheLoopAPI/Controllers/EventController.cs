@@ -196,7 +196,7 @@ namespace InTheLoopAPI.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex);
+                return InternalServerError(ex);
             }
         }
 

@@ -104,7 +104,7 @@ namespace InTheLoopAPI.Models
                 Tags = new List<TagModel>()
             };
 
-            foreach(TagEvent tagEvent in this.TagEvents)
+            foreach (TagEvent tagEvent in this.TagEvents)
             {
                 model.Tags.Add(new TagModel { TagId = tagEvent.Tag.Id, TagName = tagEvent.Tag.Name });
             }

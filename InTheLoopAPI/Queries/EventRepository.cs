@@ -18,62 +18,16 @@ namespace InTheLoopAPI.Queries
         public List<EventModel> GetPartialEventsForUser(string userId)
         {
             var events = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(
                     x => x.Published == false &&
                     x.Archived == false &&
                     x.EventFooter.UserId == userId)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
+                .OrderByDescending(o => o.Start)
                 .ToList();
 
-            return events;
+            return ToEventModelList(events, userId);
         }
 
         public EventModel GetEvent(int eventId, string userId)
@@ -130,11 +84,14 @@ namespace InTheLoopAPI.Queries
 
         public List<EventModel> GetMyPublishedEvents(string userId)
         {
-
-            return EventHeaders.Where(x => x.EventFooter.UserId == userId && x.Published == true)
+            var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
+                .Where(x => x.EventFooter.UserId == userId && x.Published == true)
                 .OrderByDescending(o => o.Start)
-                .Select(s => s.ToEventModel(userId))
                 .ToList();
+
+            return ToEventModelList(eventHeaders, userId);
         }
 
         public List<EventModel> GetHomeEvents(String userId, double latitude, double longitude, double radius)
@@ -147,7 +104,9 @@ namespace InTheLoopAPI.Queries
 
             var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
-            return EventHeaders
+            var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
@@ -169,58 +128,11 @@ namespace InTheLoopAPI.Queries
                         // All events for people I follow (their attended events)
                         x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
                     )
-                )               
-                .OrderBy(x => x.Start)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
+                )
+                .OrderByDescending(o => o.Start)
                 .ToList();
+
+            return ToEventModelList(eventHeaders, userId);
         }
 
         public List<EventModel> GetMostPopularToday(String userId, double latitude, double longitude, double radius, DateTime today)
@@ -233,7 +145,9 @@ namespace InTheLoopAPI.Queries
 
             var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
-            return EventHeaders
+            var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.Start.Year == today.Year && x.Start.Month == today.Month && x.Start.Day == today.Day)) &&
                     (
@@ -257,54 +171,9 @@ namespace InTheLoopAPI.Queries
                     )
                 )
                 .OrderBy(x => x.Views)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
                 .ToList();
+
+            return ToEventModelList(eventHeaders, userId);
         }
 
         public List<EventModel> GetMostPopularThisWeekend(String userId, double latitude, double longitude, double radius, DateTime today)
@@ -365,7 +234,9 @@ namespace InTheLoopAPI.Queries
 
             var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
-            return EventHeaders
+            var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && start.CompareTo(DateTime.UtcNow) >= 0 && end.CompareTo(DateTime.UtcNow) < 0) &&
                     (
@@ -389,54 +260,9 @@ namespace InTheLoopAPI.Queries
                     )
                 )
                 .OrderBy(x => x.Views)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-                    UserId = y.EventFooter.UserId,
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
                 .ToList();
+
+            return ToEventModelList(eventHeaders, userId);
         }
 
         public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
@@ -447,7 +273,9 @@ namespace InTheLoopAPI.Queries
             double maxLong = longitude + degrees;
             double minLong = longitude - degrees;
 
-            return EventHeaders
+            var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x => 
                     x.Latitude > minLat && 
                     x.Latitude < maxLat && 
@@ -455,61 +283,19 @@ namespace InTheLoopAPI.Queries
                     x.Longitude < maxLong && 
                     x.Archived == false &&
                     x.End.CompareTo(DateTime.UtcNow) >= 0)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
+                .OrderByDescending(o => o.Start)
                 .ToList();
+
+            return ToEventModelList(eventHeaders, userId);
         }
 
         public List<EventModel> GetUserEvents(string userId, bool privateAccount)
         {
             if (!privateAccount)
             {
-                return EventHeaders
+                var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
@@ -519,59 +305,16 @@ namespace InTheLoopAPI.Queries
                         x.EventFooter.UserId == userId
                     )
                 )
-                .OrderBy(x => x.Start)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-                    Published = y.Published,
-                    Featured = y.Featured,
-                    TicketUrl = y.TicketUrl,
-                    OrgUrl = y.OrgUrl,
-                    OrgContact = y.OrgContact,
-                    OrgName = y.OrgName,
-                    VenueContact = y.VenueContact,
-                    VenueName = y.VenueName,
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
+                .OrderByDescending(o => o.Start)
                 .ToList();
+
+                return ToEventModelList(eventHeaders, userId);
             }
             else
             {
-                return EventHeaders
+                var eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
@@ -579,47 +322,10 @@ namespace InTheLoopAPI.Queries
                         x.EventFooter.UserId == userId 
                     )
                 )
-                .OrderBy(x => x.Start)
-                .Select(y => new EventModel
-                {
-                    Active = y.Archived,
-                    AgeGroup = y.EventFooter.AgeGroup,
-                    EventFooterId = y.EventFooterId,
-                    City = y.City,
-                    Description = y.EventFooter.Description,
-                    End = y.End,
-                    Id = y.Id,
-                    Latitude = y.Latitude,
-                    EventImageURL = y.ImageURL,
-                    Longitude = y.Longitude,
-                    Loops = y.Loops,
-                    Start = y.Start,
-                    State = y.State,
-                    Title = y.EventFooter.Title,
-                    Website = y.EventFooter.Website,
-                    ZipCode = y.ZipCode,
-                    Price = y.Price,
-                    Views = y.Views,
-                    UserId = y.EventFooter.UserId,
-                    UserProfileURL = y.EventFooter.User.ImageURL,
-                    IsAttending = y.Attendees.Any(u => u.UserId == userId),
-                    User = new UserModel
-                    {
-                        FollowersCount = y.EventFooter.User.Followers.Count,
-                        UserName = y.EventFooter.User.UserName,
-                        Loops = y.EventFooter.User.AttendEvents.Count,
-                        UserId = y.EventFooter.UserId,
-                        ImageURL = y.EventFooter.User.ImageURL
-                    },
-                    Tags = y.TagEvents
-                    .Select(t => new TagModel
-                    {
-                        TagName = t.Tag.Name,
-                        TagId = t.TagId
-                    })
-                    .ToList()
-                })
+                .OrderByDescending(o => o.Start)
                 .ToList();
+
+                return ToEventModelList(eventHeaders, userId);
             }
         }
 
@@ -651,6 +357,18 @@ namespace InTheLoopAPI.Queries
         public EventFooter GetEventFooter(int eventFoooterId, string userId)
         {
             return EventFooters.SingleOrDefault(x => x.Id == eventFoooterId && x.UserId == userId);
+        }
+
+        public List<EventModel> ToEventModelList(List<EventHeader> eventHeaders, string userId)
+        {
+            var modelList = new List<EventModel>();
+
+            foreach (var _event in eventHeaders )
+            {
+                modelList.Add(_event.ToEventModel(userId));
+            }
+
+            return modelList;
         }
     }
 }
