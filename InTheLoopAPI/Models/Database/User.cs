@@ -21,5 +21,7 @@ namespace InTheLoopAPI.Models
 
         public virtual ICollection<TagUser> Tags { get; set; }
 
+        public virtual ICollection<FlagEvent> FlaggedEvents { get; set; }
+
     }
 }

@@ -185,7 +185,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Event/MyPublishedEvents")]
+        [HttpGet, Route("api/Event/Publish")]
         public IHttpActionResult GetMyPublishedEvents()
         {
             try
@@ -195,6 +195,26 @@ namespace InTheLoopAPI.Controllers
                 return Ok(results);
             }
             catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpDelete, Route("api/Event/Publish")]
+        public IHttpActionResult DeletePublishedEvent(EventModel eventModel)
+        {
+            try
+            {
+                var result = _service.DeletePartialEvent(eventModel);
+
+                if (result == ValidationResult.Success)
+                {
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

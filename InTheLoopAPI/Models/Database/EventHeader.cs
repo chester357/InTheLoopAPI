@@ -60,6 +60,8 @@ namespace InTheLoopAPI.Models
 
         public ICollection<TagEvent> TagEvents { get; set; }
 
+        public ICollection<FlagEvent> Flags { get; set; }
+
         public EventModel ToEventModel(string userId)
         {
             var model = new EventModel

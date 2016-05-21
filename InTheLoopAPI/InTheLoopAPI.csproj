@@ -250,6 +250,7 @@
     <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\FlagController.cs" />
     <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
@@ -316,12 +317,17 @@
     <Compile Include="Migrations\201605200213141_AddedUserToFollowTable.Designer.cs">
       <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605211733082_AddedFlagEventTable.cs" />
+    <Compile Include="Migrations\201605211733082_AddedFlagEventTable.Designer.cs">
+      <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
     <Compile Include="Models\Database\Category.cs" />
     <Compile Include="DAL\DatabaseContext.cs" />
     <Compile Include="Models\Database\Contact.cs" />
+    <Compile Include="Models\Database\FlagEvent.cs" />
     <Compile Include="Models\Database\Follow.cs" />
     <Compile Include="Models\Database\ResetToken.cs" />
     <Compile Include="Models\Database\State.cs" />
@@ -337,6 +343,7 @@
     <Compile Include="Models\Request\EmailModel.cs" />
     <Compile Include="Models\Request\EventFooterModel.cs" />
     <Compile Include="Models\Request\EventModel.cs" />
+    <Compile Include="Models\Request\FlagModel.cs" />
     <Compile Include="Models\Request\FollowModel.cs" />
     <Compile Include="Models\Request\GetEventModel.cs" />
     <Compile Include="Models\Request\EventHeaderModel.cs" />
@@ -361,6 +368,7 @@
     <Compile Include="Service\AttendanceService.cs" />
     <Compile Include="Service\EmailService.cs" />
     <Compile Include="Service\EventService.cs" />
+    <Compile Include="Service\FlagService.cs" />
     <Compile Include="Service\FollowService.cs" />
     <Compile Include="Service\ImageService.cs" />
     <Compile Include="Service\Interfaces\IEventService.cs" />
@@ -486,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605200213141_AddedUserToFollowTable.resx">
       <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605211733082_AddedFlagEventTable.resx">
+      <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
