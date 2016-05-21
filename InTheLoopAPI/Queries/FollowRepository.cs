@@ -21,33 +21,54 @@ namespace InTheLoopAPI.Queries
             return Follows.SingleOrDefault(x => x.UserId == userId && x.FollowingId == followingId);
         }
 
-        public List<UserModel> GetFollowers(string userId)
+        public List<UserModelLite> GetFollowers(string userId, string currentUser)
         {
             return Follows
                 .Where(x => x.FollowingId == userId)
-                .Select(y => new UserModel
+                .Select(y => new UserModelLite
                 {
-                    //Email = y.User.Email,
-                    ImageURL = y.User.ImageURL,
-                    //Quote = y.User.Quote,
-                    UserId = y.UserId,
-                    UserName = y.User.UserName
+                    UserId = y.User.Id,
+                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.UserId),
+                    Username = y.User.UserName,
+                    ProfileImageURL = y.User.ImageURL
                 })
                 .ToList();
+
+            //return Follows
+            //    .Where(x => x.FollowingId == userId)
+            //    .Select(y => new UserModelLite
+            //    {
+            //        UserId = y.UserId,
+            //        IsFollowing = y.User.Followers.Any(f => f.UserId == currentUser),
+            //        Username = y.User.UserName,
+            //        ProfileImageURL = y.User.ImageURL
+            //    })
+            //    .ToList();
         }
 
-        public List<UserModel> GetFollowing(string userId)
+        public List<UserModelLite> GetFollowing(string userId, string currentUser)
         {
+
+            //return Users.Where(x => x.Followers.Any(f => f.UserId == userId))
+            //    .Select(y => new UserModelLite
+            //    {
+            //        UserId = .Id,
+            //        IsFollowing = y.Followers.Any(f => f.UserId == currentUser),
+            //        Username = y.UserName,
+            //        ProfileImageURL = y.ImageURL
+            //    })
+            //    .ToList();
+
+
             // TODO: Find a way to make this faster
             return Follows
                 .Where(x => x.UserId == userId)
-                .Select(y => new UserModel
+                .Select(y => new UserModelLite
                 {
-                    //Email = Users.SingleOrDefault(u => u.Id == y.FollowingId).Email
-                    ImageURL = Users.FirstOrDefault(u => u.Id == y.FollowingId).ImageURL,
-                    //Quote = y.User.Quote,
-                    UserId = Users.FirstOrDefault(u => u.Id == y.FollowingId).Id,
-                    UserName = Users.FirstOrDefault(u => u.Id == y.FollowingId).UserName
+                    UserId = y.Following.Id,
+                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.FollowingId),
+                    Username = y.Following.UserName,
+                    ProfileImageURL = y.Following.ImageURL
                 })
                 .ToList();
         }

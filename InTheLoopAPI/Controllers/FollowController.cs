@@ -150,7 +150,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var results = _followService.GetFollowers(userId);
+                var results = _followService.GetFollowers(userId, User.Identity.GetUserId());
 
                 return Ok(results);
             }
@@ -165,7 +165,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var results = _followService.GetFollowing(userId);
+                var results = _followService.GetFollowing(userId, User.Identity.GetUserId());
 
                 return Ok(results);
             }

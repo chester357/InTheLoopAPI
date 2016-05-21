@@ -15,5 +15,6 @@ namespace InTheLoopAPI.Models.Database
         public virtual User User { get; set; }
 
         public string FollowingId { get; set; }
+        public virtual User Following { get; set; }
     }
 }

@@ -312,6 +312,10 @@
     <Compile Include="Migrations\201604280059582_AddedStreetToEvent.Designer.cs">
       <DependentUpon>201604280059582_AddedStreetToEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605200213141_AddedUserToFollowTable.cs" />
+    <Compile Include="Migrations\201605200213141_AddedUserToFollowTable.Designer.cs">
+      <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -479,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604280059582_AddedStreetToEvent.resx">
       <DependentUpon>201604280059582_AddedStreetToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605200213141_AddedUserToFollowTable.resx">
+      <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

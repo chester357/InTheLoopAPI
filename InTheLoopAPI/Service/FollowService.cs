@@ -132,26 +132,14 @@ namespace InTheLoopAPI.Service
             return result;
         }
 
-        public List<FollowModel> GetFollowers(string userId)
+        public List<UserModelLite> GetFollowers(string userId, string currentUser)
         {
-            return _followRepository.GetFollowers(userId)
-                .Select(c => new FollowModel
-                {
-                    UserId = c.UserId,
-                    Username = c.UserName,
-                    ProfileImageURL = c.ImageURL
-                }).ToList();
+            return _followRepository.GetFollowers(userId, currentUser);
         }
 
-        public List<FollowModel> GetFollowing(string userId)
+        public List<UserModelLite> GetFollowing(string userId, string currentUser)
         {
-            return _followRepository.GetFollowing(userId)
-                .Select(c => new FollowModel
-                {
-                    UserId = c.UserId,
-                    Username = c.UserName,
-                    ProfileImageURL = c.ImageURL
-                }).ToList(); ;
+            return _followRepository.GetFollowing(userId, currentUser);
         }
     }
 }
