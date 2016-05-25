@@ -57,11 +57,47 @@ namespace InTheLoopAPI.Service
             return _eventRepository.GetPartialEventsForUser(userId);
         }
 
-        public ValidationResult DeletePartialEvent(EventModel eventModel)
+        public ValidationResult DeletePublishedEvent(EventModel eventModel, string userId)
+        {
+            if (eventModel != null && eventModel.Id != 0)
+            {
+                var eventHeader = _repository.EventHeaders.SingleOrDefault(x => x.Id == eventModel.Id);
+
+                if (eventHeader == null)
+                {
+                    return new ValidationResult("Event not found");
+                }
+
+                if (eventHeader.EventFooter.UserId != userId)
+                {
+                    return new ValidationResult("This is not your event GET AWAY!");
+                }
+
+                eventHeader.Archived = true;
+
+                _repository.SaveChanges();
+                
+                return ValidationResult.Success;
+            }
+
+            return new ValidationResult("Event not removed");
+        }
+
+        public ValidationResult DeletePartialEvent(EventModel eventModel, string userId)
         {
             if(eventModel != null && eventModel.Id != 0)
             {
                 var eventHeader = _repository.EventHeaders.SingleOrDefault(x => x.Id == eventModel.Id);
+
+                if (eventHeader == null)
+                {
+                    return new ValidationResult("Event not found");
+                }
+
+                if (eventHeader.EventFooter.UserId != userId)
+                {
+                    return new ValidationResult("This is not your event GET AWAY!");
+                }
 
                 var result = _repository.EventHeaders.Remove(eventHeader);
 
@@ -147,114 +183,9 @@ namespace InTheLoopAPI.Service
             return model;
         }
 
-        public List<ValidationResult> AddEvent(string userId, EventModel eventModel)
+        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius, FilterModel model)
         {
-            if(!eventModel.Website.Contains("http://") && !eventModel.Website.Contains("https://"))
-                eventModel.Website = "http://" + eventModel.Website;
-
-            EventFooter eventFooter = new EventFooter
-            {
-                AgeGroup = eventModel.AgeGroup,
-                Description = eventModel.Description,
-                Title = eventModel.Title,
-                UserId = userId,
-                Website = eventModel.Website
-            };
-
-            EventHeader eventHeader = new EventHeader
-            {
-                City = eventModel.City,
-                End = eventModel.End,
-                Latitude = eventModel.Latitude,
-                Longitude = eventModel.Longitude,
-                Start = eventModel.Start,
-                State = eventModel.State,
-                ZipCode = eventModel.ZipCode,
-                Price = eventModel.Price,
-                ImageURL = eventModel.EventImageURL,
-                Archived = false,
-                Views = 0,
-                TagEvents = new List<TagEvent>()
-            };
-
-            foreach(TagModel t in eventModel.Tags)
-            {
-                t.TagName = t.TagName.Trim();
-
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
-
-                if(tag == null)
-                {
-                    tag = new Tag { Name = t.TagName };
-
-                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
-                }
-                else
-                    eventHeader.TagEvents.Add(new TagEvent { TagId = tag.Id });
-            }
-
-            var footerResults = _validator.EventFooter(eventFooter).ToList();
-
-            var headerResults = _validator.EventHeader(eventHeader, userId).ToList();
-
-            var results = footerResults.Union(headerResults);
-
-            if (results.Any())
-                return results.ToList();
-
-            eventHeader.EventFooter = eventFooter;
-
-            _repository.EventHeaders.Add(eventHeader);
-            _repository.SaveChanges();
-
-            return results.ToList();
-        }
-
-        public List<ValidationResult> AddEventHeader(string userId, EventHeaderModel model)
-        {
-            var repeatEvent = new EventHeader
-            {
-                EventFooterId = model.EventFooterId,
-                City = model.City,
-                End = model.End,
-                Latitude = model.Latitude,
-                Longitude = model.Longitude,
-                Start = model.Start,
-                State = model.State,
-                ZipCode = model.ZipCode,
-                TagEvents = new List<TagEvent>()
-            };
-
-            foreach (TagModel t in model.Tags)
-            {
-                t.TagName = t.TagName.Trim();
-
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
-
-                if (tag == null)
-                {
-                    tag = new Tag { Name = t.TagName };
-
-                    repeatEvent.TagEvents.Add(new TagEvent { Tag = tag });
-                }
-                else
-                    repeatEvent.TagEvents.Add(new TagEvent { TagId = tag.Id });
-            }
-
-            var results = _validator.EventHeader(repeatEvent, userId);
-
-            if (results.Any())
-                return results.ToList();
-
-            _repository.EventHeaders.Add(repeatEvent);
-            _repository.SaveChanges();
-
-            return results.ToList();
-        }
-
-        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
-        {
-            return _eventRepository.GetEvents(userId, latitude, longitude, radius);
+            return _eventRepository.GetEvents(userId, latitude, longitude, radius, model);
         }
 
         public List<EventModel> GetUserEvents(string userId)
@@ -313,69 +244,6 @@ namespace InTheLoopAPI.Service
             _repository.SaveChanges();
 
             return ValidationResult.Success;
-        }
-
-        public List<ValidationResult> UpdateEventHeader(EventHeaderModel eventHeaderModel, string userId)
-        {
-            var eventHeader = _eventRepository.GetEventHeader(eventHeaderModel.Id, userId);
-
-            if (eventHeader == null)
-                return new List<ValidationResult> { new ValidationResult("Invalid Event Header Id.") };
-
-            eventHeader.City = eventHeaderModel.City;
-            eventHeader.Latitude = eventHeaderModel.Latitude;
-            eventHeader.Longitude = eventHeaderModel.Longitude;
-            eventHeader.End = eventHeaderModel.End;
-            eventHeader.ImageURL = eventHeaderModel.EventImageURL;
-            eventHeader.Start = eventHeaderModel.Start;
-            eventHeader.State = eventHeaderModel.State;
-            eventHeader.ZipCode = eventHeaderModel.ZipCode;
-            eventHeader.TagEvents = new List<TagEvent>();
-
-            foreach (TagModel t in eventHeaderModel.Tags)
-            {
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
-
-                if (tag == null)
-                {
-                    tag = new Tag { Name = t.TagName };
-
-                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
-                }
-                else
-                    eventHeader.TagEvents.Add(new TagEvent { TagId = tag.Id });
-            }
-
-            var results = _validator.EventHeader(eventHeader, userId);
-
-            if (results.Any())
-                return results.ToList();
-
-            _repository.SaveChanges();
-
-            return results.ToList();
-        }
-
-        public List<ValidationResult> UpdateEventFooter(EventFooterModel footerModel, string userId)
-        {
-            var eventFooter = _eventRepository.GetEventFooter(footerModel.Id, userId);
-
-            if (eventFooter == null)
-                return new List<ValidationResult> { new ValidationResult("Invalid Event Footer Id.") };
-
-            eventFooter.AgeGroup = footerModel.AgeGroup;
-            eventFooter.Description = footerModel.Description;
-            eventFooter.Title = footerModel.Title;
-            eventFooter.Website = footerModel.Website;
-
-            var results = _validator.EventFooter(eventFooter);
-
-            if (results.Any())
-                return results.ToList();
-
-            _repository.SaveChanges();
-
-            return results.ToList();
         }
     }
 }

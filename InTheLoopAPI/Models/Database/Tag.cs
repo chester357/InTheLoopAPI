@@ -15,5 +15,7 @@ namespace InTheLoopAPI.Models.Database
         public virtual List<TagEvent> TagEvents { get; set; }
 
         public virtual List<TagUser> TagUsers { get; set; }
+
+        public bool IsCategory { get; set; }
     }
 }

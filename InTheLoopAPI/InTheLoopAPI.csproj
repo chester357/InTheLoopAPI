@@ -321,6 +321,14 @@
     <Compile Include="Migrations\201605211733082_AddedFlagEventTable.Designer.cs">
       <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605212306588_Updated Flag Event.cs" />
+    <Compile Include="Migrations\201605212306588_Updated Flag Event.Designer.cs">
+      <DependentUpon>201605212306588_Updated Flag Event.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605250145178_Refactored Tags.cs" />
+    <Compile Include="Migrations\201605250145178_Refactored Tags.Designer.cs">
+      <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -340,9 +348,11 @@
     <Compile Include="Models\Database\EventFooter.cs" />
     <Compile Include="Models\Database\EventHeader.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Request\Categories.cs" />
     <Compile Include="Models\Request\EmailModel.cs" />
     <Compile Include="Models\Request\EventFooterModel.cs" />
     <Compile Include="Models\Request\EventModel.cs" />
+    <Compile Include="Models\Request\FilterModel.cs" />
     <Compile Include="Models\Request\FlagModel.cs" />
     <Compile Include="Models\Request\FollowModel.cs" />
     <Compile Include="Models\Request\GetEventModel.cs" />
@@ -497,6 +507,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605211733082_AddedFlagEventTable.resx">
       <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605212306588_Updated Flag Event.resx">
+      <DependentUpon>201605212306588_Updated Flag Event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605250145178_Refactored Tags.resx">
+      <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

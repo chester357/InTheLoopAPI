@@ -71,6 +71,8 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public DateTime End { get; set; }
 
+        public string Category { get; set; }
+
         public List<TagModel> Tags { get; set; }
 
         public EventHeader ToEventHeader(string userId)
@@ -86,7 +88,7 @@ namespace InTheLoopAPI.Models.RequestModels
                     //public string UserId { get; set; }
                     UserId = userId,
                     //public virtual User User { get; set; }
-
+                    Category = this.Category,
                     //public string Title { get; set; }
                     Title = this.Title,
                     //public string Description { get; set; }

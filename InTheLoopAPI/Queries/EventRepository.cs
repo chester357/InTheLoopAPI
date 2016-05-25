@@ -87,7 +87,7 @@ namespace InTheLoopAPI.Queries
             var eventHeaders = EventHeaders
                 .Include("TagEvents")
                 .Include("Attendees")
-                .Where(x => x.EventFooter.UserId == userId && x.Published == true)
+                .Where(x => x.EventFooter.UserId == userId && x.Published == true && x.Archived == false)
                 .OrderByDescending(o => o.Start)
                 .ToList();
 
@@ -265,7 +265,7 @@ namespace InTheLoopAPI.Queries
             return ToEventModelList(eventHeaders, userId);
         }
 
-        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius)
+        public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius, FilterModel filter)
         {
             double degrees = radius / 69;
             double maxLat = latitude + degrees;
@@ -273,18 +273,86 @@ namespace InTheLoopAPI.Queries
             double maxLong = longitude + degrees;
             double minLong = longitude - degrees;
 
-            var eventHeaders = EventHeaders
+            var eventHeaders = new List<EventHeader>();
+
+            if (filter.AllTags && filter.AllCosts)
+            {
+                eventHeaders = EventHeaders
                 .Include("TagEvents")
                 .Include("Attendees")
-                .Where(x => 
-                    x.Latitude > minLat && 
-                    x.Latitude < maxLat && 
-                    x.Longitude > minLong && 
-                    x.Longitude < maxLong && 
+                .Where(x =>
+                    x.Latitude > minLat &&
+                    x.Latitude < maxLat &&
+                    x.Longitude > minLong &&
+                    x.Longitude < maxLong &&
                     x.Archived == false &&
-                    x.End.CompareTo(DateTime.UtcNow) >= 0)
+                    x.Published == true &&
+                    x.End.CompareTo(filter.End) <= 0 &&
+                    x.Start.CompareTo(filter.Start) >= 0 
+                )
                 .OrderByDescending(o => o.Start)
                 .ToList();
+            }
+
+            else if(filter.AllTags && !filter.AllCosts)
+            {
+                eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
+                .Where(x =>
+                    x.Latitude > minLat &&
+                    x.Latitude < maxLat &&
+                    x.Longitude > minLong &&
+                    x.Longitude < maxLong &&
+                    x.Archived == false &&
+                    x.Published == true &&
+                    x.End.CompareTo(filter.End) <= 0 &&
+                    x.Start.CompareTo(filter.Start) >= 0 &&
+                    filter.Costs.Contains(x.Price)
+                )
+                .OrderByDescending(o => o.Start)
+                .ToList();
+            }
+
+            else if(!filter.AllTags && filter.AllCosts)
+            {
+                eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
+                .Where(x =>
+                    x.Latitude > minLat &&
+                    x.Latitude < maxLat &&
+                    x.Longitude > minLong &&
+                    x.Longitude < maxLong &&
+                    x.Archived == false &&
+                    x.Published == true &&
+                    x.End.CompareTo(filter.End) <= 0 &&
+                    x.Start.CompareTo(filter.Start) >= 0 &&
+                    x.TagEvents.Any(t => filter.Tags.Contains(t.Tag.Name.ToLower()))
+                )
+                .OrderByDescending(o => o.Start)
+                .ToList();
+            }
+            else
+            {
+                eventHeaders = EventHeaders
+                .Include("TagEvents")
+                .Include("Attendees")
+                .Where(x =>
+                    x.Latitude > minLat &&
+                    x.Latitude < maxLat &&
+                    x.Longitude > minLong &&
+                    x.Longitude < maxLong &&
+                    x.Archived == false &&
+                    x.Published == true &&
+                    x.End.CompareTo(filter.End) <= 0 &&
+                    x.Start.CompareTo(filter.Start) >= 0 &&
+                    x.TagEvents.Any(t => filter.Tags.Contains(t.Tag.Name.ToLower())) &&
+                    filter.Costs.Contains(x.Price)
+                )
+                .OrderByDescending(o => o.Start)
+                .ToList();
+            }
 
             return ToEventModelList(eventHeaders, userId);
         }
@@ -297,7 +365,7 @@ namespace InTheLoopAPI.Queries
                 .Include("TagEvents")
                 .Include("Attendees")
                 .Where(x =>
-                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                     (x.Archived == false && x.Published && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
                         // All events that I'm attending
                         x.Attendees.Any(n => n.UserId == userId) ||
@@ -316,10 +384,10 @@ namespace InTheLoopAPI.Queries
                 .Include("TagEvents")
                 .Include("Attendees")
                 .Where(x =>
-                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                     (x.Archived == false && x.Published && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
                         // All of my events I posted
-                        x.EventFooter.UserId == userId 
+                        x.EventFooter.UserId == userId
                     )
                 )
                 .OrderByDescending(o => o.Start)

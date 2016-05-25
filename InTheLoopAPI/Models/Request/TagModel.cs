@@ -10,5 +10,9 @@ namespace InTheLoopAPI.Models.Request
         public String TagName { get; set; }
 
         public int TagId { get; set; }
+
+        public bool IsCategory { get; set; }
+
+        public int InternalId { get; set; }
     }
 }

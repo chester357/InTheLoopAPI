@@ -20,6 +20,10 @@ namespace InTheLoopAPI.Models.Database
 
         public int Severity { get; set; }
 
+        public int ReasonId { get; set; }
+
+        public string Reason { get; set; }
+
         public DateTime Date { get; set; }
     }
 }

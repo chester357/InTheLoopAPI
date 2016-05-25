@@ -21,5 +21,7 @@ namespace InTheLoopAPI.Models
         public AgeGroup AgeGroup { get; set; }
 
         public ICollection<EventHeader> EventHeaders { get; set; }
+
+        public string Category { get; set; }
     }
 }

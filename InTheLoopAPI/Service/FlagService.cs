@@ -33,7 +33,9 @@ namespace InTheLoopAPI.Service
                 EventHeaderId = flagModel.EventHeaderId,
                 Message = flagModel.Message == null ? "" : flagModel.Message,
                 Severity = flagModel.Severity,
-                UserId = userId
+                UserId = userId,
+                Reason = flagModel.Reason,
+                ReasonId = flagModel.ReasonId
             };
 
             _repository.Flags.Add(flag);

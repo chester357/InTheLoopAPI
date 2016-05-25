@@ -103,7 +103,8 @@ namespace InTheLoopAPI.Models
                     UserId = this.EventFooter.UserId,
                     ImageURL = this.EventFooter.User.ImageURL
                 },
-                Tags = new List<TagModel>()
+                Tags = new List<TagModel>(),
+                Category = this.EventFooter.Category
             };
 
             foreach (TagEvent tagEvent in this.TagEvents)

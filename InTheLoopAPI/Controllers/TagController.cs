@@ -37,5 +37,18 @@ namespace InTheLoopAPI.Controllers
                 return InternalServerError(ex);
             }
         }
+
+        [HttpGet, Route("api/Tag/Main")]
+        public IHttpActionResult GetMainTags()
+        {
+            try
+            {
+                return Ok(new Categories().List);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

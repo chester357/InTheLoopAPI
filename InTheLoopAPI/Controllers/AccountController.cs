@@ -356,6 +356,21 @@ namespace InTheLoopAPI.Controllers
                 return GetErrorResult(result);
             }
 
+            var datacontext = new DatabaseContext();
+
+            var mainTagModels = new Categories().List;
+
+            var tags = datacontext.Tags.Where(x => mainTagModels.Any(t => t.TagName == x.Name));
+
+            var newUser = datacontext.Users.Single(x => x.UserName == user.UserName);
+
+            foreach (var t in tags)
+            {
+                datacontext.TagUsers.Add(new TagUser { TagId = t.Id, UserId = newUser.Id });
+            }
+
+            datacontext.SaveChanges();
+
             return Ok();
         }
 
@@ -478,7 +493,7 @@ namespace InTheLoopAPI.Controllers
 
                 var eventCounts = datacontext.EventHeaders
                 .Count(x =>
-                    (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
+                    (x.Archived == false && x.Published && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
                     (
                         // All events that I'm attending
                         x.Attendees.Any(n => n.UserId == userId) ||

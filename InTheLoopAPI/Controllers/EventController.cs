@@ -42,12 +42,12 @@ namespace InTheLoopAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet, EnableQuery, Route("api/Event/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
-        public IHttpActionResult GetEvents(double lat, double lon, double radius)
+        [HttpPost, EnableQuery, Route("api/Event/Latitude/{lat}/Longitude/{lon}/Radius/{radius}")]
+        public IHttpActionResult GetEvents(double lat, double lon, double radius, [FromBody] FilterModel model)
         {
             try
             {
-                return Ok(_service.GetEvents(User.Identity.GetUserId() ,lat, lon ,radius));
+                return Ok(_service.GetEvents(User.Identity.GetUserId(), lat, lon, radius, model));
             }
             catch (Exception ex)
             {
@@ -111,24 +111,6 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, Route("api/Event")]
-        public IHttpActionResult PostEvent(EventModel eventModel)
-        {
-            try
-            {
-                var results = _service.AddEvent(User.Identity.GetUserId(), eventModel);
-
-                if (results.Any())
-                    return BadRequest(HelperMethod.DisplayErrors(results));
-
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-               return  InternalServerError(ex);
-            }
-        }
-
         [HttpPost, Route("api/Event/Partial")]
         public IHttpActionResult PostPartialEvent(EventModel eventModel)
         {
@@ -152,7 +134,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var result = _service.DeletePartialEvent(eventModel);
+                var result = _service.DeletePartialEvent(eventModel, User.Identity.GetUserId());
 
                 if(result == ValidationResult.Success)
                 {
@@ -205,7 +187,7 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var result = _service.DeletePartialEvent(eventModel);
+                var result = _service.DeletePublishedEvent(eventModel, User.Identity.GetUserId());
 
                 if (result == ValidationResult.Success)
                 {
@@ -255,24 +237,6 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, Route("api/Event/Header")]
-        public IHttpActionResult PostEvent(EventHeaderModel repeatEventModel)
-        {
-            try
-            {
-                var results = _service.AddEventHeader(User.Identity.GetUserId(), repeatEventModel);
-
-                if (results.Any())
-                    return BadRequest(HelperMethod.DisplayErrors(results));
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
         [HttpPost, Route("api/Event/UpdateViewCount/{eventId}")]
         public IHttpActionResult UpdateEventCount(int eventId)
         {
@@ -297,42 +261,6 @@ namespace InTheLoopAPI.Controllers
 
                 if (result != ValidationResult.Success)
                     return BadRequest(result.ErrorMessage);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
-        [HttpPut, Route("api/Event/Header")]
-        public IHttpActionResult UpdateEventHeader(EventHeaderModel headerModel)
-        {
-            try
-            {
-                var results = _service.UpdateEventHeader(headerModel, User.Identity.GetUserId());
-
-                if (results.Any())
-                    return BadRequest(HelperMethod.DisplayErrors(results));
-
-                return Ok();
-            }
-            catch(Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
-        [HttpPut, Route("api/Event/Footer")]
-        public IHttpActionResult UpdateEventFooter(EventFooterModel footerModel)
-        {
-            try
-            {
-                var results = _service.UpdateEventFooter(footerModel, User.Identity.GetUserId());
-
-                if (results.Any())
-                    return BadRequest(HelperMethod.DisplayErrors(results));
 
                 return Ok();
             }
