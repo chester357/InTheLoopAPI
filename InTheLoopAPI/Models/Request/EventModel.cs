@@ -21,6 +21,10 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string EventImageURL { get; set; }
 
+        public double ImageHeightPx { get; set; }
+
+        public double ImageWidthPx { get; set; }
+
         public string Website { get; set; }
 
         public string UserId { get; set; }
@@ -117,6 +121,8 @@ namespace InTheLoopAPI.Models.RequestModels
                 Longitude = this.Longitude,
                 //public string ImageURL { get; set; }
                 ImageURL = this.EventImageURL,
+                ImageHeightPx = this.ImageHeightPx,
+                ImageWidthPx = this.ImageWidthPx,
                 //public DateTime Start { get; set; }
                 Start = this.Start.CompareTo(DateTime.UtcNow) < 0 ? DateTime.UtcNow : this.Start,
                 //public DateTime End { get; set; }

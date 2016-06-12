@@ -39,5 +39,6 @@ namespace InTheLoopAPI.Models
         public DbSet<TagUser> TagUsers { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<FlagEvent> Flags { get; set; }
+        public DbSet<StockPhoto> StockPhotos { get; set; }
     }
 }

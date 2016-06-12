@@ -1,5 +1,6 @@
 ﻿using InTheLoopAPI.DAL;
 using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Database;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,5 +52,12 @@ namespace InTheLoopAPI.Service
 
             return path;
         }
-    }
+
+        public List<StockPhoto> GetStockPhotos(string Category)
+        {
+            return DataContext.StockPhotos
+                .Where(x => x.Category == Category)
+                .ToList();
+        }
+     }
 }

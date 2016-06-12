@@ -329,6 +329,18 @@
     <Compile Include="Migrations\201605250145178_Refactored Tags.Designer.cs">
       <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606022245445_Added IOS Image Dimensions.cs" />
+    <Compile Include="Migrations\201606022245445_Added IOS Image Dimensions.Designer.cs">
+      <DependentUpon>201606022245445_Added IOS Image Dimensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606042341341_AddedStockImageTable.cs" />
+    <Compile Include="Migrations\201606042341341_AddedStockImageTable.Designer.cs">
+      <DependentUpon>201606042341341_AddedStockImageTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606050002385_AddedStockImageTable2.cs" />
+    <Compile Include="Migrations\201606050002385_AddedStockImageTable2.Designer.cs">
+      <DependentUpon>201606050002385_AddedStockImageTable2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -339,6 +351,7 @@
     <Compile Include="Models\Database\Follow.cs" />
     <Compile Include="Models\Database\ResetToken.cs" />
     <Compile Include="Models\Database\State.cs" />
+    <Compile Include="Models\Database\StockPhoto.cs" />
     <Compile Include="Models\Database\Tag.cs" />
     <Compile Include="Models\Database\TagEvent.cs" />
     <Compile Include="Models\Database\TagUser.cs" />
@@ -366,6 +379,7 @@
     <Compile Include="Models\Request\UpdatePasswordModel.cs" />
     <Compile Include="Models\Request\UserModel.cs" />
     <Compile Include="Models\Request\UserModelLite.cs" />
+    <Compile Include="Models\Request\Username.cs" />
     <Compile Include="Models\ReviewImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -513,6 +527,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605250145178_Refactored Tags.resx">
       <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606022245445_Added IOS Image Dimensions.resx">
+      <DependentUpon>201606022245445_Added IOS Image Dimensions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606042341341_AddedStockImageTable.resx">
+      <DependentUpon>201606042341341_AddedStockImageTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606050002385_AddedStockImageTable2.resx">
+      <DependentUpon>201606050002385_AddedStockImageTable2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -161,7 +161,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/25/2015 15:49:49</publishTime>
     </File>
     <File Include="bin/InTheLoopAPI.dll">
-      <publishTime>05/24/2016 20:21:31</publishTime>
+      <publishTime>06/11/2016 15:58:38</publishTime>
     </File>
     <File Include="bin/it/Microsoft.Data.Edm.resources.dll">
       <publishTime>09/25/2015 15:49:51</publishTime>
@@ -524,7 +524,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/25/2015 11:00:48</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/24/2016 20:21:32</publishTime>
+      <publishTime>06/11/2016 20:09:30</publishTime>
     </File>
   </ItemGroup>
 </Project>

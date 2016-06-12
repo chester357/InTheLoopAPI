@@ -34,6 +34,10 @@ namespace InTheLoopAPI.Models
 
         public string ImageURL { get; set; }
 
+        public double ImageHeightPx { get; set; }
+
+        public double ImageWidthPx { get; set; }
+
         public DateTime Start { get; set; }
 
         public DateTime End { get; set; }
@@ -75,6 +79,8 @@ namespace InTheLoopAPI.Models
                 Id = this.Id,
                 Latitude = this.Latitude,
                 EventImageURL = this.ImageURL,
+                ImageHeightPx = this.ImageHeightPx,
+                ImageWidthPx = this.ImageWidthPx,
                 Longitude = this.Longitude,
                 Loops = this.Loops,
                 Start = this.Start,

@@ -336,57 +336,89 @@ namespace InTheLoopAPI.Controllers
         [HttpPost, Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterBindingModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var user = new User()
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    Quote = model.Quote,
+                    ImageURL = model.ImageURL
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                var datacontext = new DatabaseContext();
+
+                var mainTagModels = new Categories().List;
+
+                var mainTagNames = new List<string>();
+
+                foreach (var tag in mainTagModels)
+                {
+                    mainTagNames.Add(tag.TagName);
+                }
+
+                var tags = datacontext.Tags.Where(x => mainTagNames.Any(t => t == x.Name));
+
+                var newUser = datacontext.Users.Single(x => x.UserName == user.UserName);
+
+                foreach (var t in tags)
+                {
+                    datacontext.TagUsers.Add(new TagUser { TagId = t.Id, UserId = newUser.Id });
+                }
+
+                datacontext.SaveChanges();
+
+                return Ok();
             }
-
-            var user = new User()
+            catch(Exception ex)
             {
-                UserName = model.UserName,
-                Email = model.Email,
-                Quote = model.Quote,
-                ImageURL = model.ImageURL
-            };
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
+                return InternalServerError();
             }
-
-            var datacontext = new DatabaseContext();
-
-            var mainTagModels = new Categories().List;
-
-            var tags = datacontext.Tags.Where(x => mainTagModels.Any(t => t.TagName == x.Name));
-
-            var newUser = datacontext.Users.Single(x => x.UserName == user.UserName);
-
-            foreach (var t in tags)
-            {
-                datacontext.TagUsers.Add(new TagUser { TagId = t.Id, UserId = newUser.Id });
-            }
-
-            datacontext.SaveChanges();
-
-            return Ok();
         }
 
         [AllowAnonymous]
-        [HttpPost, Route("TakenEmail")]
+        [HttpPost, Route("AvailableEmail")]
         public IHttpActionResult TakenEmail(EmailModel model)
         {
             try
             {
                 var isTaken = new DatabaseContext().Users.Any(x => x.Email == model.Email);
 
-                var jsonResult = new Dictionary<String, Boolean>() {{"IsTaken", isTaken}};
+                var jsonResult = new { Taken = isTaken };
 
                 return Ok(jsonResult);
             }
             catch {
+                return InternalServerError();
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost, Route("AvailableUsername")]
+        public IHttpActionResult AvailableUsername(UsernameModel model)
+        {
+            try
+            {
+                var isTaken = new DatabaseContext().Users.Any(x => x.UserName == model.Username);
+
+                var jsonResult = new  { Taken = isTaken };
+
+                return Ok(jsonResult);
+            }
+            catch
+            {
                 return InternalServerError();
             }
         }

@@ -13,7 +13,8 @@ using System.IO;
 
 namespace InTheLoopAPI.Controllers
 {
-    [Authorize, RequireHttps]
+    //[Authorize, RequireHttps]
+    [Authorize]
     public class ImageController : ApiController
     {
         ImageService _imageService;
@@ -37,6 +38,19 @@ namespace InTheLoopAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet, Route("api/StockPhotos/{category}")]
+        public IHttpActionResult GetStockPhotos(string category)
+        {
+            try
+            {
+                return Ok(_imageService.GetStockPhotos(category));
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
             }
         }
 
