@@ -267,6 +267,16 @@ namespace InTheLoopAPI.Queries
 
         public List<EventModel> GetEvents(string userId, double latitude, double longitude, double radius, FilterModel filter)
         {
+            if(filter.Costs == null)
+            {
+                filter.Costs = new List<int>();
+            }
+
+            if (filter.Tags == null)
+            {
+                filter.Tags = new List<string>();
+            }
+
             double degrees = radius / 69;
             double maxLat = latitude + degrees;
             double minLat = latitude - degrees;
