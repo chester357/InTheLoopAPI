@@ -8,10 +8,14 @@ using System.Net.Http;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
+using InTheLoopAPI.App_Start;
 
 namespace InTheLoopAPI.Controllers
 {
     [Authorize]
+#if !DEBUG
+    [RequireHttps]
+#endif
     public class FlagController : ApiController
     {
         FlagService service;

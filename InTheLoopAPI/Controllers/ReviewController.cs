@@ -12,7 +12,9 @@ using InTheLoopAPI.App_Start;
 namespace InTheLoopAPI.Controllers
 {
     [Authorize]
-    //[Authorize, RequireHttps]
+#if !DEBUG
+    [RequireHttps]
+#endif
     public class ReviewController : ApiController
     {
         private ReviewService _reviewService;

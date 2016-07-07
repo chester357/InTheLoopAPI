@@ -11,7 +11,9 @@ using System.Web.Http.OData;
 namespace InTheLoopAPI.Controllers
 {
     [Authorize]
-    //[Authorize, RequireHttps]
+#if !DEBUG
+    [RequireHttps]
+#endif
     public class FollowController : ApiController
     {
         FollowService _followService;

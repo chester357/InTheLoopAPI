@@ -15,6 +15,9 @@ namespace InTheLoopAPI.Controllers
 {
     //[Authorize, RequireHttps]
     [Authorize]
+#if !DEBUG
+    [RequireHttps]
+#endif
     public class ImageController : ApiController
     {
         ImageService _imageService;

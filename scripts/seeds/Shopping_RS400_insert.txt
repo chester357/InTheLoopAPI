@@ -1,0 +1,12 @@
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_101891713.jpeg', 400, 266, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_102021569.jpeg', 400, 266, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_108416229.jpeg', 400, 267, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_16498184.jpeg', 400, 295, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_17011013.jpeg', 293, 400, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_50266255.jpeg', 400, 266, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_72721036.jpeg', 400, 177, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_75706617.jpeg', 400, 266, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_76605846.jpeg', 400, 252, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_86427032.jpeg', 400, 267, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_96970633.jpeg', 400, 258, 'Shopping');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_99524052.jpeg', 400, 266, 'Shopping');

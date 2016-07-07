@@ -1,4 +1,5 @@
-﻿using InTheLoopAPI.Models.Request;
+﻿using InTheLoopAPI.App_Start;
+using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Service;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using System.Web.Http;
 
 namespace InTheLoopAPI.Controllers
 {
+#if !DEBUG
+    [RequireHttps]
+#endif
     public class TagController : ApiController
     {
         TagService _service;

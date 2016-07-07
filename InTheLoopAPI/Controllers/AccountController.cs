@@ -32,7 +32,9 @@ namespace InTheLoopAPI.Controllers
     // Allow CORS for all origins. (Caution!)
     //[EnableCors(origins: "*", headers: "*", methods: "*")]
 
-    // [RequireHttps]
+#if !DEBUG
+    [RequireHttps]
+#endif
     [Authorize, RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -799,7 +801,7 @@ namespace InTheLoopAPI.Controllers
             base.Dispose(disposing);
         }
 
-        #region Helpers
+#region Helpers
 
         private IAuthenticationManager Authentication
         {
@@ -904,6 +906,6 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        #endregion
+#endregion
     }
 }

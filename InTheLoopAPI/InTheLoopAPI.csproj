@@ -261,85 +261,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201505212102119_Initial.cs" />
-    <Compile Include="Migrations\201505212102119_Initial.Designer.cs">
-      <DependentUpon>201505212102119_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509251805483_Added Price to EventHeader.cs" />
-    <Compile Include="Migrations\201509251805483_Added Price to EventHeader.Designer.cs">
-      <DependentUpon>201509251805483_Added Price to EventHeader.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509251907477_Changes User image from byte array to string.cs" />
-    <Compile Include="Migrations\201509251907477_Changes User image from byte array to string.Designer.cs">
-      <DependentUpon>201509251907477_Changes User image from byte array to string.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201510180230472_Reset Token Table.cs" />
-    <Compile Include="Migrations\201510180230472_Reset Token Table.Designer.cs">
-      <DependentUpon>201510180230472_Reset Token Table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511160036019_AddedViewsToEvents.cs" />
-    <Compile Include="Migrations\201511160036019_AddedViewsToEvents.Designer.cs">
-      <DependentUpon>201511160036019_AddedViewsToEvents.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511160242145_AddedImageUrlToEventHeader.cs" />
-    <Compile Include="Migrations\201511160242145_AddedImageUrlToEventHeader.Designer.cs">
-      <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511180432220_AddedTags.cs" />
-    <Compile Include="Migrations\201511180432220_AddedTags.Designer.cs">
-      <DependentUpon>201511180432220_AddedTags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511190133270_ChangedUserIdToString.cs" />
-    <Compile Include="Migrations\201511190133270_ChangedUserIdToString.Designer.cs">
-      <DependentUpon>201511190133270_ChangedUserIdToString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511190424592_UpdatedTagUser.cs" />
-    <Compile Include="Migrations\201511190424592_UpdatedTagUser.Designer.cs">
-      <DependentUpon>201511190424592_UpdatedTagUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512110454063_LinkedTagUserToUser.cs" />
-    <Compile Include="Migrations\201512110454063_LinkedTagUserToUser.Designer.cs">
-      <DependentUpon>201512110454063_LinkedTagUserToUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512180248112_AddedContactTable.cs" />
-    <Compile Include="Migrations\201512180248112_AddedContactTable.Designer.cs">
-      <DependentUpon>201512180248112_AddedContactTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603100344151_AddedNewFeaturedEventField.cs" />
-    <Compile Include="Migrations\201603100344151_AddedNewFeaturedEventField.Designer.cs">
-      <DependentUpon>201603100344151_AddedNewFeaturedEventField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604280059582_AddedStreetToEvent.cs" />
-    <Compile Include="Migrations\201604280059582_AddedStreetToEvent.Designer.cs">
-      <DependentUpon>201604280059582_AddedStreetToEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605200213141_AddedUserToFollowTable.cs" />
-    <Compile Include="Migrations\201605200213141_AddedUserToFollowTable.Designer.cs">
-      <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605211733082_AddedFlagEventTable.cs" />
-    <Compile Include="Migrations\201605211733082_AddedFlagEventTable.Designer.cs">
-      <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605212306588_Updated Flag Event.cs" />
-    <Compile Include="Migrations\201605212306588_Updated Flag Event.Designer.cs">
-      <DependentUpon>201605212306588_Updated Flag Event.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605250145178_Refactored Tags.cs" />
-    <Compile Include="Migrations\201605250145178_Refactored Tags.Designer.cs">
-      <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606022245445_Added IOS Image Dimensions.cs" />
-    <Compile Include="Migrations\201606022245445_Added IOS Image Dimensions.Designer.cs">
-      <DependentUpon>201606022245445_Added IOS Image Dimensions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606042341341_AddedStockImageTable.cs" />
-    <Compile Include="Migrations\201606042341341_AddedStockImageTable.Designer.cs">
-      <DependentUpon>201606042341341_AddedStockImageTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606050002385_AddedStockImageTable2.cs" />
-    <Compile Include="Migrations\201606050002385_AddedStockImageTable2.Designer.cs">
-      <DependentUpon>201606050002385_AddedStockImageTable2.cs</DependentUpon>
+    <Compile Include="Migrations\201607070032394_Initial.cs" />
+    <Compile Include="Migrations\201607070032394_Initial.Designer.cs">
+      <DependentUpon>201607070032394_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -475,67 +399,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505212102119_Initial.resx">
-      <DependentUpon>201505212102119_Initial.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509251805483_Added Price to EventHeader.resx">
-      <DependentUpon>201509251805483_Added Price to EventHeader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509251907477_Changes User image from byte array to string.resx">
-      <DependentUpon>201509251907477_Changes User image from byte array to string.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201510180230472_Reset Token Table.resx">
-      <DependentUpon>201510180230472_Reset Token Table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511160036019_AddedViewsToEvents.resx">
-      <DependentUpon>201511160036019_AddedViewsToEvents.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511160242145_AddedImageUrlToEventHeader.resx">
-      <DependentUpon>201511160242145_AddedImageUrlToEventHeader.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511180432220_AddedTags.resx">
-      <DependentUpon>201511180432220_AddedTags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511190133270_ChangedUserIdToString.resx">
-      <DependentUpon>201511190133270_ChangedUserIdToString.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511190424592_UpdatedTagUser.resx">
-      <DependentUpon>201511190424592_UpdatedTagUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512110454063_LinkedTagUserToUser.resx">
-      <DependentUpon>201512110454063_LinkedTagUserToUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512180248112_AddedContactTable.resx">
-      <DependentUpon>201512180248112_AddedContactTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603100344151_AddedNewFeaturedEventField.resx">
-      <DependentUpon>201603100344151_AddedNewFeaturedEventField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604280059582_AddedStreetToEvent.resx">
-      <DependentUpon>201604280059582_AddedStreetToEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605200213141_AddedUserToFollowTable.resx">
-      <DependentUpon>201605200213141_AddedUserToFollowTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605211733082_AddedFlagEventTable.resx">
-      <DependentUpon>201605211733082_AddedFlagEventTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605212306588_Updated Flag Event.resx">
-      <DependentUpon>201605212306588_Updated Flag Event.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605250145178_Refactored Tags.resx">
-      <DependentUpon>201605250145178_Refactored Tags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606022245445_Added IOS Image Dimensions.resx">
-      <DependentUpon>201606022245445_Added IOS Image Dimensions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606042341341_AddedStockImageTable.resx">
-      <DependentUpon>201606042341341_AddedStockImageTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606050002385_AddedStockImageTable2.resx">
-      <DependentUpon>201606050002385_AddedStockImageTable2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607070032394_Initial.resx">
+      <DependentUpon>201607070032394_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

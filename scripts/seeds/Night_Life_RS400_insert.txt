@@ -1,0 +1,14 @@
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_100702490.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_1039966.jpeg', 400, 233, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_104119912.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_104393537.jpeg', 400, 267, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_107849421.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_2547743.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_54875706.jpeg', 400, 400, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_73200329.jpeg', 400, 267, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_81873171.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_87865351.jpeg', 400, 240, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_95180990.jpeg', 400, 274, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_96339757.jpeg', 400, 266, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_98009284.jpeg', 400, 230, 'NightLife');
+INSERT INTO StockPhoto (ImageURL, WidthPx, HeightPx, Category) VALUES ('AdobeStock_98161746.jpeg', 400, 266, 'NightLife');
