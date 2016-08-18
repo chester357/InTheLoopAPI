@@ -265,6 +265,10 @@
     <Compile Include="Migrations\201607070032394_Initial.Designer.cs">
       <DependentUpon>201607070032394_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608162336292_SupportModel.cs" />
+    <Compile Include="Migrations\201608162336292_SupportModel.Designer.cs">
+      <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
     <Compile Include="Models\Database\AgeGroup.cs" />
@@ -298,6 +302,7 @@
     <Compile Include="Models\Request\ForgotPasswordModel.cs" />
     <Compile Include="Models\Request\ResetPasswordModel.cs" />
     <Compile Include="Models\Request\ReviewModel.cs" />
+    <Compile Include="Models\Database\SupportEmail.cs" />
     <Compile Include="Models\Request\TagAutoModel.cs" />
     <Compile Include="Models\Request\TagModel.cs" />
     <Compile Include="Models\Request\UpdatePasswordModel.cs" />
@@ -401,6 +406,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607070032394_Initial.resx">
       <DependentUpon>201607070032394_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608162336292_SupportModel.resx">
+      <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

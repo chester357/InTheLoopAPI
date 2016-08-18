@@ -124,9 +124,14 @@ namespace InTheLoopAPI.Models.RequestModels
                 ImageHeightPx = this.ImageHeightPx,
                 ImageWidthPx = this.ImageWidthPx,
                 //public DateTime Start { get; set; }
+
+                /*
+                    This is so people can't create events in the past
+                */
                 Start = this.Start.CompareTo(DateTime.UtcNow) < 0 ? DateTime.UtcNow : this.Start,
                 //public DateTime End { get; set; }
                 End = this.End.CompareTo(DateTime.UtcNow) < 0 ? DateTime.UtcNow : this.End,
+
                 //public int Price { get; set; }
                 Price = this.Price,
                 //public bool Published { get; set; }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <setParameter name="IIS Web Application Name" value="Default Web Site/" />
-  <setParameter name="DatabaseContext-Web.config Connection String" value="Server=aa10k23mdpdcjmi.cwrhw4nxapbv.us-west-2.rds.amazonaws.com,1433; Database=Loopstir; User ID=loopstir; Password=93JM7ns1LR*1; Connection Timeout=30;" />
+  <setParameter name="DatabaseContext-Web.config Connection String" value="Server=aa8krxr2v500x5.cwrhw4nxapbv.us-west-2.rds.amazonaws.com,1433; Database=Loopstir; User ID=loopstir; Password=0942#zfOm3H6; Connection Timeout=30;" />
   <setParameter name="StorageConnectionString-Web.config Connection String" value="DefaultEndpointsProtocol=https;AccountName=intheloop;AccountKey=KRMtM8/xoB4hLH2sVkfaPQ15Carb19Kx71dwUKsALazaIw7VVYz1IGM1QM80q3iDOcwRz0Wal2NXM56K9gooKQ==" />
 </parameters>

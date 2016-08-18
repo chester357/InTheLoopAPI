@@ -43,5 +43,6 @@ namespace InTheLoopAPI.Models
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<FlagEvent> Flags { get; set; }
         public DbSet<StockPhoto> StockPhotos { get; set; }
+        public DbSet<SupportEmail> SupportEmails { get; set; }
     }
 }

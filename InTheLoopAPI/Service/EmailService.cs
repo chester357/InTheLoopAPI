@@ -1,4 +1,7 @@
-﻿using System;
+﻿using InTheLoopAPI.Models;
+using InTheLoopAPI.Models.Database;
+using InTheLoopAPI.Models.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -44,6 +47,17 @@ namespace InTheLoopAPI.Service
             ";
 
             smtp.Send(mes);
+        }
+
+        public SupportEmail SendSupportEmail(SupportEmail email)
+        {
+            DatabaseContext context = new DatabaseContext();
+
+            var result = context.SupportEmails.Add(email);
+
+            context.SaveChanges();
+
+            return result;
         }
     }
 }

@@ -676,9 +676,9 @@ namespace InTheLoopAPI.Controllers
         {
             try
             {
-                var token = _userManager.GeneratePasswordResetToken(User.Identity.GetUserId());
+                var token = UserManager.GeneratePasswordResetToken(User.Identity.GetUserId());
 
-                _userManager.ResetPassword(User.Identity.GetUserId(), token, model.Password);
+                UserManager.ResetPassword(User.Identity.GetUserId(), token, model.Password);
 
                 return Ok();
             }
