@@ -39,12 +39,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Attendies/{eventHeaderId}")]
+        [HttpGet, Route("api/Attendees/{eventHeaderId}")]
         public IHttpActionResult GetAttendances(int eventHeaderId)
         {
             try
             {
-                var results = _attendanceService.GetAttendies(eventHeaderId);
+                var results = _attendanceService.GetAttendies(eventHeaderId, User.Identity.GetUserId());
 
                 return Ok(results);
             }

@@ -148,17 +148,21 @@ namespace InTheLoopAPI.Service
         public EventModel AddOrUpdatePartialEvent(string userId, EventModel eventModel)
         {
 
-            var eventHeader = eventModel.ToEventHeader(userId);
-
-            if (eventHeader.Id <= 0 || eventHeader.EventFooterId <= 0)
+            if (eventModel.Id <= 0 || eventModel.EventFooterId <= 0)
             {
                 return AddPartialEvent(userId, eventModel);
             }
 
-            var existingEventHeader = _repository.EventHeaders.Any(x => x.Id == eventModel.Id);
+            var eventHeader = _repository.EventHeaders
+                .Include("TagEvents")
+                .Include("Flags")
+                .Include("Attendees")
+                .SingleOrDefault(x => x.Id == eventModel.Id);
 
-            if (!existingEventHeader)
+            if (eventHeader == null)
                 return null;
+
+            _repository.TagEvents.RemoveRange(eventHeader.TagEvents);
 
             foreach (TagModel t in eventModel.Tags)
             {
@@ -175,6 +179,8 @@ namespace InTheLoopAPI.Service
             }
 
             // UPDATE EVENT HEADER AND FOOTER
+
+            eventHeader.Replace(eventModel.ToEventHeader(userId));
 
             _repository.SaveChanges();
 

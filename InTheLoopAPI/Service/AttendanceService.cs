@@ -70,9 +70,9 @@ namespace InTheLoopAPI.Service
             return _attendanceRepository.GetCount(eventHeaderId);
         }
 
-        public List<UserModel> GetAttendies(int eventHeaderId)
+        public List<UserModelLite> GetAttendies(int eventHeaderId, string currentUser)
         {
-            return _attendanceRepository.GetAttendies(eventHeaderId);
+            return _attendanceRepository.GetAttendies(eventHeaderId, currentUser);
         }
     }
 }

@@ -127,7 +127,7 @@ namespace InTheLoopAPI.Models
             this.End = model.End;
             this.EventFooter.AgeGroup = model.EventFooter.AgeGroup;
             this.EventFooter.Category = model.EventFooter.Category;
-            this.EventFooter.Category = model.EventFooter.Description;
+            this.EventFooter.Description = model.EventFooter.Description;
             this.EventFooter.Title = model.EventFooter.Title;
             this.EventFooter.Website = model.EventFooter.Website;
             this.Featured = model.Featured;
@@ -143,10 +143,39 @@ namespace InTheLoopAPI.Models
             this.Start = model.Start;
             this.State = model.State;
             this.Street = model.Street;
+            this.TagEvents = model.TagEvents;
             this.TicketUrl = model.TicketUrl;
             this.VenueContact = model.VenueContact;
             this.VenueName = model.VenueName;
             this.ZipCode = model.ZipCode;
-        }      
+        }
+
+        public void Replace(EventModel model)
+        {
+            this.City = model.City;
+            this.End = model.End;
+            this.EventFooter.AgeGroup = model.AgeGroup;
+            this.EventFooter.Category = model.Category;
+            this.EventFooter.Description = model.Description;
+            this.EventFooter.Title = model.Title;
+            this.EventFooter.Website = model.Website;
+            this.Featured = model.Featured;
+            this.ImageHeightPx = model.ImageHeightPx;
+            this.ImageURL = model.EventImageURL;
+            this.ImageWidthPx = model.ImageWidthPx;
+            this.Latitude = model.Latitude;
+            this.Longitude = model.Longitude;
+            this.OrgContact = model.OrgContact;
+            this.OrgName = model.OrgName;
+            this.OrgUrl = model.OrgUrl;
+            this.Price = model.Price;
+            this.Start = model.Start;
+            this.State = model.State;
+            this.Street = model.Street;
+            this.TicketUrl = model.TicketUrl;
+            this.VenueContact = model.VenueContact;
+            this.VenueName = model.VenueName;
+            this.ZipCode = model.ZipCode;
+        }
     }
 }

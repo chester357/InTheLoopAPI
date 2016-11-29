@@ -62,17 +62,16 @@ namespace InTheLoopAPI.Queries
             return Attendances.Count(x => x.EventHeaderId == eventHeaderId);
         }
 
-        public List<UserModel> GetAttendies(int eventHeaderId)
+        public List<UserModelLite> GetAttendies(int eventHeaderId, string currentUser)
         {
             return Attendances
                 .Where(x => x.EventHeaderId == eventHeaderId)
-                .Select(y => new UserModel
+                .Select(y => new UserModelLite
                 {
-                    Email = y.User.Email,
-                    ImageURL = y.User.ImageURL,
-                    Quote = y.User.Quote,
+                    ProfileImageURL = y.User.ImageURL,
                     UserId = y.UserId,
-                    UserName = y.User.UserName
+                    Username = y.User.UserName,
+                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.UserId)
                 })
                 .ToList();
         }

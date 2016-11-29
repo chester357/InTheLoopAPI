@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using System.ComponentModel.DataAnnotations;
 using InTheLoopAPI.App_Start;
 using System.Web.Http.OData;
+using System.Collections.Generic;
 
 namespace InTheLoopAPI.Controllers
 {
@@ -29,6 +30,28 @@ namespace InTheLoopAPI.Controllers
             try
             {
                 var result = _followService.UnfollowTag(User.Identity.GetUserId(), name);
+
+                if (result != null)
+                    return BadRequest(result.ErrorMessage);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost, EnableQuery, Route("api/Follow/Tags/Unfollow")]
+        public IHttpActionResult UnfollowEventTags(List<String> names)
+        {
+            try
+            {
+                ValidationResult result = null;
+
+                foreach ( var name in names ){
+                   result = _followService.UnfollowTag(User.Identity.GetUserId(), name);
+                }
 
                 if (result != null)
                     return BadRequest(result.ErrorMessage);
