@@ -362,23 +362,25 @@ namespace InTheLoopAPI.Controllers
 
                 var datacontext = new DatabaseContext();
 
-                var mainTagModels = new Categories().List;
+                // TODO: Add default loop
 
-                var mainTagNames = new List<string>();
+                //var mainTagModels = new Categories().List;
 
-                foreach (var tag in mainTagModels)
-                {
-                    mainTagNames.Add(tag.TagName);
-                }
+                //var mainTagNames = new List<string>();
 
-                var tags = datacontext.Tags.Where(x => mainTagNames.Any(t => t == x.Name));
+                //foreach (var tag in mainTagModels)
+                //{
+                //    mainTagNames.Add(tag.LoopName);
+                //}
+
+                //var tags = datacontext.Loops.Where(x => mainTagNames.Any(t => t == x.Name));
 
                 var newUser = datacontext.Users.Single(x => x.UserName == user.UserName);
 
-                foreach (var t in tags)
-                {
-                    datacontext.TagUsers.Add(new TagUser { TagId = t.Id, UserId = newUser.Id });
-                }
+                //foreach (var t in tags)
+                //{
+                //    datacontext.UserLoops.Add(new UserLoop { LoopId = t.Id, UserId = newUser.Id });
+                //}
 
                 datacontext.SaveChanges();
 
@@ -435,7 +437,7 @@ namespace InTheLoopAPI.Controllers
 
                 var userId = User.Identity.GetUserId();
 
-                var user = context.Users.SingleOrDefault(x => x.Id == userId);
+                var user = context.MyUsers.SingleOrDefault(x => x.Id == userId);
 
                 if(user.Email != model.Email)
                 {
@@ -515,7 +517,7 @@ namespace InTheLoopAPI.Controllers
             {
                 var datacontext = new DatabaseContext();
 
-                var user = datacontext.Users.SingleOrDefault(x => x.Id == userId);
+                var user = datacontext.MyUsers.SingleOrDefault(x => x.Id == userId);
 
                 if (user == null) return BadRequest();
 
@@ -523,7 +525,7 @@ namespace InTheLoopAPI.Controllers
 
                 var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
 
-                var tags = datacontext.TagUsers.Count(x => x.UserId == userId);
+                var tags = datacontext.UserLoops.Count(x => x.UserId == userId);
 
                 var eventCounts = datacontext.EventHeaders
                 .Count(x =>
@@ -545,7 +547,7 @@ namespace InTheLoopAPI.Controllers
                     UserName = user.UserName,
                     FollowersCount = followers,
                     FollowingCount = following,
-                    TagCount = tags,
+                    LoopCount = tags,
                     EventCount = eventCounts
                 };
 
@@ -567,7 +569,7 @@ namespace InTheLoopAPI.Controllers
 
                 var datacontext = new DatabaseContext();
 
-                var user = datacontext.Users.SingleOrDefault(x => x.Id == userId);
+                var user = datacontext.MyUsers.SingleOrDefault(x => x.Id == userId);
 
                 if (user == null) return BadRequest();
 
@@ -575,7 +577,7 @@ namespace InTheLoopAPI.Controllers
 
                 var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
 
-                var tags = datacontext.TagUsers.Count(x => x.UserId == userId);
+                var tags = datacontext.UserLoops.Count(x => x.UserId == userId);
 
                 var attendedEvents = datacontext.Attendances.Count(x => x.UserId == userId);
 
@@ -590,7 +592,7 @@ namespace InTheLoopAPI.Controllers
                     UserName = user.UserName,
                     FollowersCount = followers,
                     FollowingCount = following,
-                    TagCount = tags,
+                    LoopCount = tags,
                     EventCount = attendedEvents + postedEvents
                 };
 

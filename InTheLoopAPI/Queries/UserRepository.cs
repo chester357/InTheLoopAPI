@@ -15,7 +15,7 @@ namespace InTheLoopAPI.Queries
 
         public bool ValidUserId(string userId)
         {
-            return Users.Any(x => x.Id == userId);
+            return MyUsers.Any(x => x.Id == userId);
         }
     }
 }

@@ -18,10 +18,6 @@ namespace InTheLoopAPI.Models
 
         public string Website { get; set; }
 
-        public AgeGroup AgeGroup { get; set; }
-
         public ICollection<EventHeader> EventHeaders { get; set; }
-
-        public string Category { get; set; }
     }
 }

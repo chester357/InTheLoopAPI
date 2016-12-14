@@ -38,7 +38,7 @@ namespace InTheLoopAPI.Service
 
             var evnt = _databaseContext.EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId);
 
-            evnt.Loops++;
+            evnt.Rsvps++;
 
             _databaseContext.SaveChanges();
 
@@ -58,7 +58,7 @@ namespace InTheLoopAPI.Service
 
             var evnt = _databaseContext.EventHeaders.SingleOrDefault(x => x.Id == eventHeaderId);
 
-            evnt.Loops--;
+            evnt.Rsvps--;
 
             _databaseContext.SaveChanges();
 

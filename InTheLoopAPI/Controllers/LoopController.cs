@@ -13,21 +13,21 @@ namespace InTheLoopAPI.Controllers
 #if !DEBUG
     [RequireHttps]
 #endif
-    public class TagController : ApiController
+    public class LoopController : ApiController
     {
-        TagService _service;
+        LoopService _service;
 
-        public TagController()
+        public LoopController()
         {
-            _service = new TagService();
+            _service = new LoopService();
         }
 
-        [HttpPost, Route("api/Tag")]
-        public IHttpActionResult PostTag(TagModel tagModel)
+        [HttpPost, Route("api/Loop")]
+        public IHttpActionResult PostLoop(LoopModel tagModel)
         {
             try
             {
-                var result = _service.CreateTag(tagModel);
+                var result = _service.CreateLoop(tagModel);
 
                 if(result == null)
                 {
@@ -37,19 +37,6 @@ namespace InTheLoopAPI.Controllers
                 return Ok(result);
             }
             catch(Exception ex)
-            {
-                return InternalServerError(ex);
-            }
-        }
-
-        [HttpGet, Route("api/Tag/Main")]
-        public IHttpActionResult GetMainTags()
-        {
-            try
-            {
-                return Ok(new Categories().List);
-            }
-            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }

@@ -17,13 +17,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public string Description { get; set; }
 
-        public AgeGroup AgeGroup { get; set; }
-
         public string EventImageURL { get; set; }
-
-        public double ImageHeightPx { get; set; }
-
-        public double ImageWidthPx { get; set; }
 
         public string Website { get; set; }
 
@@ -43,7 +37,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public int ZipCode { get; set; }
 
-        public int Loops { get; set; }
+        public int Rsvps { get; set; }
 
         public int Views { get; set; }
 
@@ -75,9 +69,7 @@ namespace InTheLoopAPI.Models.RequestModels
 
         public DateTime End { get; set; }
 
-        public string Category { get; set; }
-
-        public List<TagModel> Tags { get; set; }
+        public List<LoopModel> Loops { get; set; }
 
         public EventHeader ToEventHeader(string userId)
         {
@@ -91,16 +83,12 @@ namespace InTheLoopAPI.Models.RequestModels
                     Id = this.EventFooterId,
                     //public string UserId { get; set; }
                     UserId = userId,
-                    //public virtual User User { get; set; }
-                    Category = this.Category,
                     //public string Title { get; set; }
                     Title = this.Title,
                     //public string Description { get; set; }
                     Description = this.Description,
                     //public string Website { get; set; }
-                    Website = this.Website,
-                    //public AgeGroup AgeGroup { get; set; }
-                    AgeGroup = this.AgeGroup
+                    Website = this.Website
                 },
                 //public bool Archived { get; set; }
                 Archived = this.Active,
@@ -112,7 +100,7 @@ namespace InTheLoopAPI.Models.RequestModels
                 //public int ZipCode { get; set; }
                 ZipCode = this.ZipCode,
                 //public int Loops { get; set; }
-                Loops = this.Loops,
+                Rsvps = this.Rsvps,
                 //public int Views { get; set; }
                 Views = this.Views,
                 //public double Latitude { get; set; }
@@ -121,8 +109,6 @@ namespace InTheLoopAPI.Models.RequestModels
                 Longitude = this.Longitude,
                 //public string ImageURL { get; set; }
                 ImageURL = this.EventImageURL,
-                ImageHeightPx = this.ImageHeightPx,
-                ImageWidthPx = this.ImageWidthPx,
                 //public DateTime Start { get; set; }
 
                 /*
@@ -153,7 +139,7 @@ namespace InTheLoopAPI.Models.RequestModels
                 //public ICollection<Attendance> Attendees { get; set; }
                 Attendees = new List<Attendance>(),
                 //public ICollection<TagEvent> TagEvents { get; set; }
-                TagEvents = new List<TagEvent>()
+                EventLoops = new List<EventLoop>()
             };
 
             return eventHeader;

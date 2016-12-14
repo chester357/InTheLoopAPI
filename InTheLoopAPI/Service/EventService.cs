@@ -3,7 +3,6 @@ using InTheLoopAPI.Models.Database;
 using InTheLoopAPI.Models.Request;
 using InTheLoopAPI.Models.RequestModels;
 using InTheLoopAPI.Queries;
-using InTheLoopAPI.Service.Interfaces;
 using InTheLoopAPI.Service.Validation;
 using System;
 using System.Collections.Generic;
@@ -118,22 +117,22 @@ namespace InTheLoopAPI.Service
 
             var eventHeader = eventModel.ToEventHeader(userId);
 
-            if (eventModel.Tags != null)
+            if (eventModel.Loops != null)
             {
-                foreach (TagModel t in eventModel.Tags)
+                foreach (LoopModel t in eventModel.Loops)
                 {
-                    t.TagName = t.TagName.Trim();
+                    t.LoopName = t.LoopName.Trim();
 
-                    var tag = _repository.Tags.SingleOrDefault(x => x.Name.ToLower() == t.TagName.ToLower());
+                    var tag = _repository.Loops.SingleOrDefault(x => x.Name.ToLower() == t.LoopName.ToLower());
 
                     if (tag == null)
                     {
-                        tag = new Tag { Name = t.TagName };
+                        tag = new Loop { Name = t.LoopName };
 
-                        eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                        eventHeader.EventLoops.Add(new EventLoop { Loop = tag });
                     }
                     else
-                        eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                        eventHeader.EventLoops.Add(new EventLoop { Loop = tag });
                 }
             }
 
@@ -162,20 +161,20 @@ namespace InTheLoopAPI.Service
             if (eventHeader == null)
                 return null;
 
-            _repository.TagEvents.RemoveRange(eventHeader.TagEvents);
+            _repository.EventLoops.RemoveRange(eventHeader.EventLoops);
 
-            foreach (TagModel t in eventModel.Tags)
+            foreach (LoopModel t in eventModel.Loops)
             {
-                var tag = _repository.Tags.SingleOrDefault(x => x.Name == t.TagName);
+                var tag = _repository.Loops.SingleOrDefault(x => x.Name == t.LoopName);
 
                 if (tag == null)
                 {
-                    tag = new Tag { Name = t.TagName };
+                    tag = new Loop { Name = t.LoopName };
 
-                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                    eventHeader.EventLoops.Add(new EventLoop { Loop = tag });
                 }
                 else
-                    eventHeader.TagEvents.Add(new TagEvent { Tag = tag });
+                    eventHeader.EventLoops.Add(new EventLoop { Loop = tag });
             }
 
             // UPDATE EVENT HEADER AND FOOTER

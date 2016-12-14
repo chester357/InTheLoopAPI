@@ -6,14 +6,14 @@ using InTheLoopAPI.Models.Database;
 
 namespace InTheLoopAPI.Models.Database
 {
-    public class TagEvent
+    public class UserLoop
     {
         public int id { get; set; }
 
-        public int EventHeaderId { get; set; }
-        public virtual EventHeader EventHeader { get; set; }
+        public string UserId { get; set; }
+        public virtual User User { get; set; }
 
-        public int TagId { get; set; }
-        public virtual Tag Tag { get; set; }
+        public int LoopId { get; set; }
+        public virtual Loop Loop { get; set; }
     }
 }

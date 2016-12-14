@@ -1,6 +1,7 @@
 ﻿using InTheLoopAPI.Models;
 using InTheLoopAPI.Models.Database;
 using InTheLoopAPI.Models.Request;
+using InTheLoopAPI.Models.RequestModels;
 using InTheLoopAPI.Queries;
 using InTheLoopAPI.Service.Validation;
 using System;
@@ -31,44 +32,95 @@ namespace InTheLoopAPI.Service
             return _databaseContext.Follows.Any(x => x.UserId == myUserId && x.FollowingId == theirUserId);
         }
 
-        public List<TagModel> GetTags(String userId)
+        public LoopModel GetLoop(string loopName, string userId, double latitude, double longitude, double radius)
         {
-            return _databaseContext.Tags.Where(x => x.TagUsers.Any(t => t.UserId == userId))
-                .Select(tm => new TagModel
+
+            double degrees = radius / 69;
+            double maxLat = latitude + degrees;
+            double minLat = latitude - degrees;
+            double maxLong = longitude + degrees;
+            double minLong = longitude - degrees;
+
+            var loop = _databaseContext.Loops
+                .Include("EventLoops")
+                .Include("UserLoops")
+                .SingleOrDefault(x => x.Name.ToLower() == loopName.ToLower());
+
+            if (loop == null)
+            {
+                return null;
+            }
+
+            var model = new LoopModel();
+
+            var currentEvents = loop.EventLoops
+                .Where(x => 
+                    x.EventHeader.End.CompareTo(DateTime.UtcNow) >= 0 &&
+                    x.EventHeader.Archived == false &&
+                    x.EventHeader.Published == true 
+                )
+                .Select(x => x.EventHeader)
+                .ToList();
+
+            var localEvents = currentEvents.Where(x =>
+                x.Latitude > minLat &&
+                x.Latitude < maxLat &&
+                x.Longitude > minLong &&
+                x.Longitude < maxLong
+            ).ToList();
+
+            model.ImageUrl = loop.ImageUrl;
+            model.LoopId = loop.Id;
+            model.LoopName = loop.Name;
+            model.Following = loop.UserLoops.Any(t => t.UserId == userId);
+            model.AllEvents = ToEventModelList(currentEvents, userId);
+            model.LocalEvents = ToEventModelList(localEvents, userId);
+
+            return model;
+        }
+
+        public List<LoopModel> GetLoops(String userId)
+        {
+            return _databaseContext.Loops.Where(x => x.UserLoops.Any(t => t.UserId == userId))
+                .Select(tm => new LoopModel
                 {
-                    TagName = tm.Name,
-                    TagId = tm.Id
+                    LoopName = tm.Name,
+                    LoopId = tm.Id,
+                    Following = true,
+                    ImageUrl = tm.ImageUrl
                 })
                 .ToList();
         }
 
-        public ValidationResult UnfollowTag(String userId, String name)
+        public ValidationResult UnfollowLoop(String userId, String name)
         {
             name = name.Trim();
 
-            var userTag = _databaseContext.TagUsers
-                .SingleOrDefault(t => t.Tag.Name.ToLower() == name.ToLower() && t.UserId == userId);
+            var userLoop = _databaseContext.UserLoops
+                .SingleOrDefault(t => t.Loop.Name.ToLower() == name.ToLower() && t.UserId == userId);
 
-            if (userTag == null)
-                return new ValidationResult("User was not following this tag");
+            if (userLoop == null)
+                return new ValidationResult("User was not following this Loop");
 
-            _databaseContext.TagUsers.Remove(userTag);
+            _databaseContext.UserLoops.Remove(userLoop);
 
             _databaseContext.SaveChanges();
 
             return ValidationResult.Success;
         }
 
-        public List<TagAutoModel> TagAutocomplete(String tagName, String userId)
+        public List<LoopAutoModel> LoopAutocomplete(String loopName, String userId)
         {
-            return _databaseContext.Tags.Where(x =>
-                x.Name.StartsWith(tagName) ||
-                x.Name.EndsWith(tagName) ||
-                x.Name.Contains(tagName))
-                .Select(s => new TagAutoModel
+            return _databaseContext.Loops.Where(x =>
+                x.Name.StartsWith(loopName) ||
+                x.Name.EndsWith(loopName) ||
+                x.Name.Contains(loopName))
+                .Select(s => new LoopAutoModel
                 {
-                    TagName = s.Name,
-                    Following = s.TagUsers.Any(t => t.UserId == userId)
+                    LoopName = s.Name,
+                    Following = s.UserLoops.Any(t => t.UserId == userId),
+                    ImageUrl = s.ImageUrl
+
                 }).ToList();
         }
 
@@ -77,23 +129,23 @@ namespace InTheLoopAPI.Service
             return _followRepository.UsersAutoComplete(userId, term);
         }
 
-        public ValidationResult FollowTag(String userId, TagModel tag)
+        public ValidationResult FollowLoop(String userId, LoopModel Loop)
         {
-            tag.TagName = tag.TagName.Trim();
+            Loop.LoopName = Loop.LoopName.Trim();
 
-            var existingTag = _databaseContext.Tags.SingleOrDefault(x => x.Name.ToLower() == tag.TagName.ToLower());
+            var existingLoop = _databaseContext.Loops.SingleOrDefault(x => x.Name.ToLower() == Loop.LoopName.ToLower());
 
-            if (existingTag == null)
-                return new ValidationResult("No tag found with this name");
+            if (existingLoop == null)
+                return new ValidationResult("No Loop found with this name");
 
-            var existingTagForUser = _databaseContext.TagUsers.Any(x => x.TagId == existingTag.Id && x.UserId == userId);
+            var existingLoopForUser = _databaseContext.UserLoops.Any(x => x.LoopId == existingLoop.Id && x.UserId == userId);
 
-            if (existingTagForUser)
-                return new ValidationResult("Uses is already following this tag");
+            if (existingLoopForUser)
+                return new ValidationResult("Uses is already following this Loop");
 
-            var userTag = new TagUser { UserId = userId, TagId = existingTag.Id };
+            var userLoop = new UserLoop { UserId = userId, LoopId = existingLoop.Id };
 
-            _databaseContext.TagUsers.Add(userTag);
+            _databaseContext.UserLoops.Add(userLoop);
 
             _databaseContext.SaveChanges();
 
@@ -140,6 +192,18 @@ namespace InTheLoopAPI.Service
         public List<UserModelLite> GetFollowing(string userId, string currentUser)
         {
             return _followRepository.GetFollowing(userId, currentUser);
+        }
+
+        public List<EventModel> ToEventModelList(List<EventHeader> eventHeaders, string userId)
+        {
+            var modelList = new List<EventModel>();
+
+            foreach (var _event in eventHeaders)
+            {
+                modelList.Add(_event.ToEventModel(userId));
+            }
+
+            return modelList;
         }
     }
 }

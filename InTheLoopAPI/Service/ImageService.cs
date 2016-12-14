@@ -33,7 +33,7 @@ namespace InTheLoopAPI.Service
 
         public void UpdateProfileImage(String userId, String imageURL)
         {
-            var user = DataContext.Users.Single(x => x.Id == userId);
+            var user = DataContext.MyUsers.Single(x => x.Id == userId);
 
             user.ImageURL = imageURL;
 

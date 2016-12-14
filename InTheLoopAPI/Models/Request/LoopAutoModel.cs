@@ -5,10 +5,12 @@ using System.Web;
 
 namespace InTheLoopAPI.Models.Request
 {
-    public class TagAutoModel
+    public class LoopAutoModel
     {
-        public String TagName { get; set; }
+        public String LoopName { get; set; }
 
         public bool Following { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }

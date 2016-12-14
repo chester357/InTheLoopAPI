@@ -24,12 +24,12 @@ namespace InTheLoopAPI.Controllers
             _followService = new FollowService();
         }
 
-        [HttpDelete, EnableQuery, Route("api/Follow/Tag/{name}")]
-        public IHttpActionResult UnfollowEventTag(String name)
+        [HttpDelete, EnableQuery, Route("api/Follow/Loop/{name}")]
+        public IHttpActionResult UnfollowEventLoop(String name)
         {
             try
             {
-                var result = _followService.UnfollowTag(User.Identity.GetUserId(), name);
+                var result = _followService.UnfollowLoop(User.Identity.GetUserId(), name);
 
                 if (result != null)
                     return BadRequest(result.ErrorMessage);
@@ -42,7 +42,7 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, EnableQuery, Route("api/Follow/Tags/Unfollow")]
+        [HttpPost, EnableQuery, Route("api/Follow/Loops/Unfollow")]
         public IHttpActionResult UnfollowEventTags(List<String> names)
         {
             try
@@ -50,7 +50,7 @@ namespace InTheLoopAPI.Controllers
                 ValidationResult result = null;
 
                 foreach ( var name in names ){
-                   result = _followService.UnfollowTag(User.Identity.GetUserId(), name);
+                   result = _followService.UnfollowLoop(User.Identity.GetUserId(), name);
                 }
 
                 if (result != null)
@@ -64,12 +64,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpPost, EnableQuery, Route("api/Follow/Tag")]
-        public IHttpActionResult FollowEventTag(TagModel tag)
+        [HttpPost, EnableQuery, Route("api/Follow/Loop")]
+        public IHttpActionResult FollowEventLoop(LoopModel Loop)
         {
             try
             {
-                var result = _followService.FollowTag(User.Identity.GetUserId(), tag);
+                var result = _followService.FollowLoop(User.Identity.GetUserId(), Loop);
 
                 if (result != null)
                     return BadRequest(result.ErrorMessage);
@@ -77,6 +77,24 @@ namespace InTheLoopAPI.Controllers
                 return Ok();
             }
             catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet, EnableQuery, Route("api/Follow/Loop/{loopName}/{lat}/{lon}/{radius}")]
+        public IHttpActionResult GetLoop(string loopName, double lat, double lon, double radius)
+        {
+            try
+            {
+                var loop = _followService.GetLoop(loopName, User.Identity.GetUserId(), lat, lon, radius);
+
+                if(loop == null)
+                    return BadRequest();
+
+                return Ok(loop);
+            }
+            catch(Exception ex)
             {
                 return InternalServerError(ex);
             }
@@ -97,12 +115,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Follow/Tag/Autocomplete")]
+        [HttpGet, Route("api/Follow/Loop/Autocomplete")]
         public IHttpActionResult TagAutoCompleteAll()
         {
             try
             {
-                var result = _followService.TagAutocomplete("", User.Identity.GetUserId());
+                var result = _followService.LoopAutocomplete("", User.Identity.GetUserId());
 
                 return Ok(result);
             }
@@ -112,12 +130,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, Route("api/Follow/Tag/Autocomplete/{tagName}")]
-        public IHttpActionResult TagAutoComplete(String tagName)
+        [HttpGet, Route("api/Follow/Loop/Autocomplete/{Loop}")]
+        public IHttpActionResult TagAutoComplete(String Loop)
         {
             try
             {
-                var results = _followService.TagAutocomplete(tagName, User.Identity.GetUserId());
+                var results = _followService.LoopAutocomplete(Loop, User.Identity.GetUserId());
 
                 return Ok(results);
             }
@@ -157,12 +175,12 @@ namespace InTheLoopAPI.Controllers
             }
         }
 
-        [HttpGet, EnableQuery, Route("api/Follow/Tag/{userId}")]
-        public IHttpActionResult GetFollowTags(String userId)
+        [HttpGet, EnableQuery, Route("api/Follow/Loop/{userId}")]
+        public IHttpActionResult GetFollowLoops(String userId)
         {
             try
             {
-                return Ok(_followService.GetTags(userId));
+                return Ok(_followService.GetLoops(userId));
             }
             catch (Exception ex)
             {

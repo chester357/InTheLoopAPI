@@ -18,7 +18,7 @@ namespace InTheLoopAPI.Queries
         public List<EventModel> GetPartialEventsForUser(string userId)
         {
             var events = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(
                     x => x.Published == false &&
@@ -32,7 +32,7 @@ namespace InTheLoopAPI.Queries
 
         public EventModel GetEvent(int eventId, string userId)
         {
-            var singleEvent = EventHeaders.Include("TagEvents").SingleOrDefault(x => 
+            var singleEvent = EventHeaders.Include("EventLoops").SingleOrDefault(x => 
             x.Id == eventId &&
             x.Archived == false);
             
@@ -46,7 +46,6 @@ namespace InTheLoopAPI.Queries
             return new EventModel
             {
                 Active = singleEvent.Archived,
-                AgeGroup = singleEvent.EventFooter.AgeGroup,
                 EventFooterId = singleEvent.EventFooterId,
                 City = singleEvent.City,
                 Description = singleEvent.EventFooter.Description,
@@ -55,7 +54,7 @@ namespace InTheLoopAPI.Queries
                 Latitude = singleEvent.Latitude,
                 EventImageURL = singleEvent.ImageURL,
                 Longitude = singleEvent.Longitude,
-                Loops = singleEvent.Loops,
+                Rsvps = singleEvent.Rsvps,
                 Start = singleEvent.Start,
                 State = singleEvent.State,
                 Title = singleEvent.EventFooter.Title,
@@ -70,14 +69,14 @@ namespace InTheLoopAPI.Queries
                 {
                     FollowersCount = singleEvent.EventFooter.User.Followers.Count,
                     UserName =  singleEvent.EventFooter.User.UserName,
-                    Loops = singleEvent.EventFooter.User.AttendEvents.Count,
+                    Rsvps = singleEvent.EventFooter.User.AttendEvents.Count,
                     UserId = singleEvent.EventFooter.UserId,
                     ImageURL = singleEvent.EventFooter.User.ImageURL
                 },
-                Tags = singleEvent.TagEvents.Select(t => new TagModel
+                Loops = singleEvent.EventLoops.Select(t => new LoopModel
                 {
-                    TagId = t.TagId,
-                    TagName = t.Tag.Name
+                    LoopId = t.LoopId,
+                    LoopName = t.Loop.Name
                 }).ToList()
             };
         }
@@ -85,7 +84,7 @@ namespace InTheLoopAPI.Queries
         public List<EventModel> GetMyPublishedEvents(string userId)
         {
             var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x => x.EventFooter.UserId == userId && x.Published == true && x.Archived == false)
                 .OrderByDescending(o => o.Start)
@@ -102,10 +101,10 @@ namespace InTheLoopAPI.Queries
             double maxLong = longitude + degrees;
             double minLong = longitude - degrees;
 
-            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
+            var tags = Loops.Where(x => x.UserLoops.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
             var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
@@ -116,7 +115,7 @@ namespace InTheLoopAPI.Queries
                         x.EventFooter.UserId == userId ||
                         // All events for the tags I follow
                         (
-                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.EventLoops.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.LoopId)) &&
                             x.Latitude > minLat &&
                             x.Latitude < maxLat &&
                             x.Longitude > minLong &&
@@ -143,10 +142,10 @@ namespace InTheLoopAPI.Queries
             double maxLong = longitude + degrees;
             double minLong = longitude - degrees;
 
-            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
+            var tags = Loops.Where(x => x.UserLoops.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
             var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && (x.Start.Year == today.Year && x.Start.Month == today.Month && x.Start.Day == today.Day)) &&
@@ -157,7 +156,7 @@ namespace InTheLoopAPI.Queries
                         x.EventFooter.UserId == userId ||
                         // All events for the tags I follow
                         (
-                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.EventLoops.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.LoopId)) &&
                             x.Latitude > minLat &&
                             x.Latitude < maxLat &&
                             x.Longitude > minLong &&
@@ -232,10 +231,10 @@ namespace InTheLoopAPI.Queries
                     break;
             }
 
-            var tags = Tags.Where(x => x.TagUsers.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
+            var tags = Loops.Where(x => x.UserLoops.Any(u => u.UserId == userId)).Select(y => y.Id).ToList();
 
             var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     (x.Archived == false && start.CompareTo(DateTime.UtcNow) >= 0 && end.CompareTo(DateTime.UtcNow) < 0) &&
@@ -246,7 +245,7 @@ namespace InTheLoopAPI.Queries
                         x.EventFooter.UserId == userId ||
                         // All events for the tags I follow
                         (
-                            x.TagEvents.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.TagId)) &&
+                            x.EventLoops.Any(tagEvent => tags.Any(myTag => myTag == tagEvent.LoopId)) &&
                             x.Latitude > minLat &&
                             x.Latitude < maxLat &&
                             x.Longitude > minLong &&
@@ -288,7 +287,7 @@ namespace InTheLoopAPI.Queries
             if (filter.AllTags && filter.AllCosts)
             {
                 eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     x.Latitude > minLat &&
@@ -307,7 +306,7 @@ namespace InTheLoopAPI.Queries
             else if(filter.AllTags && !filter.AllCosts)
             {
                 eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     x.Latitude > minLat &&
@@ -327,7 +326,7 @@ namespace InTheLoopAPI.Queries
             else if(!filter.AllTags && filter.AllCosts)
             {
                 eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     x.Latitude > minLat &&
@@ -338,7 +337,7 @@ namespace InTheLoopAPI.Queries
                     x.Published == true &&
                     x.End.CompareTo(filter.End) <= 0 &&
                     x.Start.CompareTo(filter.Start) >= 0 &&
-                    x.TagEvents.Any(t => filter.Tags.Contains(t.Tag.Name.ToLower()))
+                    x.EventLoops.Any(t => filter.Tags.Contains(t.Loop.Name.ToLower()))
                 )
                 .OrderByDescending(o => o.Start)
                 .ToList();
@@ -346,7 +345,7 @@ namespace InTheLoopAPI.Queries
             else
             {
                 eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                     x.Latitude > minLat &&
@@ -357,7 +356,7 @@ namespace InTheLoopAPI.Queries
                     x.Published == true &&
                     x.End.CompareTo(filter.End) <= 0 &&
                     x.Start.CompareTo(filter.Start) >= 0 &&
-                    x.TagEvents.Any(t => filter.Tags.Contains(t.Tag.Name.ToLower())) &&
+                    x.EventLoops.Any(t => filter.Tags.Contains(t.Loop.Name.ToLower())) &&
                     filter.Costs.Contains(x.Price)
                 )
                 .OrderByDescending(o => o.Start)
@@ -372,7 +371,7 @@ namespace InTheLoopAPI.Queries
             if (!privateAccount)
             {
                 var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                      (x.Archived == false && x.Published && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&
@@ -391,7 +390,7 @@ namespace InTheLoopAPI.Queries
             else
             {
                 var eventHeaders = EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Attendees")
                 .Where(x =>
                      (x.Archived == false && x.Published && (x.End.CompareTo(DateTime.UtcNow) >= 0)) &&

@@ -24,7 +24,7 @@ namespace InTheLoopAPI.Models
 
         public int ZipCode { get; set; }
 
-        public int Loops { get; set; }
+        public int Rsvps { get; set; }
 
         public int Views { get; set; }
 
@@ -33,10 +33,6 @@ namespace InTheLoopAPI.Models
         public double Longitude { get; set; }
 
         public string ImageURL { get; set; }
-
-        public double ImageHeightPx { get; set; }
-
-        public double ImageWidthPx { get; set; }
 
         public DateTime Start { get; set; }
 
@@ -62,7 +58,7 @@ namespace InTheLoopAPI.Models
 
         public ICollection<Attendance> Attendees { get; set; }
 
-        public ICollection<TagEvent> TagEvents { get; set; }
+        public ICollection<EventLoop> EventLoops { get; set; }
 
         public ICollection<FlagEvent> Flags { get; set; }
 
@@ -71,7 +67,6 @@ namespace InTheLoopAPI.Models
             var model = new EventModel
             {
                 Active = this.Archived,
-                AgeGroup = this.EventFooter.AgeGroup,
                 EventFooterId = this.EventFooterId,
                 City = this.City,
                 Description = this.EventFooter.Description,
@@ -79,10 +74,8 @@ namespace InTheLoopAPI.Models
                 Id = this.Id,
                 Latitude = this.Latitude,
                 EventImageURL = this.ImageURL,
-                ImageHeightPx = this.ImageHeightPx,
-                ImageWidthPx = this.ImageWidthPx,
                 Longitude = this.Longitude,
-                Loops = this.Loops,
+                Rsvps = this.Rsvps,
                 Start = this.Start,
                 State = this.State,
                 Street = this.Street,
@@ -105,17 +98,16 @@ namespace InTheLoopAPI.Models
                 {
                     FollowersCount = this.EventFooter.User.Followers.Count,
                     UserName = this.EventFooter.User.UserName,
-                    Loops = this.EventFooter.User.AttendEvents.Count,
+                    Rsvps = this.EventFooter.User.AttendEvents.Count,
                     UserId = this.EventFooter.UserId,
                     ImageURL = this.EventFooter.User.ImageURL
                 },
-                Tags = new List<TagModel>(),
-                Category = this.EventFooter.Category
+                Loops = new List<LoopModel>(),
             };
 
-            foreach (TagEvent tagEvent in this.TagEvents)
+            foreach (EventLoop tagEvent in this.EventLoops)
             {
-                model.Tags.Add(new TagModel { TagId = tagEvent.Tag.Id, TagName = tagEvent.Tag.Name });
+                model.Loops.Add(new LoopModel { LoopId = tagEvent.Loop.Id, LoopName = tagEvent.Loop.Name });
             }
 
             return model;
@@ -125,15 +117,11 @@ namespace InTheLoopAPI.Models
         {
             this.City = model.City;
             this.End = model.End;
-            this.EventFooter.AgeGroup = model.EventFooter.AgeGroup;
-            this.EventFooter.Category = model.EventFooter.Category;
-            this.EventFooter.Category = model.EventFooter.Description;
+            this.EventFooter.Description = model.EventFooter.Description;
             this.EventFooter.Title = model.EventFooter.Title;
             this.EventFooter.Website = model.EventFooter.Website;
             this.Featured = model.Featured;
-            this.ImageHeightPx = model.ImageHeightPx;
             this.ImageURL = model.ImageURL;
-            this.ImageWidthPx = model.ImageWidthPx;
             this.Latitude = model.Latitude;
             this.Longitude = model.Longitude;
             this.OrgContact = model.OrgContact;

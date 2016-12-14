@@ -19,7 +19,9 @@ namespace InTheLoopAPI.Models
 
         public virtual ICollection<Follow> Followers { get; set; }
 
-        public virtual ICollection<TagUser> Tags { get; set; }
+        public virtual ICollection<UserLoop> MyLoops { get; set; }
+
+        public virtual ICollection<Loop> CreateLoops { get; set; }
 
         public virtual ICollection<FlagEvent> FlaggedEvents { get; set; }
 

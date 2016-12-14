@@ -11,26 +11,26 @@ namespace InTheLoopAPI.Queries
     public class BaseQuery
     {
         public DatabaseContext Database;
-        public DbSet<User> Users;
+        public DbSet<User> MyUsers;
         public DbSet<EventHeader> EventHeaders;
         public DbSet<EventFooter> EventFooters;
         public DbSet<Attendance> Attendances;
         public DbSet<Follow> Follows;
-        public DbSet<Tag> Tags;
-        public DbSet<TagUser> TagUsers;
-        public DbSet<TagEvent> TagEvents;
+        public DbSet<Loop> Loops;
+        public DbSet<UserLoop> UserLoops;
+        public DbSet<EventLoop> EventLoops;
 
         public BaseQuery(DatabaseContext db)
         {
             Database = db;
-            Users = Database.Users;
+            MyUsers = Database.MyUsers;
             EventHeaders = Database.EventHeaders;
             EventFooters = Database.EventFooters;
             Attendances = Database.Attendances;
             Follows = Database.Follows;
-            Tags = Database.Tags;
-            TagEvents = Database.TagEvents;
-            TagUsers = Database.TagUsers;
+            Loops = Database.Loops;
+            EventLoops = Database.EventLoops;
+            UserLoops = Database.UserLoops;
         }
     }
 }

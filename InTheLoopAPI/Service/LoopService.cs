@@ -8,25 +8,25 @@ using System.Web;
 
 namespace InTheLoopAPI.Service
 {
-    public class TagService
+    public class LoopService
     {
         DatabaseContext _dataContext;
 
-        public TagService()
+        public LoopService()
         {
             _dataContext = new DatabaseContext();
         }
 
-        public Tag CreateTag(TagModel tagModel)
+        public Loop CreateLoop(LoopModel loopModel)
         {
-            if(tagModel == null || string.IsNullOrEmpty(tagModel.TagName))
+            if(loopModel == null || string.IsNullOrEmpty(loopModel.LoopName))
             {
                 return null;
             }
 
-            var tag = new Tag { Name = tagModel.TagName };
+            var loop = new Loop { Name = loopModel.LoopName };
 
-            var result = _dataContext.Tags.Add(tag);
+            var result = _dataContext.Loops.Add(loop);
 
             _dataContext.SaveChanges();
 

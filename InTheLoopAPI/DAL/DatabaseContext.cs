@@ -33,13 +33,13 @@ namespace InTheLoopAPI.Models
 
         public DbSet<EventFooter> EventFooters { get; set; }
         public DbSet<EventHeader> EventHeaders { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> MyUsers { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Follow> Follows { get; set; }
         public DbSet<ResetToken> ResetTokens { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<TagEvent> TagEvents { get; set; }
-        public DbSet<TagUser> TagUsers { get; set; }
+        public DbSet<Loop> Loops { get; set; }
+        public DbSet<EventLoop> EventLoops { get; set; }
+        public DbSet<UserLoop> UserLoops { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<FlagEvent> Flags { get; set; }
         public DbSet<StockPhoto> StockPhotos { get; set; }

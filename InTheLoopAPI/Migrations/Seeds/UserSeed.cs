@@ -11,11 +11,11 @@ namespace InTheLoopAPI.Migrations.Seeds
 {
     public static class UserSeed
     {
-        public static List<TagUser> TagUserList(List<int> tagIds)
+        public static List<UserLoop> TagUserList(List<int> tagIds)
         {
-            var tagUsers = new List<TagUser>();
+            var tagUsers = new List<UserLoop>();
 
-            tagIds.ForEach(tagId => tagUsers.Add( new TagUser { TagId = tagId }));
+            tagIds.ForEach(tagId => tagUsers.Add( new UserLoop { LoopId = tagId }));
 
             return tagUsers;
         }
@@ -48,7 +48,7 @@ namespace InTheLoopAPI.Migrations.Seeds
             var tagDict = new Dictionary<String, int>();
             tagNames.ForEach(tagName =>
             {
-                var tag = context.Tags.SingleOrDefault(t => t.Name == tagName);
+                var tag = context.Loops.SingleOrDefault(t => t.Name == tagName);
 
                 if (tag != null)
                 {
@@ -66,12 +66,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     Email = "chester@gmail.com",
                     UserName = "chester",
                     ImageURL = "chesterprofilepic.jpg",
-                    Tags = TagUserList(tagIds),
+                    MyLoops = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.EighteenPlus,
                             Description = "Deftones are an American alternative metal band from Sacramento, California. The band, which was founded in 1988, consists of Chino Moreno (lead vocals, rhythm guitar), Stephen Carpenter (lead guitar), Frank Delgado (keyboards and turntables), Abe Cunningham (drums and percussion) and Sergio Vega (bass). ",
                             Title = "Deftones Live At the House of Blues",
                             Website = "www.deftones.com",
@@ -88,11 +87,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                                     ZipCode = 70131,
                                     ImageURL = "deftones.jpg",
                                     Price = 3,
-                                    TagEvents = new List<TagEvent>
+                                    EventLoops = new List<EventLoop>
                                     {
-                                        new TagEvent
+                                        new EventLoop
                                         {
-                                            TagId = tagDict["Music"] 
+                                            LoopId = tagDict["Music"] 
                                         }
                                     }
                                 }
@@ -105,12 +104,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     Email = "jpugh457@gmail.com", 
                     UserName = "jake",
                     ImageURL = "jakep.jpg",
-                    Tags = TagUserList(tagIds),
+                    MyLoops = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.TwentyOnePlus,
                             Description = "Found out Barrel Proof offers half off their whiskey tasting on Tuesdays",
                             Title = "Whiskey Tasting at Barrel Proof",
                             Website = "http://www.barrelproofnola.com/",
@@ -127,11 +125,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                                     ZipCode = 70131,
                                     Price = 2,
                                     ImageURL = "barrelproof.jpg",
-                                    TagEvents = new List<TagEvent>
+                                    EventLoops = new List<EventLoop>
                                     {
-                                        new TagEvent
+                                        new EventLoop
                                         {
-                                            TagId =  tagDict["Drink"] 
+                                            LoopId =  tagDict["Drink"] 
                                         }
                                     }
                                 }
@@ -144,12 +142,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     Email = "desireewashington@gmail.com", 
                     UserName = "desiree",
                     ImageURL = "desiree.jpg",
-                    Tags = TagUserList(tagIds),
+                    MyLoops = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.All,
                             Description = @"We serve the best taco out of a truck!. Seriously this tacos a authentic mexican and are one o
                             of a kind please come check them out.",
                             Title = "La Cocinta Taco Saturday",
@@ -167,11 +164,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                                     ZipCode = 70131,
                                     Price = 1,
                                     ImageURL = "lacocinta.jpg",
-                                    TagEvents = new List<TagEvent>
+                                    EventLoops = new List<EventLoop>
                                     {
-                                        new TagEvent
+                                        new EventLoop
                                         {
-                                            TagId = tagDict["Food"] 
+                                            LoopId = tagDict["Food"] 
                                         }
                                     }
                                 }
@@ -184,12 +181,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     Email = "steezyknees9@gmail.com", 
                     UserName = "patrick",
                     ImageURL = "patrick.jpg",
-                    Tags = TagUserList(tagIds),
+                    MyLoops = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.All,
                             Description = "Some items I have for sale include, 50 inch flat screen, leather couch, 2 road bikes, kitchen set, flower pot, swing set",
                             Title = "Mid City Garage Sale",
                             EventHeaders = new List<EventHeader>
@@ -205,11 +201,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                                     ZipCode = 70131,
                                     Price = 1,
                                     ImageURL = "garagesale.jpeg",
-                                    TagEvents = new List<TagEvent>
+                                    EventLoops = new List<EventLoop>
                                     {
-                                        new TagEvent
+                                        new EventLoop
                                         {
-                                            TagId = tagDict["For Sale"] 
+                                            LoopId = tagDict["For Sale"] 
                                         }
                                     }
                                 }
@@ -222,12 +218,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                     Email = "republic@gmail.com",
                     UserName = "RepublicNOLA",
                     ImageURL = "republic.jpg",
-                    Tags = TagUserList(tagIds),
+                    MyLoops = TagUserList(tagIds),
                     EventFooters = new List<EventFooter>
                     {
                         new EventFooter
                         {
-                            AgeGroup = AgeGroup.All,
                             Description = "Don’t miss the annual HOLIDAY BOUNCE featuring Big Freedia, DJ Jubilee, Walt Wiggady, Lucky Lou, Deedie Phat, DJ Lil Man and more on Friday December 18th! Under the twerk tree in our wobble winter wonderland, this stacked line up of greats will put on the bounce show of the year! Start your holiday shopping early and get discount tickets for all your friends for just $5 now.",
                             Title = "BOUNCE: HOLIDAY EDITION FT BIG FREEDIA & DJ JUBILEE",
                             EventHeaders = new List<EventHeader>
@@ -243,11 +238,11 @@ namespace InTheLoopAPI.Migrations.Seeds
                                     ZipCode = 70131,
                                     Price = 2,
                                     ImageURL = "bounce.jpg",
-                                    TagEvents = new List<TagEvent>
+                                    EventLoops = new List<EventLoop>
                                     {
-                                        new TagEvent
+                                        new EventLoop
                                         {
-                                            TagId = tagDict["Music"] 
+                                            LoopId = tagDict["Music"] 
                                         }
                                     }
                                 }

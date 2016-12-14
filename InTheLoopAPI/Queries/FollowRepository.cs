@@ -75,7 +75,7 @@ namespace InTheLoopAPI.Queries
 
         public List<UserModelLite> UsersAutoComplete(string userId, string search)
         {
-            return Users
+            return MyUsers
                 .Where
                 (x =>
                     x.Id != userId &&

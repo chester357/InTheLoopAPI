@@ -15,13 +15,13 @@ namespace InTheLoopAPI.Models.Request
 
         public String ImageURL { get; set; }
 
-        public int Loops { get; set; }
+        public int Rsvps { get; set; }
 
         public int FollowingCount { get; set; }
 
         public int FollowersCount { get; set; }
 
-        public int TagCount { get; set; }
+        public int LoopCount { get; set; }
 
         public int EventCount { get; set; }
 

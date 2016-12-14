@@ -255,7 +255,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\LoopController.cs" />
     <Compile Include="DAL\BlobContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -269,10 +269,12 @@
     <Compile Include="Migrations\201608162336292_SupportModel.Designer.cs">
       <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612020203355_V2Database.cs" />
+    <Compile Include="Migrations\201612020203355_V2Database.Designer.cs">
+      <DependentUpon>201612020203355_V2Database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
-    <Compile Include="Models\Database\AgeGroup.cs" />
-    <Compile Include="Models\Database\Category.cs" />
     <Compile Include="DAL\DatabaseContext.cs" />
     <Compile Include="Models\Database\Contact.cs" />
     <Compile Include="Models\Database\FlagEvent.cs" />
@@ -280,31 +282,28 @@
     <Compile Include="Models\Database\ResetToken.cs" />
     <Compile Include="Models\Database\State.cs" />
     <Compile Include="Models\Database\StockPhoto.cs" />
-    <Compile Include="Models\Database\Tag.cs" />
-    <Compile Include="Models\Database\TagEvent.cs" />
-    <Compile Include="Models\Database\TagUser.cs" />
+    <Compile Include="Models\Database\Loop.cs" />
+    <Compile Include="Models\Database\EventLoop.cs" />
+    <Compile Include="Models\Database\UserLoop.cs" />
     <Compile Include="Models\Request\AccountBindingModels.cs" />
     <Compile Include="Models\Request\AccountViewModels.cs" />
     <Compile Include="Models\Database\Attendance.cs" />
     <Compile Include="Models\Database\EventFooter.cs" />
     <Compile Include="Models\Database\EventHeader.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Request\Categories.cs" />
     <Compile Include="Models\Request\EmailModel.cs" />
-    <Compile Include="Models\Request\EventFooterModel.cs" />
     <Compile Include="Models\Request\EventModel.cs" />
     <Compile Include="Models\Request\FilterModel.cs" />
     <Compile Include="Models\Request\FlagModel.cs" />
     <Compile Include="Models\Request\FollowModel.cs" />
     <Compile Include="Models\Request\GetEventModel.cs" />
-    <Compile Include="Models\Request\EventHeaderModel.cs" />
     <Compile Include="Models\Database\User.cs" />
     <Compile Include="Models\Request\ForgotPasswordModel.cs" />
     <Compile Include="Models\Request\ResetPasswordModel.cs" />
     <Compile Include="Models\Request\ReviewModel.cs" />
     <Compile Include="Models\Database\SupportEmail.cs" />
-    <Compile Include="Models\Request\TagAutoModel.cs" />
-    <Compile Include="Models\Request\TagModel.cs" />
+    <Compile Include="Models\Request\LoopAutoModel.cs" />
+    <Compile Include="Models\Request\LoopModel.cs" />
     <Compile Include="Models\Request\UpdatePasswordModel.cs" />
     <Compile Include="Models\Request\UserModel.cs" />
     <Compile Include="Models\Request\UserModelLite.cs" />
@@ -324,9 +323,8 @@
     <Compile Include="Service\FlagService.cs" />
     <Compile Include="Service\FollowService.cs" />
     <Compile Include="Service\ImageService.cs" />
-    <Compile Include="Service\Interfaces\IEventService.cs" />
     <Compile Include="Service\ReviewService.cs" />
-    <Compile Include="Service\TagService.cs" />
+    <Compile Include="Service\LoopService.cs" />
     <Compile Include="Service\Validation\AttendanceValidator.cs" />
     <Compile Include="Service\Validation\EventValidator.cs" />
     <Compile Include="Service\Validation\FollowValidator.cs" />
@@ -409,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608162336292_SupportModel.resx">
       <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612020203355_V2Database.resx">
+      <DependentUpon>201612020203355_V2Database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
