@@ -17,7 +17,7 @@ namespace InTheLoopAPI.Models.Request
 
         public bool Following { get; set; }
 
-        public List<User> Followers { get; set; }
+        public List<UserModelLite> Followers { get; set; }
     
         public List<EventModel> LocalEvents { get; set; }
 

@@ -153,7 +153,7 @@ namespace InTheLoopAPI.Service
             }
 
             var eventHeader = _repository.EventHeaders
-                .Include("TagEvents")
+                .Include("EventLoops")
                 .Include("Flags")
                 .Include("Attendees")
                 .SingleOrDefault(x => x.Id == eventModel.Id);
