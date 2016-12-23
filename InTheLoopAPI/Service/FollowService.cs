@@ -47,8 +47,13 @@ namespace InTheLoopAPI.Service
                 .Include("EventLoops.EventHeader.EventLoops.Loop")
                 .Include("UserLoops")
                 .Include("UserLoops.User.MyLoops")
+                .Include("UserLoops.User.Followers")
                 .SingleOrDefault(x => x.Name.ToLower() == loopName.ToLower());
 
+            var followers = _databaseContext.UserLoops
+                .Where(x => x.LoopId == loop.Id)
+                .Select(x => x.User)
+                .ToList();
 
             if (loop == null)
             {
@@ -76,7 +81,7 @@ namespace InTheLoopAPI.Service
             model.Followers = loop.UserLoops.Select(y => new UserModelLite
             {
                 UserId = y.User.Id,
-                IsFollowing = y.User.Followers.Any(f => f.UserId == userId),
+                IsFollowing = y.User.Followers.ToList().Any(f => f.UserId == userId),
                 Username = y.User.UserName,
                 ProfileImageURL = y.User.ImageURL
             }).ToList();

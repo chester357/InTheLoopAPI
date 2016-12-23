@@ -822,8 +822,6 @@ Z:\Users\chester\Google Drive\InTheLoop\Backend Development\InTheLoopAPI\InTheLo
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\ru\System.Spatial.resources.dll
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\zh-Hans\System.Spatial.resources.dll
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\zh-Hant\System.Spatial.resources.dll
-\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial.resources
-\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.dll
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\Microsoft.Azure.AppService.ApiApps.Service.dll
@@ -835,7 +833,6 @@ Z:\Users\chester\Google Drive\InTheLoop\Backend Development\InTheLoopAPI\InTheLo
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\System.Web.Cors.dll
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\System.Web.Http.Cors.dll
 \\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\System.Web.Http.Cors.xml
-\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.SupportModel.resources
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\InTheLoopAPI.dll.config
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\InTheLoopAPI.dll
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\bin\InTheLoopAPI.pdb
@@ -996,4 +993,5 @@ Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoo
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.pdb
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.V2Database.resources
 Z:\Users\chester\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csprojResolveAssemblyReference.cache
-\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.V2Database.resources
+\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.Migrations.Initial2.resources
+\\psf\Google Drive\Loopstir\Backend Development\InTheLoopAPI\InTheLoopAPI\obj\Debug\InTheLoopAPI.csproj.GenerateResource.Cache

@@ -261,17 +261,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201607070032394_Initial.cs" />
-    <Compile Include="Migrations\201607070032394_Initial.Designer.cs">
-      <DependentUpon>201607070032394_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608162336292_SupportModel.cs" />
-    <Compile Include="Migrations\201608162336292_SupportModel.Designer.cs">
-      <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612020203355_V2Database.cs" />
-    <Compile Include="Migrations\201612020203355_V2Database.Designer.cs">
-      <DependentUpon>201612020203355_V2Database.cs</DependentUpon>
+    <Compile Include="Migrations\201612210413555_Initial2.cs" />
+    <Compile Include="Migrations\201612210413555_Initial2.Designer.cs">
+      <DependentUpon>201612210413555_Initial2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -402,14 +394,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607070032394_Initial.resx">
-      <DependentUpon>201607070032394_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608162336292_SupportModel.resx">
-      <DependentUpon>201608162336292_SupportModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612020203355_V2Database.resx">
-      <DependentUpon>201612020203355_V2Database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612210413555_Initial2.resx">
+      <DependentUpon>201612210413555_Initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
