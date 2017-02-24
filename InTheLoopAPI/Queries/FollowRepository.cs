@@ -18,19 +18,19 @@ namespace InTheLoopAPI.Queries
 
         public Follow GetFollower(string userId, string followingId)
         {
-            return Follows.SingleOrDefault(x => x.UserId == userId && x.FollowingId == followingId);
+            return Follows.SingleOrDefault(x => x.FollowingMeId == userId && x.ImFollowingId == followingId);
         }
 
         public List<UserModelLite> GetFollowers(string userId, string currentUser)
         {
             return Follows
-                .Where(x => x.FollowingId == userId)
+                .Where(x => x.ImFollowingId == userId)
                 .Select(y => new UserModelLite
                 {
-                    UserId = y.User.Id,
-                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.UserId),
-                    Username = y.User.UserName,
-                    ProfileImageURL = y.User.ImageURL
+                    UserId = y.FollowingMe.Id,
+                    IsFollowing = Follows.Any(f => f.FollowingMeId == currentUser && f.ImFollowingId == y.FollowingMeId),
+                    Username = y.FollowingMe.UserName,
+                    ProfileImageURL = y.FollowingMe.ImageURL
                 })
                 .ToList();
 
@@ -62,13 +62,13 @@ namespace InTheLoopAPI.Queries
 
             // TODO: Find a way to make this faster
             return Follows
-                .Where(x => x.UserId == userId)
+                .Where(x => x.FollowingMeId == userId)
                 .Select(y => new UserModelLite
                 {
-                    UserId = y.Following.Id,
-                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.FollowingId),
-                    Username = y.Following.UserName,
-                    ProfileImageURL = y.Following.ImageURL
+                    UserId = y.ImFollowing.Id,
+                    IsFollowing = Follows.Any(f => f.FollowingMeId == currentUser && f.ImFollowingId == y.ImFollowingId),
+                    Username = y.ImFollowing.UserName,
+                    ProfileImageURL = y.ImFollowing.ImageURL
                 })
                 .ToList();
         }
@@ -89,7 +89,7 @@ namespace InTheLoopAPI.Queries
                 {
                     UserId = u.Id,
                     ProfileImageURL = u.ImageURL,
-                    IsFollowing = Follows.Any(f => f.UserId == userId && f.FollowingId == u.Id),
+                    IsFollowing = Follows.Any(f => f.FollowingMeId == userId && f.ImFollowingId == u.Id),
                     Username = u.UserName
                 })
                 .ToList();
@@ -97,7 +97,7 @@ namespace InTheLoopAPI.Queries
 
         public bool IsFollowing(string userId, string followingId)
         {
-            return Follows.Any(x => x.UserId == userId && x.FollowingId == followingId);
+            return Follows.Any(x => x.FollowingMeId == userId && x.ImFollowingId == followingId);
         }
     }
 }

@@ -19,6 +19,8 @@ namespace InTheLoopAPI.Models
 
         public virtual ICollection<Follow> Followers { get; set; }
 
+        public virtual ICollection<Follow> Following { get; set; }
+
         public virtual ICollection<UserLoop> MyLoops { get; set; }
 
         public virtual ICollection<Loop> CreateLoops { get; set; }

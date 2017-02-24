@@ -28,6 +28,22 @@ namespace InTheLoopAPI.Models
             // the all important base class call! Add this line to make your problems go away.
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Follow>()
+                .HasRequired(x => x.FollowingMe)
+                .WithMany(m => m.Followers)
+                .HasForeignKey(k => k.FollowingMeId)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Follow>()
+                .HasRequired(x => x.ImFollowing)
+                .WithMany(m => m.Following)
+                .HasForeignKey(k => k.ImFollowingId)
+                .WillCascadeOnDelete(false);
+
+            //modelBuilder.Entity<User>()
+            //    .HasMany(m => m.Followers)
+            //    .WithRequired(r => r.Follower);
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 

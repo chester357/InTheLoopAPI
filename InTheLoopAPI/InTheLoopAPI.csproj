@@ -261,9 +261,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HelperMethod.cs" />
-    <Compile Include="Migrations\201612210413555_Initial2.cs" />
-    <Compile Include="Migrations\201612210413555_Initial2.Designer.cs">
-      <DependentUpon>201612210413555_Initial2.cs</DependentUpon>
+    <Compile Include="Migrations\201612230156241_Initial.cs" />
+    <Compile Include="Migrations\201612230156241_Initial.Designer.cs">
+      <DependentUpon>201612230156241_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612230350543_ChangeFollowNames.cs" />
+    <Compile Include="Migrations\201612230350543_ChangeFollowNames.Designer.cs">
+      <DependentUpon>201612230350543_ChangeFollowNames.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\Seeds\UserSeed.cs" />
@@ -394,8 +398,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612210413555_Initial2.resx">
-      <DependentUpon>201612210413555_Initial2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612230156241_Initial.resx">
+      <DependentUpon>201612230156241_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612230350543_ChangeFollowNames.resx">
+      <DependentUpon>201612230350543_ChangeFollowNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

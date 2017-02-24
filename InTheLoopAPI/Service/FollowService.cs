@@ -29,7 +29,7 @@ namespace InTheLoopAPI.Service
 
         public Boolean IsFollowingUser(String myUserId, String theirUserId)
         {
-            return _databaseContext.Follows.Any(x => x.UserId == myUserId && x.FollowingId == theirUserId);
+            return _databaseContext.Follows.Any(x => x.FollowingMeId == myUserId && x.ImFollowingId == theirUserId);
         }
 
         public LoopModel GetLoop(string loopName, string userId, double latitude, double longitude, double radius)
@@ -81,7 +81,7 @@ namespace InTheLoopAPI.Service
             model.Followers = loop.UserLoops.Select(y => new UserModelLite
             {
                 UserId = y.User.Id,
-                IsFollowing = y.User.Followers.ToList().Any(f => f.UserId == userId),
+                IsFollowing = y.User.Following.Any(x => x.FollowingMeId == userId),
                 Username = y.User.UserName,
                 ProfileImageURL = y.User.ImageURL
             }).ToList();
@@ -175,7 +175,7 @@ namespace InTheLoopAPI.Service
             if (result != ValidationResult.Success)
                 return result;
 
-            var follow = new Follow { UserId = userId, FollowingId = followingId };
+            var follow = new Follow { FollowingMeId = userId, ImFollowingId = followingId };
 
             _databaseContext.Follows.Add(follow);
 

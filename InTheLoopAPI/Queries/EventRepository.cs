@@ -123,9 +123,9 @@ namespace InTheLoopAPI.Queries
                         ) ||
 
                         // All events for people I follow (their posted events)
-                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        x.EventFooter.User.Followers.Any(f => f.FollowingMeId == userId) ||
                         // All events for people I follow (their attended events)
-                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.FollowingMeId == userId))
                     )
                 )
                 .OrderByDescending(o => o.Start)
@@ -164,9 +164,9 @@ namespace InTheLoopAPI.Queries
                         ) ||
 
                         // All events for people I follow (their posted events)
-                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        x.EventFooter.User.Followers.Any(f => f.FollowingMeId == userId) ||
                         // All events for people I follow (their attended events)
-                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.FollowingMeId == userId))
                     )
                 )
                 .OrderBy(x => x.Views)
@@ -253,9 +253,9 @@ namespace InTheLoopAPI.Queries
                         ) ||
 
                         // All events for people I follow (their posted events)
-                        x.EventFooter.User.Followers.Any(f => f.UserId == userId) ||
+                        x.EventFooter.User.Followers.Any(f => f.FollowingMeId == userId) ||
                         // All events for people I follow (their attended events)
-                        x.Attendees.Any(a => a.User.Followers.Any(f => f.UserId == userId))
+                        x.Attendees.Any(a => a.User.Followers.Any(f => f.FollowingMeId == userId))
                     )
                 )
                 .OrderBy(x => x.Views)

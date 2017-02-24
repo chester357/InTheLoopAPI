@@ -3,7 +3,7 @@ namespace InTheLoopAPI.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial2 : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -171,17 +171,14 @@ namespace InTheLoopAPI.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(maxLength: 128),
-                        FollowingId = c.String(maxLength: 128),
-                        User_Id = c.String(maxLength: 128),
+                        FollwerId = c.String(nullable: false, maxLength: 128),
+                        FollowingId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.FollwerId)
                 .ForeignKey("dbo.AspNetUsers", t => t.FollowingId)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.UserId)
-                .Index(t => t.FollowingId)
-                .Index(t => t.User_Id);
+                .Index(t => t.FollwerId)
+                .Index(t => t.FollowingId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -286,9 +283,8 @@ namespace InTheLoopAPI.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.ResetToken", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.ReviewImage", "AttendanceId", "dbo.Attendance");
-            DropForeignKey("dbo.Follow", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Follow", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Follow", "FollowingId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Follow", "FollwerId", "dbo.AspNetUsers");
             DropForeignKey("dbo.FlagEvent", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.FlagEvent", "EventHeaderId", "dbo.EventHeader");
             DropForeignKey("dbo.EventFooter", "UserId", "dbo.AspNetUsers");
@@ -306,9 +302,8 @@ namespace InTheLoopAPI.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.Follow", new[] { "User_Id" });
             DropIndex("dbo.Follow", new[] { "FollowingId" });
-            DropIndex("dbo.Follow", new[] { "UserId" });
+            DropIndex("dbo.Follow", new[] { "FollwerId" });
             DropIndex("dbo.FlagEvent", new[] { "EventHeaderId" });
             DropIndex("dbo.FlagEvent", new[] { "UserId" });
             DropIndex("dbo.UserLoop", new[] { "LoopId" });

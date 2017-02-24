@@ -71,7 +71,7 @@ namespace InTheLoopAPI.Queries
                     ProfileImageURL = y.User.ImageURL,
                     UserId = y.UserId,
                     Username = y.User.UserName,
-                    IsFollowing = Follows.Any(f => f.UserId == currentUser && f.FollowingId == y.UserId)
+                    IsFollowing = Follows.Any(f => f.FollowingMeId == currentUser && f.ImFollowingId == y.UserId)
                 })
                 .ToList();
         }

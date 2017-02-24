@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using InTheLoopAPI.Models.Database;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InTheLoopAPI.Models.Database
 {
@@ -11,10 +11,10 @@ namespace InTheLoopAPI.Models.Database
     {
         public int Id { get; set; }
 
-        public string UserId { get; set; }
-        public virtual User User { get; set; }
+        public string FollowingMeId { get; set; }
+        public virtual User FollowingMe { get; set; }
 
-        public string FollowingId { get; set; }
-        public virtual User Following { get; set; }
+        public string ImFollowingId { get; set; }
+        public virtual User ImFollowing { get; set; }
     }
 }

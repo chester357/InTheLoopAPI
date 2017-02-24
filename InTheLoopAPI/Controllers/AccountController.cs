@@ -521,9 +521,9 @@ namespace InTheLoopAPI.Controllers
 
                 if (user == null) return BadRequest();
 
-                var following = datacontext.Follows.Count(x => x.UserId == userId);
+                var following = datacontext.Follows.Count(x => x.FollowingMeId == userId);
 
-                var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
+                var followers = datacontext.Follows.Count(x => x.ImFollowingId == userId);
 
                 var tags = datacontext.UserLoops.Count(x => x.UserId == userId);
 
@@ -573,9 +573,9 @@ namespace InTheLoopAPI.Controllers
 
                 if (user == null) return BadRequest();
 
-                var following = datacontext.Follows.Count(x => x.UserId == userId);
+                var following = datacontext.Follows.Count(x => x.FollowingMeId == userId);
 
-                var followers = datacontext.Follows.Count(x => x.FollowingId == userId);
+                var followers = datacontext.Follows.Count(x => x.ImFollowingId == userId);
 
                 var tags = datacontext.UserLoops.Count(x => x.UserId == userId);
 
